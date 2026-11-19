@@ -1,62 +1,2594 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#08080d"><title>Waifu Swap — Astral Collection</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;600;700&display=swap');
-:root{--bg:#08080d;--panel:#111119;--panel2:#17151f;--border:#2a2634;--text:#eeeaf5;--muted:#898493;--purple:#b58cff;--pink:#f0a6dc;--gold:#f6d27a;--green:#89e6b0}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif}.app{min-height:100vh}.sidebar{width:235px;background:#0b0b10;border-right:1px solid var(--border);padding:22px 13px;position:fixed;inset:0 auto 0 0;display:flex;flex-direction:column;z-index:5}.brand{display:flex;align-items:center;gap:10px;padding:0 9px 25px}.brandmark{background:linear-gradient(135deg,#8b5cf6,#e879c7);width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:21px}.brand b{font-family:'Space Grotesk';letter-spacing:1px}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:3px}.nav button{width:100%;background:transparent;border:0;color:#aaa5b5;text-align:left;padding:12px;border-radius:10px;margin:3px 0;cursor:pointer}.nav button:hover,.nav button.active{background:#1c1625;color:#e4c8ff}.nav button.active{box-shadow:inset 2px 0 #ba8aff}.nav span{float:right;color:#bda3da}.bottom{margin-top:auto;border-top:1px solid var(--border);padding-top:15px;color:var(--muted);font-size:12px}.main{margin-left:235px}.top{height:70px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;background:#09090dee;backdrop-filter:blur(15px);z-index:4}.top small{display:block;color:#7d7388;letter-spacing:2px;font-size:9px}.top strong{font-family:'Space Grotesk'}.wallet{background:#191420;border:1px solid #392947;border-radius:11px;padding:9px 13px;color:var(--gold)}.wallet small{display:inline;color:#938a9c;letter-spacing:0}.content{max-width:1450px;margin:auto;padding:26px}.hero{padding:28px;border:1px solid #34243f;border-radius:20px;background:radial-gradient(ellipse at 85% 0%,#352047,transparent 50%),linear-gradient(135deg,#15111c,#0e0e15);position:relative}.eyebrow{color:#c79bff;font-size:10px;letter-spacing:2px;font-weight:700}.hero h1{font:700 clamp(28px,4vw,44px) 'Space Grotesk';margin:12px 0}.hero p{color:#aaa3b4;line-height:1.6;max-width:560px}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:9px;padding:10px 14px;font-weight:700;cursor:pointer}.primary{background:linear-gradient(135deg,#8d5ce5,#c17fd6);color:white}.secondary{background:#211b2a;border:1px solid #403349;color:#d9c6f1}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:17px 0}.stat,.panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:16px}.stat small{color:var(--muted);font-size:10px}.stat b{display:block;font:700 24px 'Space Grotesk';margin-top:8px}.head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:23px 0 12px}.head h2{font-size:16px;margin:0}.head p{color:var(--muted);font-size:12px;margin:5px 0 0}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.card{background:var(--panel);border:1px solid var(--border);border-radius:15px;overflow:hidden;transition:.18s}.card:hover{transform:translateY(-3px);border-color:#65517d}.art{height:185px;position:relative;display:grid;place-items:center;overflow:hidden;background:linear-gradient(135deg,var(--c1),var(--c2))}.art:before{content:"";position:absolute;width:170px;height:170px;border-radius:50%;background:#ffffff14;top:-50px;right:-30px}.art .symbol{font:700 76px 'Space Grotesk';color:#ffffff35;text-shadow:0 8px 30px #0003}.art img{width:100%;height:100%;object-fit:cover;position:absolute}.tier{position:absolute;top:9px;left:9px;background:#08080dcc;border:1px solid #ffffff25;border-radius:7px;padding:5px 7px;font-size:10px;font-weight:800}.heart{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:50%;border:1px solid #ffffff30;background:#09090dbb;color:white;cursor:pointer}.heart.on{color:#ff8bc5}.info{padding:12px}.info h3{font-size:13px;margin:0}.source{font-size:10px;color:var(--muted);margin:5px 0 11px}.row{display:flex;align-items:center;justify-content:space-between;gap:8px}.price{font-size:11px;color:var(--gold);font-weight:700}.buy{background:#211a2a;border:1px solid #453653;color:#d8c1f1;border-radius:7px;padding:7px 9px;font-size:10px;font-weight:800;cursor:pointer}.owned{color:var(--green);font-size:10px}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.controls input,.controls select{background:#14131a;border:1px solid var(--border);border-radius:9px;padding:10px;color:var(--text)}.controls input{flex:1;min-width:160px}.quest{display:flex;align-items:center;gap:12px;padding:12px;background:#14131a;border:1px solid var(--border);border-radius:11px;margin:8px 0}.quest .qicon{font-size:21px}.qinfo{flex:1}.qinfo b{font-size:12px}.qinfo small{display:block;color:var(--muted);margin-top:4px}.reward{color:var(--gold);font-size:11px;font-weight:700}.quest button{border:0;border-radius:7px;padding:8px 10px;background:#332343;color:#d8b6ff;font-size:10px;font-weight:700;cursor:pointer}.quest button:disabled{background:#222;color:#777}.empty{text-align:center;border:1px dashed #35313e;border-radius:14px;padding:38px;color:var(--muted)}.rollbox{text-align:center;padding:32px 16px;border:1px solid #382447;border-radius:18px;background:radial-gradient(circle at center,#261735,transparent 70%),#101017}.orb{width:145px;height:145px;border-radius:50%;margin:15px auto;display:grid;place-items:center;background:radial-gradient(circle,#c8a0ff,#7541ad 55%,#21132e);box-shadow:0 0 45px #9a5ae955;font-size:52px}.orb.spin{animation:spin .7s linear infinite,glow .4s alternate infinite}@keyframes spin{to{transform:rotate(360deg)}}@keyframes glow{to{box-shadow:0 0 70px #d58bff}}.result{max-width:350px;margin:20px auto}.result .art{height:240px;border-radius:12px}.progress{height:6px;background:#28232f;border-radius:8px;overflow:hidden;margin-top:7px}.progress span{display:block;height:100%;background:linear-gradient(90deg,#8f61d4,#e0a6dc)}.history{display:flex;gap:12px;align-items:center;padding:10px;border-bottom:1px solid var(--border)}.mini{width:42px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--c1),var(--c2));display:grid;place-items:center;color:#ffffff88;font-weight:800}.history div:nth-child(2){flex:1}.history small{display:block;color:var(--muted);margin-top:3px}.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;transition:.2s;background:#211b2b;border:1px solid #554269;padding:11px 17px;border-radius:10px;z-index:20;color:#e6d5ff;font-size:12px}.toast.show{opacity:1;transform:translate(-50%,0)}.modal{position:fixed;inset:0;background:#000b;display:grid;place-items:center;z-index:25;padding:15px}.modal.hidden{display:none}.modalbox{background:#14121a;border:1px solid #42344e;border-radius:17px;padding:22px;width:min(420px,100%);text-align:center}.foot{color:#666270;font-size:10px;margin-top:20px}.mobile{display:none}
-@media(max-width:1050px){.grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:760px){.sidebar{transform:translateX(-100%);transition:.22s;width:245px}.sidebar.open{transform:translateX(0)}.main{margin:0}.mobile{display:inline-block;background:none;border:0;font-size:18px;margin-right:10px}.top{padding:0 14px}.content{padding:16px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.art{height:155px}.info{padding:9px}.info h3{font-size:12px}.stats{grid-template-columns:repeat(2,1fr);gap:8px}.stat{padding:12px}.hero{padding:21px}.wallet{padding:8px 10px}.wallet small{display:none}}@media(max-width:360px){.art{height:135px}.grid{gap:7px}}
-</style></head><body>
-<div class="app"><aside class="sidebar" id="sidebar"><div class="brand"><div class="brandmark">✦</div><div><b>WAIFU SWAP</b><small>ASTRAL COLLECTION</small></div></div><nav class="nav" id="nav"><button class="active" data-view="dashboard">⌂ Dashboard</button><button data-view="market">▦ Market</button><button data-view="roll">✧ Daily Summon</button><button data-view="wishlist">♡ Wishlist <span id="wishCount">0</span></button><button data-view="collection">◈ Collection</button><button data-view="quests">☰ Quests</button><button data-view="history">↻ Roll History</button><button data-view="rankings">♜ Rankings</button></nav><div class="bottom">Local prototype · Browser save<br><button id="reset" style="background:none;border:0;color:#817b8c;margin-top:8px;cursor:pointer">↺ Reset save</button></div></aside>
-<main class="main"><header class="top"><div><button class="mobile" id="menu">☰</button><small>ASTRAL ARCHIVE</small><strong id="title">Dashboard</strong></div><div class="wallet">✦ <b id="coins">500</b> <small>AC</small></div></header><div class="content" id="content"></div></main></div><div class="toast" id="toast"></div><div class="modal hidden" id="modal"></div>
-<script>
-const tiers='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');const prices=[100,200,350,500,750,1000,1500,2000,2500,3000,4000,5000,6500,8000,10000,12000,15000,20000,25000,35000,50000,75000,100000,150000,250000,500000];const palette={A:['#303846','#66758a'],B:['#263a4b','#527c9b'],C:['#234449','#55978f'],D:['#34482d','#7eaa64'],E:['#4b3828','#a98a5e'],F:['#4c2e34','#b36a78'],G:['#432d4c','#a26bb7'],H:['#302d57','#8277d8'],I:['#26365e','#5b90d5'],J:['#43344f','#ba84cb'],K:['#533d31','#d0a06c'],L:['#4c3b26','#d4bc78'],M:['#3b334d','#b19acb'],N:['#342c49','#a68ae0'],O:['#473047','#d28cc0'],P:['#3a294b','#be8ce6'],Q:['#33254d','#9e8af1'],R:['#43243f','#d77bc5'],S:['#402c4d','#dc9bd8'],T:['#463423','#e2bf77'],U:['#382d4b','#c0a4ee'],V:['#3a254b','#d28aff'],W:['#39263d','#e0a0c9'],X:['#2c234b','#b7a1ff'],Y:['#432343','#f0a6dc'],Z:['#24122f','#d8a2ff']};
-const chars=[['Kaoruko Waguri','The Fragrant Flower Blooms with Dignity','Z','K'],['Marin Kitagawa','My Dress-Up Darling','S','M'],['Yor Forger','SPY x FAMILY','R','Y'],['Rem','Re:Zero','Q','R'],['Rias Gremory','High School DxD','P','R'],['Violet Evergarden','Violet Evergarden','O','V'],['Miku Nakano','The Quintessential Quintuplets','N','M'],['Hori Kyouko','Horimiya','M','H'],['Asuna Yuuki','Sword Art Online','L','A'],['Zero Two','DARLING in the FRANXX','K','0'],['Nezuko Kamado','Demon Slayer','J','N'],['Shinobu Kocho','Demon Slayer','I','S'],['Chisato Nishikigi','Lycoris Recoil','H','C'],['Alya','Alya Sometimes Hides Her Feelings in Russian','G','A'],['Akane Kurokawa','Oshi no Ko','F','A'],['Lucy','Cyberpunk: Edgerunners','E','L'],['Nami','One Piece','D','N'],['Nobara Kugisaki','Jujutsu Kaisen','C','N'],['Anya Forger','SPY x FAMILY','B','A'],['Sakura Haruno','Naruto','A','S'],['Kaguya Shinomiya','Kaguya-sama: Love is War','T','K'],['Frieren','Frieren: Beyond Journey’s End','U','F'],['Makima','Chainsaw Man','V','M'],['Furina','Genshin Impact','W','F'],['Holo','Spice and Wolf','X','H'],['Emilia','Re:Zero','Y','E']].map((x,i)=>({id:i+1,name:x[0],anime:x[1],tier:x[2],symbol:x[3],price:prices[tiers.indexOf(x[2])],colors:palette[x[2]],image:''}));
-const defaults={coins:500,owned:[],wishlist:[],rolls:[],quests:{},lastLogin:null,streak:0,pity:0,showcase:[],views:0,firstPurchase:false};let s;try{s={...defaults,...JSON.parse(localStorage.getItem('waifuSwapSave')||'{}')}}catch{s={...defaults}};let view='dashboard';const $=q=>document.querySelector(q);const fmt=n=>Number(n).toLocaleString();const today=()=>new Date().toISOString().slice(0,10);const c=id=>chars.find(x=>x.id===id);const own=id=>s.owned.includes(id);function save(){localStorage.setItem('waifuSwapSave',JSON.stringify(s));header()}function header(){$('#coins').textContent=fmt(s.coins);$('#wishCount').textContent=s.wishlist.length}function toast(t){let x=$('#toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),2300)}function art(x){return `<div class="art" style="--c1:${x.colors[0]};--c2:${x.colors[1]}"><span class="symbol">${x.symbol}</span>${x.image?`<img src="${esc(x.image)}" onerror="this.remove()">`:''}</div>`}function esc(t){return String(t).replace(/[&<>"']/g,z=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[z]))}function card(x){return `<article class="card">${art(x)}<span class="tier">${x.tier} · ${x.tier==='Z'?'SUPREME':'TIER '+x.tier}</span><button class="heart ${s.wishlist.includes(x.id)?'on':''}" data-wish="${x.id}">${s.wishlist.includes(x.id)?'♥':'♡'}</button><div class="info"><h3>${esc(x.name)}</h3><div class="source">${esc(x.anime)}</div><div class="row"><span class="price">✦ ${fmt(x.price)} AC</span>${own(x.id)?'<span class="owned">✓ OWNED</span>':`<button class="buy" data-buy="${x.id}">RECRUIT</button>`}</div></div></article>`}function nav(v){view=v;document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===v));$('#title').textContent=({dashboard:'Dashboard',market:'Market',roll:'Daily Summon',wishlist:'Wishlist',collection:'Collection',quests:'Quests',history:'Roll History',rankings:'Rankings'})[v];$('#sidebar').classList.remove('open');render()}
-const qs=[['visit','🔭','Explorer','Visit the character market',50],['views','📖','Character Explorer','View 5 characters',75],['roll','🎲','Daily Summon','Perform today’s free summon',100],['purchase','🛒','First Recruitment','Recruit a character',100],['collector','💎','Collector’s Pride','Own 3 characters',150],['wishlist','♡','Dream Board','Wishlist 3 characters',75]];function qdone(id){return id==='visit'?s.quests.visit===today():id==='views'?(s.quests.views||0)>=5:id==='roll'?s.rolls.some(r=>r.date===today()):id==='purchase'?s.owned.length>0:id==='collector'?s.owned.length>=3:id==='wishlist'?s.wishlist.length>=3:false}function qclaimed(id){return s.quests['claim_'+id]===today()}function qlist(short=false){return qs.slice(0,short?4:6).map(q=>`<div class="quest"><div class="qicon">${q[1]}</div><div class="qinfo"><b>${q[2]}</b><small>${q[3]}</small></div><span class="reward">+${q[4]} AC</span><button data-claim="${q[0]}" ${!qdone(q[0])||qclaimed(q[0])?'disabled':''}>${qclaimed(q[0])?'CLAIMED':qdone(q[0])?'CLAIM':'IN PROGRESS'}</button></div>`).join('')}
-function dashboard(){return `<section class="hero"><div class="eyebrow">COLLECT · DISCOVER · RECRUIT</div><h1>Your anime universe awaits.</h1><p>Build your dream collection across the multiverse. Complete quests, summon characters, and save up for the ones you truly want.</p><div class="actions"><button class="btn primary" data-goto="roll">✧ Daily Summon</button><button class="btn secondary" data-goto="market">Explore Market →</button></div></section><div class="stats"><div class="stat"><small>ASTRAL COINS</small><b>✦ ${fmt(s.coins)}</b></div><div class="stat"><small>COLLECTION</small><b>${s.owned.length} / ${chars.length}</b></div><div class="stat"><small>DAILY STREAK</small><b>🔥 ${s.streak}</b></div><div class="stat"><small>WISHLIST</small><b>♡ ${s.wishlist.length}</b></div></div><div class="head"><div><h2>Featured Character</h2><p>Today's spotlight from the archive</p></div><button class="btn secondary" data-goto="market">View Market</button></div><div class="grid">${card(chars[0])}</div><div class="head"><div><h2>Quick Quests</h2><p>Complete tasks and earn Astral Coins</p></div><button class="btn secondary" data-goto="quests">All Quests →</button></div>${qlist(true)}<p class="foot">Prototype save is stored in this browser. Add image URLs to character data to replace placeholder art.</p>`}
-function market(){return `<div class="head"><div><h2>Character Market</h2><p>${chars.length} characters currently available</p></div></div><div class="controls"><input id="search" placeholder="Search character or anime…"><select id="tier"><option value="">All tiers</option>${tiers.map(t=>`<option>${t}</option>`).join('')}</select><select id="sort"><option value="tier">Tier: highest first</option><option value="price">Price: low to high</option><option value="name">Name: A-Z</option></select></div><div class="grid" id="grid">${chars.slice().sort((a,b)=>tiers.indexOf(b.tier)-tiers.indexOf(a.tier)).map(card).join('')}</div>`}
-function wishlist(){return s.wishlist.length?`<div class="head"><div><h2>Dream Recruits</h2><p>Characters you want to collect</p></div></div><div class="grid">${s.wishlist.map(id=>c(id)).filter(Boolean).map(x=>`<div>${card(x)}<div style="font-size:10px;color:var(--muted);padding:7px">${Math.min(100,Math.floor(s.coins/x.price*100))}% saved · ${fmt(Math.max(0,x.price-s.coins))} AC remaining<div class="progress"><span style="width:${Math.min(100,s.coins/x.price*100)}%"></span></div></div></div>`).join('')}</div>`:`<div class="empty"><div style="font-size:38px">♡</div><h2>Your wishlist is empty</h2><p>Heart characters in the market to track your dream recruits.</p><button class="btn primary" data-goto="market">Explore Market</button></div>`}
-function collection(){return s.owned.length?`<div class="head"><div><h2>Your Collection</h2><p>${s.owned.length} / ${chars.length} characters · ${Math.floor(s.owned.length/chars.length*100)}% complete</p></div></div><div class="controls"><input id="search" placeholder="Search collection…"><select id="tier"><option value="">All tiers</option>${tiers.map(t=>`<option>${t}</option>`).join('')}</select></div><div class="grid" id="grid">${s.owned.map(c).filter(Boolean).map(card).join('')}</div><div class="panel" style="margin-top:18px"><h3>Character Showcase</h3><p style="color:var(--muted);font-size:12px">Pin up to five owned characters.</p><div class="controls"><select id="showselect"><option value="">Select character</option>${s.owned.map(c).filter(Boolean).map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select><button class="btn secondary" id="pin">Pin to Showcase</button></div><div class="grid">${s.showcase.map(c).filter(Boolean).map(card).join('')}</div></div>`:`<div class="empty"><h2>Your collection begins here</h2><p>Recruit a character from the market or daily summon.</p><button class="btn primary" data-goto="market">Open Market</button></div>`}
-function quests(){return `<div class="head"><div><h2>Quest Board</h2><p>Complete objectives and claim Astral Coins</p></div></div>${qlist()}<div class="panel"><h3>Streak Rewards</h3><p style="color:var(--muted);font-size:12px">Daily login: 100 AC · Every 7-day streak: +250 AC bonus. Current streak: ${s.streak} day(s).</p></div>`}
-function history(){return s.rolls.length?`<div class="head"><div><h2>Summon History</h2><p>Your past daily rolls</p></div></div><div class="panel">${s.rolls.slice().reverse().map(r=>{let x=c(r.id);return `<div class="history"><div class="mini" style="--c1:${x.colors[0]};--c2:${x.colors[1]}">${x.symbol}</div><div><b>${esc(x.name)}</b><small>${r.date} · Tier ${x.tier}</small></div><span class="price">${x.tier}</span></div>`}).join('')}</div>`:`<div class="empty"><h2>No summons yet</h2><button class="btn primary" data-goto="roll">Summon Now</button></div>`}
-function rankings(){return `<div class="head"><div><h2>Market Rankings</h2><p>Highest-value characters in the archive</p></div></div><div class="panel">${chars.slice().sort((a,b)=>b.price-a.price).map((x,i)=>`<div class="history"><div class="mini" style="--c1:${x.colors[0]};--c2:${x.colors[1]}">${i+1}</div><div><b>${esc(x.name)}</b><small>${esc(x.anime)}</small></div><span class="price">${x.tier} · ${fmt(x.price)} AC</span></div>`).join('')}</div>`}
-function roll(){return `<div class="rollbox"><div class="eyebrow">ASTRAL SUMMONING PORTAL</div><h1>Daily Summon</h1><p style="color:var(--muted)">One free roll per day. Higher tiers are extraordinarily rare.</p><div class="orb" id="orb">✦</div><button class="btn primary" id="rollbtn" ${s.rolls.some(r=>r.date===today())?'disabled':''}>${s.rolls.some(r=>r.date===today())?'ROLL USED TODAY':'🎲 SUMMON CHARACTER'}</button><p style="color:var(--muted);font-size:12px">Pity counter: ${s.pity} / 100 toward S-tier guarantee</p><div id="result"></div></div><div class="panel" style="margin-top:17px"><h3>Summon Rates</h3><p style="color:var(--muted);font-size:12px">Free daily roll only. No paid rolls. Z tier is extremely rare. Rate values are prototype balancing.</p><div class="controls"><select id="ratefilter"><option value="">All tiers</option>${tiers.map(t=>`<option>${t}</option>`).join('')}</select></div><div id="rates" class="grid"></div></div>`}
-function render(){let el=$('#content');el.innerHTML=({dashboard,market,roll,wishlist,collection,quests,history,rankings})[view]();bind();if(view==='roll')rateRender()}
-function bind(){document.querySelectorAll('[data-goto]').forEach(b=>b.onclick=()=>nav(b.dataset.goto));document.querySelectorAll('[data-buy]').forEach(b=>b.onclick=()=>buy(+b.dataset.buy));document.querySelectorAll('[data-wish]').forEach(b=>b.onclick=()=>wish(+b.dataset.wish));document.querySelectorAll('[data-claim]').forEach(b=>b.onclick=()=>claim(b.dataset.claim));let search=$('#search'),tier=$('#tier'),sort=$('#sort');if(search||tier||sort){let filter=()=>{let pool=view==='collection'?s.owned.map(c).filter(Boolean):chars;pool=pool.filter(x=>(!search||`${x.name} ${x.anime}`.toLowerCase().includes(search.value.toLowerCase()))&&(!tier||!tier.value||x.tier===tier.value));if(sort?.value==='price')pool.sort((a,b)=>a.price-b.price);else if(sort?.value==='name')pool.sort((a,b)=>a.name.localeCompare(b.name));else pool.sort((a,b)=>tiers.indexOf(b.tier)-tiers.indexOf(a.tier));$('#grid').innerHTML=pool.map(card).join('');bindCards()};search?.addEventListener('input',filter);tier?.addEventListener('change',filter);sort?.addEventListener('change',filter)}$('#rollbtn')?.addEventListener('click',doRoll);$('#pin')?.addEventListener('click',()=>{let id=+$('#showselect').value;if(!id)return toast('Choose a character first');if(s.showcase.includes(id))return toast('Already pinned');if(s.showcase.length>=5)return toast('Showcase limit is 5');s.showcase.push(id);save();render();toast('Pinned to showcase ✦')});$('#ratefilter')?.addEventListener('change',rateRender);bindCards()}
-function bindCards(){document.querySelectorAll('[data-buy]').forEach(b=>b.onclick=()=>buy(+b.dataset.buy));document.querySelectorAll('[data-wish]').forEach(b=>b.onclick=()=>wish(+b.dataset.wish))}
-function buy(id){let x=c(id);if(own(id))return toast('Already in collection');if(s.coins<x.price)return toast(`Need ${fmt(x.price-s.coins)} more AC`);s.coins-=x.price;s.owned.push(id);if(!s.firstPurchase){s.coins+=100;s.firstPurchase=true;toast('Recruitment complete! +100 first purchase bonus')}else toast(`${x.name} recruited!`);save();render()}
-function wish(id){s.wishlist=s.wishlist.includes(id)?s.wishlist.filter(x=>x!==id):[...s.wishlist,id];save();render()}
-function claim(id){if(!qdone(id)||qclaimed(id))return;let q=qs.find(x=>x[0]===id);s.quests['claim_'+id]=today();s.coins+=q[4];save();render();toast(`Quest claimed: +${q[4]} AC`)}
-function doRoll(){if(s.rolls.some(r=>r.date===today()))return toast('Free summon already used today');let btn=$('#rollbtn'),orb=$('#orb');btn.disabled=true;btn.textContent='SUMMONING…';orb.classList.add('spin');setTimeout(()=>{let x=rollCharacter();s.rolls.push({id:x.id,date:today()});s.pity++;s.quests.roll=today();if(!own(x.id))s.owned.push(x.id);else s.coins+=Math.max(50,Math.floor(x.price*.03));save();orb.classList.remove('spin');$('#result').innerHTML=`<div class="result">${art(x)}<h2>${esc(x.name)}</h2><p>${esc(x.anime)} · Tier ${x.tier}</p><b class="price">${fmt(x.price)} AC</b></div>`;renderHeader();rateRender();toast(own(x.id)?'Duplicate converted into bonus coins!':`${x.name} joined your collection!`)},1300)}
-function rollCharacter(){let weights=tiers.map((t,i)=>Math.pow(.72,i));if(s.pity>=99){let candidates=chars.filter(x=>tiers.indexOf(x.tier)>=tiers.indexOf('S'));return candidates[Math.floor(Math.random()*candidates.length)]}let total=weights.reduce((a,b)=>a+b,0),r=Math.random()*total,idx=0;for(;idx<weights.length;idx++){r-=weights[idx];if(r<=0)break}let tier=tiers[Math.min(idx,25)];let pool=chars.filter(x=>x.tier===tier);if(!pool.length)pool=chars.filter(x=>tiers.indexOf(x.tier)<=tiers.indexOf(tier));return pool[Math.floor(Math.random()*pool.length)]}
-function rateRender(){let f=$('#ratefilter')?.value||'';let rate=$('#rates');if(!rate)return;rate.innerHTML=tiers.filter(t=>!f||t===f).map(t=>`<div class="stat"><small>TIER ${t}</small><b>${(Math.pow(.72,tiers.indexOf(t))*100).toFixed(3)}%</b></div>`).join('')}
-$('#nav').addEventListener('click',e=>{let b=e.target.closest('[data-view]');if(b)nav(b.dataset.view)});$('#menu').onclick=()=>$('#sidebar').classList.toggle('open');$('#reset').onclick=()=>{if(confirm('Reset all Waifu Swap progress in this browser?')){localStorage.removeItem('waifuSwapSave');location.reload()}};
-// Daily login reward and streak update
-if(s.lastLogin!==today()){let yesterday=new Date(Date.now()-86400000).toISOString().slice(0,10);s.streak=s.lastLogin===yesterday?s.streak+1:1;s.lastLogin=today();s.coins+=100;if(s.streak%7===0)s.coins+=250;save();setTimeout(()=>toast(`Daily login: +100 AC${s.streak%7===0?' +250 streak bonus':''}`),600)}
-nav('dashboard');header();
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-// REAL CHARACTER ART: fetch character portraits from Jikan (MyAnimeList data API).
-// Images are cached in this browser so they do not need to be fetched again.
-async function loadCharacterArt(){
-  const cacheKey='waifuSwapArtCache'; let cache={}; try{cache=JSON.parse(localStorage.getItem(cacheKey)||'{}')}catch{}
-  for(const x of chars){
-    if(cache[x.name]){x.image=cache[x.name];continue}
-  }
-  if(view==='dashboard')render();
-  const missing=chars.filter(x=>!x.image);
-  for(let i=0;i<missing.length;i++){
-    const x=missing[i];
-    try{
-      const res=await fetch('https://api.jikan.moe/v4/characters?q='+encodeURIComponent(x.name)+'&limit=5');
-      if(res.ok){const data=await res.json();const match=(data.data||[]).find(v=>v.name.toLowerCase()===x.name.toLowerCase())||(data.data||[])[0];
-        const url=match?.images?.webp?.image_url||match?.images?.jpg?.image_url;
-        if(url){x.image=url;cache[x.name]=url;localStorage.setItem(cacheKey,JSON.stringify(cache));if(view==='dashboard'||view==='market'||view==='collection'||view==='wishlist')render();}
-      }
-    }catch(e){console.warn('Character art lookup failed for '+x.name,e)}
-    // Jikan rate limit courtesy delay
-    await new Promise(resolve=>setTimeout(resolve,1100));
-  }
+<title>WAIFU SWAP</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+    --bg: #08080c;
+    --panel: #111117;
+    --panel2: #181820;
+    --border: #282832;
+    --purple: #9b5cff;
+    --pink: #ff4fa3;
+    --text: #f5f5f7;
+    --muted: #777783;
 }
-loadCharacterArt();
-</script></body></html>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, sans-serif;
+    overflow-x: hidden;
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(128,55,255,.12), transparent 70%);
+    top: -200px;
+    left: -200px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,40,140,.07), transparent 70%);
+    bottom: -250px;
+    right: -200px;
+    pointer-events: none;
+    z-index: -1;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #353540;
+    border-radius: 10px;
+}
+
+/* APP */
+
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 250px;
+    min-width: 250px;
+    background: #0c0c11;
+    border-right: 1px solid var(--border);
+    padding: 25px 15px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    z-index: 20;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    padding: 5px 15px 30px;
+}
+
+.logo span {
+    color: var(--purple);
+}
+
+.nav-label {
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    padding: 15px;
+}
+
+.nav-btn {
+    padding: 13px 15px;
+    border-radius: 12px;
+    background: transparent;
+    color: #9696a2;
+    border: none;
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 4px;
+    transition: .25s;
+}
+
+.nav-btn:hover {
+    background: #191922;
+    color: white;
+    transform: translateX(4px);
+}
+
+.nav-btn.active {
+    background: linear-gradient(90deg, #782eff33, #782eff08);
+    color: white;
+    border: 1px solid #8e48ff55;
+}
+
+.nav-btn.active::before {
+    content: "◆ ";
+    color: var(--purple);
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding: 15px;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #17111f, #101016);
+    border: 1px solid #30233f;
+}
+
+/* MAIN */
+
+.main {
+    margin-left: 250px;
+    flex: 1;
+    padding: 35px;
+    min-width: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+    gap: 15px;
+}
+
+.header h1 {
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.header p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+.currency {
+    background: #17141e;
+    border: 1px solid #393044;
+    padding: 12px 18px;
+    border-radius: 14px;
+    font-weight: 800;
+    color: #d4a3ff;
+    box-shadow: 0 0 20px #8a35ff15;
+}
+
+/* PAGES */
+
+.page {
+    display: none;
+    animation: pageIn .35s ease;
+}
+
+.page.active {
+    display: block;
+}
+
+@keyframes pageIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* DASHBOARD */
+
+.hero {
+    background:
+        linear-gradient(110deg, #171020, #111117 70%),
+        radial-gradient(circle, #8b3aff, transparent);
+    border: 1px solid #38234e;
+    border-radius: 22px;
+    padding: 35px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.hero::after {
+    content: "✦";
+    position: absolute;
+    font-size: 180px;
+    right: 30px;
+    top: -40px;
+    color: #a05aff12;
+    animation: rotate 30s linear infinite;
+}
+
+@keyframes rotate {
+    to { transform: rotate(360deg); }
+}
+
+.hero h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #aaa0b8;
+    max-width: 500px;
+    line-height: 1.7;
+}
+
+.hero button {
+    margin-top: 20px;
+    padding: 13px 25px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #9b5cff, #6831c9);
+    color: white;
+    font-weight: 800;
+    box-shadow: 0 8px 30px #8d3dff30;
+    transition: .25s;
+}
+
+.hero button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px #8d3dff55;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.stat {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    transition: .3s;
+}
+
+.stat:hover {
+    border-color: #8a45ff;
+    transform: translateY(-4px);
+}
+
+.stat p {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.stat h2 {
+    font-size: 27px;
+}
+
+/* SECTION */
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 0 20px;
+    gap: 10px;
+}
+
+.section-title h2 {
+    font-size: 20px;
+}
+
+.section-title small {
+    color: var(--muted);
+}
+
+/* CHARACTER GRID */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+/* CHARACTER CARD */
+
+.card {
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: transform .35s, border .35s, box-shadow .35s;
+    transform-style: preserve-3d;
+}
+
+.card:hover {
+    transform: perspective(900px) rotateY(5deg) rotateX(3deg) translateY(-8px);
+    border-color: var(--rarity);
+    box-shadow: 0 15px 40px var(--rarity-glow);
+}
+
+.card-image {
+    height: 260px;
+    position: relative;
+    overflow: hidden;
+    background: #191921;
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    transition: transform .6s;
+}
+
+.card:hover .card-image img {
+    transform: scale(1.08);
+}
+
+.card-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 40%, #08080c);
+}
+
+.tier {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 2;
+    padding: 7px 12px;
+    border-radius: 9px;
+    font-weight: 900;
+    font-size: 12px;
+    background: var(--rarity);
+    color: white;
+    box-shadow: 0 0 20px var(--rarity-glow);
+}
+
+.card-info {
+    padding: 15px;
+}
+
+.card-info h3 {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.card-info p {
+    color: var(--muted);
+    font-size: 11px;
+    margin-bottom: 15px;
+}
+
+.card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price {
+    font-size: 13px;
+    color: #d9a4ff;
+    font-weight: 800;
+}
+
+.card-btn {
+    background: #22222d;
+    color: white;
+    border: 1px solid #353541;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    transition: .2s;
+}
+
+.card-btn:hover {
+    background: var(--rarity);
+    border-color: var(--rarity);
+}
+
+.wishlist-btn {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    z-index: 5;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #0009;
+    border: 1px solid #ffffff25;
+    color: white;
+    font-size: 17px;
+    backdrop-filter: blur(10px);
+}
+
+.wishlist-btn:hover {
+    color: #ff4fa3;
+    transform: scale(1.15);
+}
+
+/* RARITY */
+
+.rarity-Z {
+    --rarity: #ffdc68;
+    --rarity-glow: #ffdc6840;
+}
+
+.rarity-S {
+    --rarity: #ff4fa3;
+    --rarity-glow: #ff4fa340;
+}
+
+.rarity-A {
+    --rarity: #a366ff;
+    --rarity-glow: #a366ff40;
+}
+
+.rarity-B {
+    --rarity: #4f9fff;
+    --rarity-glow: #4f9fff40;
+}
+
+.rarity-C {
+    --rarity: #4bd9c0;
+    --rarity-glow: #4bd9c040;
+}
+
+.rarity-D {
+    --rarity: #9696a2;
+    --rarity-glow: #9696a240;
+}
+
+/* MARKET */
+
+.search-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.search {
+    flex: 1;
+    min-width: 180px;
+    background: #14141b;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 13px 16px;
+    color: white;
+    outline: none;
+}
+
+.search:focus {
+    border-color: var(--purple);
+}
+
+.search-btn {
+    background: #7c3cff;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-weight: 700;
+}
+
+.filters {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+.filter {
+    padding: 8px 14px;
+    border-radius: 9px;
+    border: 1px solid var(--border);
+    background: #14141b;
+    color: #aaa;
+    font-size: 12px;
+}
+
+.filter.active {
+    color: white;
+    background: #7436d8;
+    border-color: #7436d8;
+}
+
+/* API SEARCH */
+
+.api-box {
+    padding: 25px;
+    background: linear-gradient(135deg, #14111c, #111117);
+    border: 1px solid #352544;
+    border-radius: 18px;
+    margin-bottom: 25px;
+}
+
+.api-box h3 {
+    margin-bottom: 10px;
+}
+
+.api-box p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.api-results {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.anime-result {
+    background: #201a2c;
+    border: 1px solid #392b4d;
+    color: #d8c0ff;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12px;
+}
+
+.anime-result:hover {
+    background: #39224d;
+}
+
+.status {
+    color: #a78bfa;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+/* ROLL */
+
+.roll-container {
+    text-align: center;
+    padding: 30px 10px;
+}
+
+.roll-button {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 2px solid #a855f7;
+    background: radial-gradient(circle, #2d154b, #0c0c12);
+    color: white;
+    font-size: 20px;
+    font-weight: 900;
+    box-shadow:
+        0 0 30px #9b5cff40,
+        inset 0 0 30px #9b5cff20;
+    transition: .4s;
+}
+
+.roll-button:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 60px #9b5cff70;
+}
+
+.roll-button.rolling {
+    animation: pulse 0.5s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+        box-shadow: 0 0 20px #9b5cff;
+    }
+    to {
+        transform: scale(1.1);
+        box-shadow: 0 0 60px #ff4fa3;
+    }
+}
+
+/* REVEAL */
+
+.reveal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #000d;
+    backdrop-filter: blur(20px);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.reveal.active {
+    display: flex;
+}
+
+.reveal-content {
+    text-align: center;
+    animation: revealIn .6s cubic-bezier(.2,1.5,.5,1);
+    max-width: 400px;
+    width: 100%;
+}
+
+@keyframes revealIn {
+    from {
+        transform: scale(.4) rotateY(180deg);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1) rotateY(0);
+        opacity: 1;
+    }
+}
+
+.reveal-card {
+    width: 280px;
+    max-width: 100%;
+    margin: 20px auto;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid var(--rarity);
+    box-shadow: 0 0 60px var(--rarity-glow);
+    position: relative;
+}
+
+.reveal-card img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+}
+
+.reveal-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(transparent 50%, #000e);
+}
+
+.reveal-name {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.reveal-tier {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 3;
+    background: var(--rarity);
+    padding: 8px 15px;
+    border-radius: 10px;
+    font-weight: 900;
+}
+
+.reveal-text {
+    font-size: 30px;
+    font-weight: 900;
+    margin: 20px 0;
+}
+
+.reveal-close {
+    background: linear-gradient(135deg, #8b3dff, #d34fff);
+    color: white;
+    border: none;
+    padding: 14px 40px;
+    border-radius: 12px;
+    font-weight: 900;
+}
+
+/* HISTORY */
+
+.history-item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.history-item img {
+    width: 60px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.history-item div {
+    flex: 1;
+}
+
+.history-item p {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* LOADING */
+
+.loading {
+    color: #aaa;
+    padding: 30px;
+    text-align: center;
+}
+
+.loading::after {
+    content: "";
+    display: block;
+    width: 25px;
+    height: 25px;
+    margin: 15px auto;
+    border: 3px solid #333;
+    border-top-color: var(--purple);
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.empty {
+    color: var(--muted);
+    text-align: center;
+    padding: 50px 20px;
+    background: var(--panel);
+    border-radius: 15px;
+    border: 1px dashed var(--border);
+}
+
+/* PARTICLES */
+
+.particle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    width: 3px;
+    height: 3px;
+    background: #a855f7;
+    border-radius: 50%;
+    animation: particleFloat linear infinite;
+    opacity: .3;
+}
+
+@keyframes particleFloat {
+    from {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+    20% { opacity: .5; }
+    to {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:900px) {
+
+    .sidebar {
+        width: 70px;
+        min-width: 70px;
+        padding: 15px 8px;
+    }
+
+    .logo {
+        font-size: 17px;
+        text-align: center;
+        padding: 10px 0 25px;
+    }
+
+    .logo span {
+        display: none;
+    }
+
+    .nav-btn {
+        text-align: center;
+        padding: 13px 5px;
+        font-size: 0;
+    }
+
+    .nav-btn::first-letter {
+        font-size: 18px;
+    }
+
+    .nav-label,
+    .sidebar-bottom {
+        display: none;
+    }
+
+    .main {
+        margin-left: 70px;
+        padding: 20px;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media(max-width:550px) {
+
+    .main {
+        padding: 15px;
+    }
+
+    .header h1 {
+        font-size: 22px;
+    }
+
+    .hero {
+        padding: 25px;
+    }
+
+    .hero h2 {
+        font-size: 24px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        gap: 10px;
+    }
+
+    .card-image {
+        height: 220px;
+    }
+
+    .card-info {
+        padding: 10px;
+    }
+
+    .card-info h3 {
+        font-size: 13px;
+    }
+
+    .card-btn {
+        padding: 7px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<div class="logo">
+WAIFU<span>SWAP</span>
+</div>
+
+<div class="nav-label">MAIN</div>
+
+<button class="nav-btn active" onclick="navigate('dashboard')">
+🏠 Dashboard
+</button>
+
+<button class="nav-btn" onclick="navigate('market')">
+🛒 Market
+</button>
+
+<button class="nav-btn" onclick="navigate('roll')">
+🎲 Roll
+</button>
+
+<button class="nav-btn" onclick="navigate('collection')">
+💎 Collection
+</button>
+
+<div class="nav-label">PERSONAL</div>
+
+<button class="nav-btn" onclick="navigate('wishlist')">
+❤️ Wishlist
+</button>
+
+<button class="nav-btn" onclick="navigate('showcase')">
+✨ Showcase
+</button>
+
+<button class="nav-btn" onclick="navigate('history')">
+📜 History
+</button>
+
+<div class="sidebar-bottom">
+<h3>WAIFU SWAP</h3>
+
+<p style="font-size:11px;color:#777;margin-top:8px">
+Collect. Trade. Dominate.
+</p>
+</div>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<header class="header">
+
+<div>
+<h1 id="pageTitle">Dashboard</h1>
+
+<p id="pageDescription">
+Your collection awaits.
+</p>
+</div>
+
+<div class="currency">
+🪙 <span id="coins">1000</span> AC
+</div>
+
+</header>
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="page active">
+
+<div class="hero">
+
+<h2>Welcome to Waifu Swap.</h2>
+
+<p>
+Discover characters from your favorite anime.
+Collect rare characters. Build your ultimate collection.
+And maybe... get lucky.
+</p>
+
+<button onclick="navigate('roll')">
+🎲 ROLL NOW
+</button>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<p>COLLECTION</p>
+<h2 id="statCollection">0</h2>
+</div>
+
+<div class="stat">
+<p>CHARACTERS DISCOVERED</p>
+<h2 id="statDiscovered">0</h2>
+</div>
+
+<div class="stat">
+<p>ROLLS</p>
+<h2 id="statRolls">0</h2>
+</div>
+
+<div class="stat">
+<p>COINS</p>
+<h2 id="statCoins">1000</h2>
+</div>
+
+</div>
+
+<div class="section-title">
+<h2>✨ Recent Acquisitions</h2>
+<button class="card-btn" onclick="navigate('collection')">
+View Collection →
+</button>
+</div>
+
+<div id="recentCollection" class="grid"></div>
+
+<div class="section-title">
+<h2>🔥 Featured Characters</h2>
+</div>
+
+<div id="featured" class="grid"></div>
+
+</section>
+
+<!-- MARKET -->
+
+<section id="market" class="page">
+
+<div class="api-box">
+
+<h3>🌌 Expand the Universe</h3>
+
+<p>
+Search for an anime. Waifu Swap will retrieve its characters
+and artwork from AniList and add them to your character database.
+</p>
+
+<div class="search-container">
+
+<input
+id="animeSearch"
+class="search"
+placeholder="Search anime... (e.g. Frieren)"
+>
+
+<button class="search-btn" onclick="searchAnime()">
+SEARCH ANIME
+</button>
+
+</div>
+
+<div id="animeResults" class="api-results"></div>
+
+<div id="apiStatus" class="status"></div>
+
+</div>
+
+<div class="section-title">
+
+<h2>Character Market</h2>
+
+<small id="marketCount"></small>
+
+</div>
+
+<div class="search-container">
+
+<input
+id="marketSearch"
+class="search"
+placeholder="Search characters..."
+oninput="renderMarket()"
+>
+
+</div>
+
+<div class="filters">
+
+<button class="filter active" onclick="setFilter('ALL',this)">
+ALL
+</button>
+
+<button class="filter" onclick="setFilter('Z',this)">
+Z
+</button>
+
+<button class="filter" onclick="setFilter('S',this)">
+S
+</button>
+
+<button class="filter" onclick="setFilter('A',this)">
+A
+</button>
+
+<button class="filter" onclick="setFilter('B',this)">
+B
+</button>
+
+<button class="filter" onclick="setFilter('C',this)">
+C
+</button>
+
+<button class="filter" onclick="setFilter('D',this)">
+D
+</button>
+
+</div>
+
+<div id="marketGrid" class="grid"></div>
+
+</section>
+
+<!-- ROLL -->
+
+<section id="roll" class="page">
+
+<div class="hero">
+
+<h2>🎲 Character Summoning</h2>
+
+<p>
+The universe has thousands of characters.
+Your luck decides which one you get.
+</p>
+
+</div>
+
+<div class="roll-container">
+
+<button id="rollButton" class="roll-button" onclick="rollCharacter()">
+ROLL
+</button>
+
+<p style="margin-top:20px;color:#888">
+One roll costs <b style="color:#d4a3ff">100 AC</b>
+</p>
+
+<p style="margin-top:8px;color:#666;font-size:12px">
+Your rolled character will be added to your collection.
+</p>
+
+</div>
+
+<div class="section-title">
+<h2>🎰 Recent Rolls</h2>
+</div>
+
+<div id="rollRecent"></div>
+
+</section>
+
+<!-- COLLECTION -->
+
+<section id="collection" class="page">
+
+<div class="section-title">
+
+<h2>💎 Your Collection</h2>
+
+<small id="collectionCount"></small>
+
+</div>
+
+<div id="collectionGrid" class="grid"></div>
+
+</section>
+
+<!-- WISHLIST -->
+
+<section id="wishlist" class="page">
+
+<div class="section-title">
+<h2>❤️ Wishlist</h2>
+</div>
+
+<div id="wishlistGrid" class="grid"></div>
+
+</section>
+
+<!-- SHOWCASE -->
+
+<section id="showcase" class="page">
+
+<div class="hero">
+
+<h2>✨ Your Showcase</h2>
+
+<p>
+Your favorite characters.
+Your personal hall of fame.
+</p>
+
+</div>
+
+<div id="showcaseGrid" class="grid"></div>
+
+</section>
+
+<!-- HISTORY -->
+
+<section id="history" class="page">
+
+<div class="section-title">
+<h2>📜 Roll History</h2>
+</div>
+
+<div id="historyList"></div>
+
+</section>
+
+</main>
+
+</div>
+
+<!-- REVEAL -->
+
+<div id="reveal" class="reveal">
+
+<div class="reveal-content">
+
+<div class="reveal-text">
+✨ SUMMONED ✨
+</div>
+
+<div id="revealCard"></div>
+
+<p id="revealMessage" style="margin:20px;color:#aaa"></p>
+
+<button class="reveal-close" onclick="closeReveal()">
+CONTINUE
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* =====================================
+   GAME DATABASE
+===================================== */
+
+const animeDatabase = [
+    "Frieren: Beyond Journey's End",
+    "The Fragrant Flower Blooms With Dignity",
+    "My Dress-Up Darling",
+    "Spy x Family",
+    "Re:Zero",
+    "That Time I Got Reincarnated as a Slime",
+    "Kaguya-sama: Love Is War",
+    "Oshi no Ko",
+    "Bocchi the Rock!",
+    "Demon Slayer",
+    "Jujutsu Kaisen",
+    "Chainsaw Man",
+    "One Piece",
+    "Naruto",
+    "Bleach",
+    "Attack on Titan",
+    "Sword Art Online",
+    "The Apothecary Diaries",
+    "Violet Evergarden",
+    "Horimiya",
+    "Blue Lock",
+    "Solo Leveling",
+    "Black Clover",
+    "Fate/stay night",
+    "Hunter x Hunter",
+    "Dragon Ball",
+    "Love Live!",
+    "The Quintessential Quintuplets",
+    "Rascal Does Not Dream",
+    "Classroom of the Elite"
+];
+
+/* =====================================
+   GAME STATE
+===================================== */
+
+let game = JSON.parse(localStorage.getItem("waifuSwapSave")) || {
+
+    coins: 1000,
+
+    collection: [],
+
+    wishlist: [],
+
+    showcase: [],
+
+    history: [],
+
+    rolls: 0,
+
+    characters: [],
+
+    discovered: []
+
+};
+
+let characters = game.characters || [];
+
+let currentFilter = "ALL";
+
+let currentPage = "dashboard";
+
+/* =====================================
+   SAVE
+===================================== */
+
+function save() {
+
+    game.characters = characters;
+
+    localStorage.setItem(
+        "waifuSwapSave",
+        JSON.stringify(game)
+    );
+
+}
+
+/* =====================================
+   RARITY
+===================================== */
+
+function getTier(character) {
+
+    if(character.tier) return character.tier;
+
+    let tier = Math.random();
+
+    if(tier < .002) return "Z";
+    if(tier < .02) return "S";
+    if(tier < .10) return "A";
+    if(tier < .30) return "B";
+    if(tier < .65) return "C";
+
+    return "D";
+
+}
+
+function tierPrice(tier) {
+
+    const prices = {
+        Z: 500000,
+        S: 100000,
+        A: 25000,
+        B: 10000,
+        C: 3000,
+        D: 500
+    };
+
+    return prices[tier] || 500;
+
+}
+
+/* =====================================
+   CHARACTER CREATION
+===================================== */
+
+function createCharacter(data) {
+
+    if(!data.image) return null;
+
+    return {
+
+        id: String(data.id),
+
+        name: data.name,
+
+        anime: data.anime || "Unknown Anime",
+
+        image: data.image,
+
+        tier: data.tier || getTier(data),
+
+        price: data.price || tierPrice(data.tier || "D"),
+
+        owned: false
+
+    };
+
+}
+
+/* =====================================
+   ANILIST API
+===================================== */
+
+const ANILIST_API = "https://graphql.anilist.co";
+
+async function anilist(query, variables = {}) {
+
+    const response = await fetch(ANILIST_API, {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+
+        body: JSON.stringify({
+
+            query,
+
+            variables
+
+        })
+
+    });
+
+    if(!response.ok) {
+
+        throw new Error("AniList API error");
+
+    }
+
+    const data = await response.json();
+
+    if(data.errors) {
+
+        throw new Error(data.errors[0].message);
+
+    }
+
+    return data.data;
+
+}
+
+/* =====================================
+   SEARCH ANIME
+===================================== */
+
+async function searchAnime() {
+
+    const search = document.getElementById("animeSearch").value.trim();
+
+    const results = document.getElementById("animeResults");
+
+    const status = document.getElementById("apiStatus");
+
+    if(!search) return;
+
+    results.innerHTML = "";
+
+    status.innerHTML = "Searching the anime universe...";
+
+    try {
+
+        const data = await anilist(`
+
+        query($search:String) {
+
+            Page(perPage:10) {
+
+                media(search:$search,type:ANIME) {
+
+                    id
+
+                    title {
+                        romaji
+                        english
+                    }
+
+                    coverImage {
+                        large
+                    }
+
+                }
+
+            }
+
+        }
+
+        `, {
+
+            search
+
+        });
+
+        results.innerHTML = "";
+
+        data.Page.media.forEach(anime => {
+
+            const button = document.createElement("button");
+
+            button.className = "anime-result";
+
+            button.innerText = anime.title.english || anime.title.romaji;
+
+            button.onclick = () => loadAnimeCharacters(anime);
+
+            results.appendChild(button);
+
+        });
+
+        status.innerText = data.Page.media.length
+            ? "Select an anime to import its characters."
+            : "No anime found.";
+
+    }
+
+    catch(error) {
+
+        status.innerText = "API error. Try again later.";
+
+        console.error(error);
+
+    }
+
+}
+
+/* =====================================
+   IMPORT CHARACTERS
+===================================== */
+
+async function loadAnimeCharacters(anime) {
+
+    const status = document.getElementById("apiStatus");
+
+    status.innerText = "Loading character portraits...";
+
+    try {
+
+        const data = await anilist(`
+
+        query($id:Int) {
+
+            Media(id:$id) {
+
+                characters(page:1,perPage:50,sort:ROLE) {
+
+                    nodes {
+
+                        id
+
+                        name {
+                            full
+                        }
+
+                        image {
+                            large
+                            medium
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        `, {
+
+            id: anime.id
+
+        });
+
+        let imported = 0;
+
+        const animeName = anime.title.english || anime.title.romaji;
+
+        data.Media.characters.nodes.forEach(character => {
+
+            const image =
+                character.image.large ||
+                character.image.medium;
+
+            if(!image) return;
+
+            const exists = characters.some(c => c.id === String(character.id));
+
+            if(exists) return;
+
+            const newCharacter = createCharacter({
+
+                id: character.id,
+
+                name: character.name.full,
+
+                anime: animeName,
+
+                image: image
+
+            });
+
+            if(newCharacter) {
+
+                characters.push(newCharacter);
+
+                imported++;
+
+            }
+
+        });
+
+        save();
+
+        renderMarket();
+
+        status.innerHTML = `
+            <span style="color:#8dffb5">
+            Successfully imported ${imported} characters from ${animeName}.
+            </span>
+        `;
+
+    }
+
+    catch(error) {
+
+        status.innerText = "Could not load characters.";
+
+        console.error(error);
+
+    }
+
+}
+
+/* =====================================
+   PRELOAD ANIME
+===================================== */
+
+async function preloadAnime() {
+
+    const status = document.getElementById("apiStatus");
+
+    status.innerText = "Loading the character universe...";
+
+    for(const animeName of animeDatabase) {
+
+        try {
+
+            const data = await anilist(`
+
+            query($search:String) {
+
+                Media(search:$search,type:ANIME) {
+
+                    id
+
+                    title {
+                        romaji
+                        english
+                    }
+
+                    characters(page:1,perPage:15,sort:ROLE) {
+
+                        nodes {
+
+                            id
+
+                            name {
+                                full
+                            }
+
+                            image {
+                                large
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            `, {
+
+                search: animeName
+
+            });
+
+            const anime = data.Media;
+
+            if(!anime) continue;
+
+            const title =
+                anime.title.english ||
+                anime.title.romaji;
+
+            anime.characters.nodes.forEach(character => {
+
+                if(!character.image.large) return;
+
+                const exists = characters.some(
+                    c => c.id === String(character.id)
+                );
+
+                if(exists) return;
+
+                characters.push({
+
+                    id: String(character.id),
+
+                    name: character.name.full,
+
+                    anime: title,
+
+                    image: character.image.large,
+
+                    tier: getTier(character),
+
+                    price: 0,
+
+                    owned: false
+
+                });
+
+                const newCharacter = characters[characters.length-1];
+
+                newCharacter.price = tierPrice(newCharacter.tier);
+
+            });
+
+        }
+
+        catch(error) {
+
+            console.log("Anime load failed:", animeName);
+
+        }
+
+    }
+
+    save();
+
+    renderMarket();
+
+    renderFeatured();
+
+    status.innerText =
+        "Character universe loaded: " +
+        characters.length +
+        " characters.";
+
+}
+
+/* =====================================
+   NAVIGATION
+===================================== */
+
+function navigate(page) {
+
+    currentPage = page;
+
+    document.querySelectorAll(".page").forEach(p => {
+
+        p.classList.remove("active");
+
+    });
+
+    document.getElementById(page).classList.add("active");
+
+    document.querySelectorAll(".nav-btn").forEach(b => {
+
+        b.classList.remove("active");
+
+    });
+
+    const buttons = document.querySelectorAll(".nav-btn");
+
+    const map = {
+
+        dashboard: 0,
+
+        market: 1,
+
+        roll: 2,
+
+        collection: 3,
+
+        wishlist: 4,
+
+        showcase: 5,
+
+        history: 6
+
+    };
+
+    buttons[map[page]].classList.add("active");
+
+    const titles = {
+
+        dashboard: "Dashboard",
+
+        market: "Character Market",
+
+        roll: "Summoning",
+
+        collection: "Collection",
+
+        wishlist: "Wishlist",
+
+        showcase: "Showcase",
+
+        history: "History"
+
+    };
+
+    document.getElementById("pageTitle").innerText = titles[page];
+
+    renderAll();
+
+}
+
+/* =====================================
+   CHARACTER CARD
+===================================== */
+
+function characterCard(character, buttonText, action) {
+
+    return `
+
+    <div class="card rarity-${character.tier}">
+
+        <div class="card-image">
+
+            <img
+
+                src="${character.image}"
+
+                loading="lazy"
+
+                onerror="this.onerror=null;this.src='';this.parentElement.style.background='#222'"
+
+            >
+
+            <div class="tier">
+                ${character.tier}
+            </div>
+
+            <button
+
+                class="wishlist-btn"
+
+                onclick="toggleWishlist('${character.id}')"
+
+            >
+                ${game.wishlist.includes(character.id) ? "♥" : "♡"}
+            </button>
+
+        </div>
+
+        <div class="card-info">
+
+            <h3>${escapeHTML(character.name)}</h3>
+
+            <p>${escapeHTML(character.anime)}</p>
+
+            <div class="card-bottom">
+
+                <span class="price">
+                    🪙 ${character.price.toLocaleString()}
+                </span>
+
+                <button
+                    class="card-btn"
+                    onclick="${action}"
+                >
+                    ${buttonText}
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    `;
+
+}
+
+/* =====================================
+   MARKET
+===================================== */
+
+function renderMarket() {
+
+    const grid = document.getElementById("marketGrid");
+
+    const search = document.getElementById("marketSearch").value.toLowerCase();
+
+    let filtered = characters.filter(character => {
+
+        const matchesSearch =
+            character.name.toLowerCase().includes(search) ||
+            character.anime.toLowerCase().includes(search);
+
+        const matchesTier =
+            currentFilter === "ALL" ||
+            character.tier === currentFilter;
+
+        return matchesSearch && matchesTier;
+
+    });
+
+    document.getElementById("marketCount").innerText =
+        filtered.length + " characters";
+
+    grid.innerHTML = filtered.map(character => {
+
+        const owned = game.collection.includes(character.id);
+
+        return characterCard(
+
+            character,
+
+            owned ? "OWNED" : "BUY",
+
+            owned
+                ? `navigate('collection')`
+                : `buyCharacter('${character.id}')`
+
+        );
+
+    }).join("");
+
+}
+
+function setFilter(tier, button) {
+
+    currentFilter = tier;
+
+    document.querySelectorAll(".filter").forEach(b => {
+
+        b.classList.remove("active");
+
+    });
+
+    button.classList.add("active");
+
+    renderMarket();
+
+}
+
+/* =====================================
+   BUY CHARACTER
+===================================== */
+
+function buyCharacter(id) {
+
+    const character = characters.find(c => c.id === id);
+
+    if(!character) return;
+
+    if(game.collection.includes(id)) {
+
+        alert("You already own this character!");
+
+        return;
+
+    }
+
+    if(game.coins < character.price) {
+
+        alert("Not enough AC!");
+
+        return;
+
+    }
+
+    game.coins -= character.price;
+
+    game.collection.push(id);
+
+    game.discovered.push(id);
+
+    save();
+
+    renderAll();
+
+}
+
+/* =====================================
+   ROLL
+===================================== */
+
+function rollCharacter() {
+
+    if(game.coins < 100) {
+
+        alert("You need 100 AC to roll!");
+
+        return;
+
+    }
+
+    if(characters.length === 0) {
+
+        alert("Character universe is still loading!");
+
+        return;
+
+    }
+
+    game.coins -= 100;
+
+    game.rolls++;
+
+    const button = document.getElementById("rollButton");
+
+    button.classList.add("rolling");
+
+    button.disabled = true;
+
+    button.innerText = "ROLLING...";
+
+    setTimeout(() => {
+
+        button.classList.remove("rolling");
+
+        button.disabled = false;
+
+        button.innerText = "ROLL";
+
+        const character = weightedRoll();
+
+        const duplicate = game.collection.includes(character.id);
+
+        if(!duplicate) {
+
+            game.collection.push(character.id);
+
+            game.discovered.push(character.id);
+
+        }
+
+        else {
+
+            game.coins += character.price * .2;
+
+        }
+
+        game.history.unshift({
+
+            id: character.id,
+
+            name: character.name,
+
+            image: character.image,
+
+            tier: character.tier,
+
+            anime: character.anime,
+
+            duplicate,
+
+            date: new Date().toLocaleString()
+
+        });
+
+        game.history = game.history.slice(0,100);
+
+        save();
+
+        showReveal(character, duplicate);
+
+        renderAll();
+
+    }, 1800);
+
+}
+
+/* =====================================
+   WEIGHTED ROLL
+===================================== */
+
+function weightedRoll() {
+
+    const weights = {
+
+        Z: 0.001,
+
+        S: 0.02,
+
+        A: 0.08,
+
+        B: 0.20,
+
+        C: 0.30,
+
+        D: 0.399
+
+    };
+
+    const random = Math.random();
+
+    let total = 0;
+
+    let tier = "D";
+
+    for(const key in weights) {
+
+        total += weights[key];
+
+        if(random <= total) {
+
+            tier = key;
+
+            break;
+
+        }
+
+    }
+
+    const pool = characters.filter(c => c.tier === tier);
+
+    if(pool.length === 0) {
+
+        return characters[
+            Math.floor(Math.random() * characters.length)
+        ];
+
+    }
+
+    return pool[
+        Math.floor(Math.random() * pool.length)
+    ];
+
+}
+
+/* =====================================
+   REVEAL
+===================================== */
+
+function showReveal(character, duplicate) {
+
+    const reveal = document.getElementById("reveal");
+
+    const card = document.getElementById("revealCard");
+
+    card.innerHTML = `
+
+    <div class="reveal-card rarity-${character.tier}">
+
+        <img src="${character.image}">
+
+        <div class="reveal-tier">
+            ${character.tier} TIER
+        </div>
+
+        <div class="reveal-name">
+            ${escapeHTML(character.name)}
+        </div>
+
+    </div>
+
+    `;
+
+    document.getElementById("revealMessage").innerText = duplicate
+
+        ? "DUPLICATE! You received compensation."
+
+        : "Added to your collection!";
+
+    reveal.classList.add("active");
+
+}
+
+function closeReveal() {
+
+    document.getElementById("reveal").classList.remove("active");
+
+}
+
+/* =====================================
+   COLLECTION
+===================================== */
+
+function renderCollection() {
+
+    const grid = document.getElementById("collectionGrid");
+
+    const owned = game.collection.map(id => {
+
+        return characters.find(c => c.id === id);
+
+    }).filter(Boolean);
+
+    document.getElementById("collectionCount").innerText =
+        owned.length + " characters";
+
+    if(owned.length === 0) {
+
+        grid.innerHTML = `
+        <div class="empty">
+            <h2>Your collection is empty.</h2>
+            <p style="margin-top:10px">
+                Roll or purchase characters to start collecting.
+            </p>
+        </div>
+        `;
+
+        return;
+
+    }
+
+    grid.innerHTML = owned.map(character => {
+
+        return characterCard(
+
+            character,
+
+            game.showcase.includes(character.id)
+                ? "PINNED"
+                : "SHOWCASE",
+
+            `toggleShowcase('${character.id}')`
+
+        );
+
+    }).join("");
+
+}
+
+/* =====================================
+   WISHLIST
+===================================== */
+
+function toggleWishlist(id) {
+
+    if(game.wishlist.includes(id)) {
+
+        game.wishlist = game.wishlist.filter(x => x !== id);
+
+    }
+
+    else {
+
+        game.wishlist.push(id);
+
+    }
+
+    save();
+
+    renderAll();
+
+}
+
+function renderWishlist() {
+
+    const grid = document.getElementById("wishlistGrid");
+
+    const list = game.wishlist.map(id => {
+
+        return characters.find(c => c.id === id);
+
+    }).filter(Boolean);
+
+    if(list.length === 0) {
+
+        grid.innerHTML = `
+        <div class="empty">
+            <h2>No wishlist characters.</h2>
+            <p>Press the heart on characters to add them here.</p>
+        </div>
+        `;
+
+        return;
+
+    }
+
+    grid.innerHTML = list.map(character => {
+
+        return characterCard(
+
+            character,
+
+            game.collection.includes(character.id)
+                ? "OWNED"
+                : "BUY",
+
+            game.collection.includes(character.id)
+                ? `navigate('collection')`
+                : `buyCharacter('${character.id}')`
+
+        );
+
+    }).join("");
+
+}
+
+/* =====================================
+   SHOWCASE
+===================================== */
+
+function toggleShowcase(id) {
+
+    if(game.showcase.includes(id)) {
+
+        game.showcase = game.showcase.filter(x => x !== id);
+
+    }
+
+    else {
+
+        if(game.showcase.length >= 5) {
+
+            alert("Showcase limit: 5 characters!");
+
+            return;
+
+        }
+
+        game.showcase.push(id);
+
+    }
+
+    save();
+
+    renderAll();
+
+}
+
+function renderShowcase() {
+
+    const grid = document.getElementById("showcaseGrid");
+
+    const list = game.showcase.map(id => {
+
+        return characters.find(c => c.id === id);
+
+    }).filter(Boolean);
+
+    if(list.length === 0) {
+
+        grid.innerHTML = `
+        <div class="empty">
+            <h2>Your showcase awaits.</h2>
+            <p>Pin characters from your collection.</p>
+        </div>
+        `;
+
+        return;
+
+    }
+
+    grid.innerHTML = list.map(character => {
+
+        return characterCard(
+
+            character,
+
+            "REMOVE",
+
+            `toggleShowcase('${character.id}')`
+
+        );
+
+    }).join("");
+
+}
+
+/* =====================================
+   HISTORY
+===================================== */
+
+function renderHistory() {
+
+    const container = document.getElementById("historyList");
+
+    if(game.history.length === 0) {
+
+        container.innerHTML = `
+        <div class="empty">
+            <h2>No rolls yet.</h2>
+        </div>
+        `;
+
+        return;
+
+    }
+
+    container.innerHTML = game.history.map(item => {
+
+        return `
+
+        <div class="history-item">
+
+            <img src="${item.image}">
+
+            <div>
+
+                <h3>${escapeHTML(item.name)}</h3>
+
+                <p>${escapeHTML(item.anime)}</p>
+
+                <p>${item.date}</p>
+
+            </div>
+
+            <strong style="color:var(--rarity)">
+                ${item.tier}
+            </strong>
+
+        </div>
+
+        `;
+
+    }).join("");
+
+}
+
+/* =====================================
+   FEATURED
+===================================== */
+
+function renderFeatured() {
+
+    const grid = document.getElementById("featured");
+
+    const featured = characters.slice(0,8);
+
+    grid.innerHTML = featured.map(character => {
+
+        return characterCard(
+
+            character,
+
+            game.collection.includes(character.id)
+                ? "OWNED"
+                : "BUY",
+
+            game.collection.includes(character.id)
+                ? `navigate('collection')`
+                : `buyCharacter('${character.id}')`
+
+        );
+
+    }).join("");
+
+}
+
+/* =====================================
+   RECENT COLLECTION
+===================================== */
+
+function renderRecent() {
+
+    const grid = document.getElementById("recentCollection");
+
+    const recent = game.collection.slice(-4).reverse();
+
+    const list = recent.map(id => {
+
+        return characters.find(c => c.id === id);
+
+    }).filter(Boolean);
+
+    if(list.length === 0) {
+
+        grid.innerHTML = `
+        <div class="empty">
+            Your first character is waiting.
+        </div>
+        `;
+
+        return;
+
+    }
+
+    grid.innerHTML = list.map(character => {
+
+        return characterCard(
+
+            character,
+
+            "VIEW",
+
+            `navigate('collection')`
+
+        );
+
+    }).join("");
+
+}
+
+/* =====================================
+   UPDATE STATS
+===================================== */
+
+function updateStats() {
+
+    document.getElementById("coins").innerText =
+        game.coins.toLocaleString();
+
+    document.getElementById("statCoins").innerText =
+        game.coins.toLocaleString();
+
+    document.getElementById("statCollection").innerText =
+        game.collection.length;
+
+    document.getElementById("statDiscovered").innerText =
+        game.discovered.length;
+
+    document.getElementById("statRolls").innerText =
+        game.rolls;
+
+}
+
+/* =====================================
+   RENDER
+===================================== */
+
+function renderAll() {
+
+    updateStats();
+
+    renderMarket();
+
+    renderCollection();
+
+    renderWishlist();
+
+    renderShowcase();
+
+    renderHistory();
+
+    renderRecent();
+
+    renderFeatured();
+
+}
+
+/* =====================================
+   SECURITY
+===================================== */
+
+function escapeHTML(str) {
+
+    return String(str)
+
+        .replaceAll("&", "&amp;")
+
+        .replaceAll("<", "&lt;")
+
+        .replaceAll(">", "&gt;")
+
+        .replaceAll('"', "&quot;")
+
+        .replaceAll("'", "&#039;");
+
+}
+
+/* =====================================
+   PARTICLES
+===================================== */
+
+function createParticles() {
+
+    for(let i = 0; i < 25; i++) {
+
+        const particle = document.createElement("div");
+
+        particle.className = "particle";
+
+        particle.style.left = Math.random() * 100 + "%";
+
+        particle.style.animationDuration =
+            5 + Math.random() * 10 + "s";
+
+        particle.style.animationDelay =
+            Math.random() * 10 + "s";
+
+        document.body.appendChild(particle);
+
+    }
+
+}
+
+/* =====================================
+   START
+===================================== */
+
+document.getElementById("marketSearch")
+    .addEventListener("input",renderMarket);
+
+createParticles();
+
+renderAll();
+
+preloadAnime();
+
+</script>
+
+</body>
+</html>
