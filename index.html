@@ -4,1867 +4,2257 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>WAIFU SWAP</title>
+<title>Waifu Swap</title>
+
+<meta name="theme-color" content="#08080c">
 
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+/* =====================================================
+   WAIFU SWAP — DESIGN SYSTEM
+===================================================== */
 
 :root {
     --bg: #08080c;
-    --panel: #111117;
-    --panel2: #181820;
-    --border: #282832;
-    --purple: #9b5cff;
-    --pink: #ff4fa3;
+    --bg2: #0d0d14;
+    --panel: #12121b;
+    --panel2: #191923;
+    --panel3: #20202c;
+
+    --purple: #a855f7;
+    --purple2: #7c3aed;
+    --pink: #ec4899;
+    --blue: #6366f1;
+
     --text: #f5f5f7;
-    --muted: #777783;
+    --muted: #858594;
+
+    --border: rgba(255,255,255,.08);
+    --border-purple: rgba(168,85,247,.25);
+
+    --shadow: 0 20px 70px rgba(0,0,0,.5);
 }
 
+/* RESET */
+
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
     background: var(--bg);
     color: var(--text);
-    font-family: Inter, sans-serif;
+    font-family: Inter, system-ui, Arial, sans-serif;
+    min-height: 100vh;
     overflow-x: hidden;
 }
 
-button {
-    cursor: pointer;
-    font-family: inherit;
-}
+/* BACKGROUND EFFECT */
 
 body::before {
     content: "";
+
     position: fixed;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(128,55,255,.12), transparent 70%);
-    top: -200px;
-    left: -200px;
+    inset: 0;
+
     pointer-events: none;
-    z-index: -1;
+
+    background:
+        radial-gradient(
+            circle at 10% 0%,
+            rgba(124,58,237,.14),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(236,72,153,.08),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(99,102,241,.08),
+            transparent 35%
+        );
+
+    z-index: -2;
 }
 
-body::after {
-    content: "";
-    position: fixed;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(255,40,140,.07), transparent 70%);
-    bottom: -250px;
-    right: -200px;
-    pointer-events: none;
-    z-index: -1;
-}
+/* SCROLLBAR */
 
 ::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #08080c;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #353540;
-    border-radius: 10px;
+    background: #292936;
+    border-radius: 20px;
 }
 
-/* APP */
-
-.app {
-    display: flex;
-    min-height: 100vh;
+::-webkit-scrollbar-thumb:hover {
+    background: var(--purple);
 }
 
-/* SIDEBAR */
+/* =====================================================
+   NAVIGATION
+===================================================== */
 
-.sidebar {
-    width: 250px;
-    min-width: 250px;
-    background: #0c0c11;
-    border-right: 1px solid var(--border);
-    padding: 25px 15px;
+.navbar {
+
+    position: sticky;
+    top: 0;
+
+    z-index: 1000;
+
     display: flex;
-    flex-direction: column;
-    position: fixed;
-    height: 100vh;
-    z-index: 20;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 16px 5%;
+
+    background: rgba(8,8,12,.82);
+
+    backdrop-filter: blur(25px);
+
+    border-bottom: 1px solid var(--border);
+
 }
 
 .logo {
+
     font-size: 24px;
-    font-weight: 900;
-    letter-spacing: -1px;
-    padding: 5px 15px 30px;
+
+    font-weight: 1000;
+
+    letter-spacing: -1.5px;
+
+    cursor: pointer;
+
 }
 
 .logo span {
-    color: var(--purple);
+
+    background: linear-gradient(
+        90deg,
+        #a855f7,
+        #ec4899
+    );
+
+    background-clip: text;
+
+    -webkit-background-clip: text;
+
+    color: transparent;
+
 }
 
-.nav-label {
-    color: var(--muted);
-    font-size: 10px;
-    letter-spacing: 2px;
-    font-weight: 700;
-    padding: 15px;
+.nav-right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
 }
 
-.nav-btn {
-    padding: 13px 15px;
-    border-radius: 12px;
-    background: transparent;
-    color: #9696a2;
-    border: none;
-    text-align: left;
-    font-size: 14px;
-    margin-bottom: 4px;
-    transition: .25s;
+.wallet {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px 17px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(124,58,237,.18),
+        rgba(236,72,153,.08)
+    );
+
+    border: 1px solid rgba(168,85,247,.25);
+
+    border-radius: 50px;
+
+    font-weight: 800;
+
 }
 
-.nav-btn:hover {
-    background: #191922;
+.wallet-icon {
+
+    font-size: 17px;
+
+}
+
+.wallet-amount {
+
+    color: #c084fc;
+
+}
+
+.profile-button {
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #ec4899
+    );
+
     color: white;
-    transform: translateX(4px);
+
+    font-weight: 900;
+
+    font-size: 16px;
+
 }
 
-.nav-btn.active {
-    background: linear-gradient(90deg, #782eff33, #782eff08);
-    color: white;
-    border: 1px solid #8e48ff55;
-}
-
-.nav-btn.active::before {
-    content: "◆ ";
-    color: var(--purple);
-}
-
-.sidebar-bottom {
-    margin-top: auto;
-    padding: 15px;
-    border-radius: 15px;
-    background: linear-gradient(135deg, #17111f, #101016);
-    border: 1px solid #30233f;
-}
-
-/* MAIN */
+/* =====================================================
+   MAIN CONTAINER
+===================================================== */
 
 .main {
-    margin-left: 250px;
-    flex: 1;
-    padding: 35px;
-    min-width: 0;
+
+    max-width: 1500px;
+
+    margin: auto;
+
+    padding: 30px 5%;
+
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 35px;
-    gap: 15px;
-}
-
-.header h1 {
-    font-size: 28px;
-    font-weight: 800;
-}
-
-.header p {
-    color: var(--muted);
-    font-size: 13px;
-    margin-top: 6px;
-}
-
-.currency {
-    background: #17141e;
-    border: 1px solid #393044;
-    padding: 12px 18px;
-    border-radius: 14px;
-    font-weight: 800;
-    color: #d4a3ff;
-    box-shadow: 0 0 20px #8a35ff15;
-}
-
-/* PAGES */
-
-.page {
-    display: none;
-    animation: pageIn .35s ease;
-}
-
-.page.active {
-    display: block;
-}
-
-@keyframes pageIn {
-    from {
-        opacity: 0;
-        transform: translateY(12px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* DASHBOARD */
+/* =====================================================
+   HERO
+===================================================== */
 
 .hero {
-    background:
-        linear-gradient(110deg, #171020, #111117 70%),
-        radial-gradient(circle, #8b3aff, transparent);
-    border: 1px solid #38234e;
-    border-radius: 22px;
-    padding: 35px;
+
     position: relative;
+
     overflow: hidden;
-    margin-bottom: 25px;
+
+    text-align: center;
+
+    padding: 65px 20px 50px;
+
+    border-radius: 28px;
+
+    margin-bottom: 30px;
+
 }
 
-.hero::after {
-    content: "✦";
+.hero::before {
+
+    content: "";
+
     position: absolute;
-    font-size: 180px;
-    right: 30px;
-    top: -40px;
-    color: #a05aff12;
-    animation: rotate 30s linear infinite;
+
+    width: 400px;
+
+    height: 400px;
+
+    background: rgba(168,85,247,.12);
+
+    filter: blur(100px);
+
+    left: 50%;
+
+    top: 0;
+
+    transform: translateX(-50%);
+
+    pointer-events: none;
+
 }
 
-@keyframes rotate {
-    to { transform: rotate(360deg); }
+.hero-badge {
+
+    display: inline-block;
+
+    padding: 8px 15px;
+
+    border-radius: 50px;
+
+    border: 1px solid rgba(168,85,247,.3);
+
+    background: rgba(168,85,247,.08);
+
+    color: #c084fc;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 20px;
+
 }
 
-.hero h2 {
-    font-size: 32px;
-    margin-bottom: 10px;
+.hero h1 {
+
+    font-size: clamp(38px, 7vw, 80px);
+
+    font-weight: 1000;
+
+    letter-spacing: -4px;
+
+    line-height: 1.05;
+
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #c084fc,
+        #ec4899
+    );
+
+    background-clip: text;
+
+    -webkit-background-clip: text;
+
+    color: transparent;
+
 }
 
 .hero p {
-    color: #aaa0b8;
-    max-width: 500px;
-    line-height: 1.7;
-}
 
-.hero button {
+    color: var(--muted);
+
     margin-top: 20px;
-    padding: 13px 25px;
-    border: none;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #9b5cff, #6831c9);
-    color: white;
-    font-weight: 800;
-    box-shadow: 0 8px 30px #8d3dff30;
-    transition: .25s;
+
+    font-size: 15px;
+
+    max-width: 600px;
+
+    margin-left: auto;
+
+    margin-right: auto;
+
+    line-height: 1.7;
+
 }
 
-.hero button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 35px #8d3dff55;
-}
+/* =====================================================
+   STATISTICS
+===================================================== */
 
 .stats {
+
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+
+    grid-template-columns: repeat(4,1fr);
+
     gap: 15px;
-    margin-bottom: 30px;
+
+    margin-bottom: 35px;
+
 }
 
-.stat {
-    background: var(--panel);
+.stat-card {
+
+    background: rgba(18,18,27,.8);
+
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 20px;
-    transition: .3s;
-}
 
-.stat:hover {
-    border-color: #8a45ff;
-    transform: translateY(-4px);
-}
+    padding: 22px;
 
-.stat p {
-    color: var(--muted);
-    font-size: 12px;
-    margin-bottom: 10px;
-}
-
-.stat h2 {
-    font-size: 27px;
-}
-
-/* SECTION */
-
-.section-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 30px 0 20px;
-    gap: 10px;
-}
-
-.section-title h2 {
-    font-size: 20px;
-}
-
-.section-title small {
-    color: var(--muted);
-}
-
-/* CHARACTER GRID */
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 20px;
-}
-
-/* CHARACTER CARD */
-
-.card {
-    position: relative;
-    background: var(--panel);
-    border: 1px solid var(--border);
     border-radius: 18px;
-    overflow: hidden;
-    transition: transform .35s, border .35s, box-shadow .35s;
-    transform-style: preserve-3d;
+
+    transition: .25s;
+
 }
 
-.card:hover {
-    transform: perspective(900px) rotateY(5deg) rotateX(3deg) translateY(-8px);
-    border-color: var(--rarity);
-    box-shadow: 0 15px 40px var(--rarity-glow);
+.stat-card:hover {
+
+    border-color: var(--border-purple);
+
+    transform: translateY(-3px);
+
 }
 
-.card-image {
-    height: 260px;
-    position: relative;
-    overflow: hidden;
-    background: #191921;
+.stat-icon {
+
+    font-size: 22px;
+
+    margin-bottom: 12px;
+
 }
 
-.card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 20%;
-    transition: transform .6s;
-}
+.stat-value {
 
-.card:hover .card-image img {
-    transform: scale(1.08);
-}
+    font-size: 28px;
 
-.card-image::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(transparent 40%, #08080c);
-}
-
-.tier {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    z-index: 2;
-    padding: 7px 12px;
-    border-radius: 9px;
     font-weight: 900;
-    font-size: 12px;
-    background: var(--rarity);
-    color: white;
-    box-shadow: 0 0 20px var(--rarity-glow);
+
+    color: #c084fc;
+
 }
 
-.card-info {
-    padding: 15px;
-}
+.stat-label {
 
-.card-info h3 {
-    font-size: 15px;
-    margin-bottom: 5px;
-}
-
-.card-info p {
     color: var(--muted);
-    font-size: 11px;
-    margin-bottom: 15px;
+
+    font-size: 12px;
+
+    margin-top: 5px;
+
 }
 
-.card-bottom {
+/* =====================================================
+   NAVIGATION TABS
+===================================================== */
+
+.tabs-container {
+
+    position: sticky;
+
+    top: 75px;
+
+    z-index: 100;
+
+    margin-bottom: 30px;
+
+}
+
+.tabs {
+
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px;
+
+    background: rgba(17,17,25,.95);
+
+    backdrop-filter: blur(20px);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+    overflow-x: auto;
+
 }
 
-.price {
+.tab {
+
+    flex-shrink: 0;
+
+    padding: 12px 20px;
+
+    border-radius: 12px;
+
+    color: var(--muted);
+
+    background: transparent;
+
+    font-weight: 700;
+
     font-size: 13px;
-    color: #d9a4ff;
+
+    transition: .25s;
+
+}
+
+.tab:hover {
+
+    color: white;
+
+    background: rgba(255,255,255,.05);
+
+}
+
+.tab.active {
+
+    color: white;
+
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #9333ea
+    );
+
+    box-shadow: 0 5px 20px rgba(124,58,237,.25);
+
+}
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.section {
+
+    display: none;
+
+    animation: sectionFade .3s ease;
+
+}
+
+.section.active {
+
+    display: block;
+
+}
+
+@keyframes sectionFade {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(10px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+/* =====================================================
+   SECTION HEADER
+===================================================== */
+
+.section-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+
+}
+
+.section-header h2 {
+
+    font-size: 27px;
+
+    font-weight: 900;
+
+}
+
+.section-header p {
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    margin-top: 6px;
+
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.button {
+
+    display: inline-flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 12px 20px;
+
+    border-radius: 12px;
+
+    color: white;
+
     font-weight: 800;
+
+    font-size: 13px;
+
+    transition: .25s;
+
 }
 
-.card-btn {
-    background: #22222d;
+.button:hover {
+
+    transform: translateY(-2px);
+
+}
+
+.button-primary {
+
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #9333ea
+    );
+
+    box-shadow: 0 5px 20px rgba(124,58,237,.2);
+
+}
+
+.button-secondary {
+
+    background: var(--panel2);
+
+    border: 1px solid var(--border);
+
+}
+
+.button-danger {
+
+    background: rgba(220,38,38,.15);
+
+    border: 1px solid rgba(220,38,38,.3);
+
+    color: #fca5a5;
+
+}
+
+.button-pink {
+
+    background: linear-gradient(
+        135deg,
+        #db2777,
+        #ec4899
+    );
+
+}
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-container {
+
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 25px;
+
+}
+
+.search-input {
+
+    flex: 1;
+
+    min-width: 220px;
+
+    padding: 14px 18px;
+
+    background: var(--panel);
+
     color: white;
-    border: 1px solid #353541;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 11px;
-    transition: .2s;
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    outline: none;
+
+    font-size: 14px;
+
 }
 
-.card-btn:hover {
-    background: var(--rarity);
-    border-color: var(--rarity);
+.search-input:focus {
+
+    border-color: var(--purple);
+
+    box-shadow: 0 0 0 3px rgba(168,85,247,.1);
+
 }
 
-.wishlist-btn {
+.search-input::placeholder {
+
+    color: #777785;
+
+}
+
+.select-input {
+
+    padding: 13px 15px;
+
+    background: var(--panel);
+
+    color: white;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    outline: none;
+
+}
+
+/* =====================================================
+   CHARACTER GRID
+===================================================== */
+
+.character-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill,minmax(220px,1fr));
+
+    gap: 20px;
+
+}
+
+/* =====================================================
+   CHARACTER CARD
+===================================================== */
+
+.character-card {
+
+    position: relative;
+
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    transition: .3s;
+
+    transform-style: preserve-3d;
+
+}
+
+.character-card:hover {
+
+    transform: translateY(-7px);
+
+    border-color: rgba(168,85,247,.5);
+
+    box-shadow:
+        0 15px 40px rgba(168,85,247,.1);
+
+}
+
+.character-image-container {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 320px;
+
+    overflow: hidden;
+
+    background: linear-gradient(
+        135deg,
+        #171723,
+        #24142d,
+        #151523
+    );
+
+}
+
+.character-image {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+    transition: transform .5s;
+
+}
+
+.character-card:hover .character-image {
+
+    transform: scale(1.05);
+
+}
+
+/* IMAGE FALLBACK */
+
+.image-fallback {
+
     position: absolute;
-    right: 12px;
-    top: 12px;
-    z-index: 5;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    background: #0009;
-    border: 1px solid #ffffff25;
-    color: white;
-    font-size: 17px;
-    backdrop-filter: blur(10px);
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-direction: column;
+
+    padding: 20px;
+
+    text-align: center;
+
+    background:
+
+        radial-gradient(
+            circle at 50% 30%,
+            rgba(168,85,247,.3),
+            transparent 55%
+        ),
+
+        linear-gradient(
+            135deg,
+            #161622,
+            #27152f
+        );
+
 }
 
-.wishlist-btn:hover {
-    color: #ff4fa3;
-    transform: scale(1.15);
+.image-fallback-symbol {
+
+    font-size: 70px;
+
+    opacity: .4;
+
+    font-weight: 900;
+
+    color: #c084fc;
+
+}
+
+.image-fallback-name {
+
+    font-size: 16px;
+
+    font-weight: 900;
+
+    margin-top: 10px;
+
 }
 
 /* RARITY */
 
-.rarity-Z {
-    --rarity: #ffdc68;
-    --rarity-glow: #ffdc6840;
-}
+.rarity-badge {
 
-.rarity-S {
-    --rarity: #ff4fa3;
-    --rarity-glow: #ff4fa340;
+    position: absolute;
+
+    top: 12px;
+
+    left: 12px;
+
+    z-index: 5;
+
+    padding: 7px 12px;
+
+    border-radius: 50px;
+
+    font-size: 10px;
+
+    font-weight: 1000;
+
+    letter-spacing: 1px;
+
+    backdrop-filter: blur(10px);
+
 }
 
 .rarity-A {
-    --rarity: #a366ff;
-    --rarity-glow: #a366ff40;
+
+    background: rgba(100,116,139,.9);
+
 }
 
 .rarity-B {
-    --rarity: #4f9fff;
-    --rarity-glow: #4f9fff40;
+
+    background: rgba(37,99,235,.9);
+
 }
 
 .rarity-C {
-    --rarity: #4bd9c0;
-    --rarity-glow: #4bd9c040;
+
+    background: rgba(5,150,105,.9);
+
 }
 
-.rarity-D {
-    --rarity: #9696a2;
-    --rarity-glow: #9696a240;
+.rarity-S {
+
+    background: rgba(124,58,237,.9);
+
 }
 
-/* MARKET */
+.rarity-SS {
 
-.search-container {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+    background: rgba(219,39,119,.9);
+
 }
 
-.search {
-    flex: 1;
-    min-width: 180px;
-    background: #14141b;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 13px 16px;
-    color: white;
-    outline: none;
+.rarity-SSS {
+
+    background: rgba(220,38,38,.9);
+
 }
 
-.search:focus {
-    border-color: var(--purple);
+.rarity-Z {
+
+    background: linear-gradient(
+        135deg,
+        #facc15,
+        #f97316,
+        #ec4899
+    );
+
+    color: black;
+
 }
 
-.search-btn {
-    background: #7c3cff;
-    color: white;
-    border: none;
-    padding: 12px 18px;
-    border-radius: 12px;
-    font-weight: 700;
+/* CARD INFORMATION */
+
+.character-info {
+
+    padding: 18px;
+
 }
 
-.filters {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 25px;
+.character-name {
+
+    font-size: 17px;
+
+    font-weight: 900;
+
+    margin-bottom: 6px;
+
 }
 
-.filter {
-    padding: 8px 14px;
-    border-radius: 9px;
-    border: 1px solid var(--border);
-    background: #14141b;
-    color: #aaa;
-    font-size: 12px;
-}
+.character-source {
 
-.filter.active {
-    color: white;
-    background: #7436d8;
-    border-color: #7436d8;
-}
-
-/* API SEARCH */
-
-.api-box {
-    padding: 25px;
-    background: linear-gradient(135deg, #14111c, #111117);
-    border: 1px solid #352544;
-    border-radius: 18px;
-    margin-bottom: 25px;
-}
-
-.api-box h3 {
-    margin-bottom: 10px;
-}
-
-.api-box p {
     color: var(--muted);
-    font-size: 13px;
-    margin-bottom: 15px;
-    line-height: 1.6;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
 }
 
-.api-results {
-    margin-top: 15px;
+.character-meta {
+
     display: flex;
-    flex-wrap: wrap;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 15px;
+
+    font-size: 12px;
+
+}
+
+.character-price {
+
+    color: #c084fc;
+
+    font-weight: 900;
+
+}
+
+.character-actions {
+
+    display: flex;
+
     gap: 8px;
+
+    margin-top: 15px;
+
 }
 
-.anime-result {
-    background: #201a2c;
-    border: 1px solid #392b4d;
-    color: #d8c0ff;
+.card-button {
+
+    flex: 1;
+
+    padding: 10px;
+
     border-radius: 10px;
-    padding: 10px 14px;
-    font-size: 12px;
+
+    background: var(--panel3);
+
+    color: white;
+
+    font-weight: 800;
+
+    font-size: 11px;
+
 }
 
-.anime-result:hover {
-    background: #39224d;
+.card-button:hover {
+
+    filter: brightness(1.2);
+
 }
 
-.status {
-    color: #a78bfa;
-    font-size: 12px;
-    margin-top: 12px;
+.card-buy {
+
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #9333ea
+    );
+
 }
 
-/* ROLL */
+.card-wishlist {
+
+    background: #292435;
+
+}
+
+.card-wishlist.wishlisted {
+
+    background: #be185d;
+
+}
+
+/* =====================================================
+   ROLL SECTION
+===================================================== */
 
 .roll-container {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
     text-align: center;
-    padding: 30px 10px;
+
+    padding: 35px 20px;
+
+}
+
+.roll-display {
+
+    width: 360px;
+
+    max-width: 100%;
+
+    border-radius: 28px;
+
+    overflow: hidden;
+
+    background: var(--panel);
+
+    border: 2px solid rgba(168,85,247,.3);
+
+    box-shadow:
+
+        0 0 40px rgba(168,85,247,.12),
+
+        var(--shadow);
+
+    transition: .3s;
+
+}
+
+.roll-display.rolling {
+
+    animation: rollShake .12s infinite alternate;
+
+}
+
+@keyframes rollShake {
+
+    from {
+
+        transform: rotate(-2deg) scale(.97);
+
+    }
+
+    to {
+
+        transform: rotate(2deg) scale(1.03);
+
+    }
+
+}
+
+.roll-image {
+
+    height: 400px;
+
+    position: relative;
+
+    background: linear-gradient(
+        135deg,
+        #161622,
+        #27152f
+    );
+
+}
+
+.roll-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+.roll-info {
+
+    padding: 25px;
+
+}
+
+.roll-info h2 {
+
+    font-size: 25px;
+
+    font-weight: 1000;
+
+}
+
+.roll-info p {
+
+    color: var(--muted);
+
+    margin-top: 10px;
+
 }
 
 .roll-button {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    border: 2px solid #a855f7;
-    background: radial-gradient(circle, #2d154b, #0c0c12);
+
+    margin-top: 30px;
+
+    padding: 18px 50px;
+
+    border-radius: 15px;
+
+    background: linear-gradient(
+        135deg,
+        #7c3aed,
+        #ec4899
+    );
+
     color: white;
-    font-size: 20px;
-    font-weight: 900;
+
+    font-size: 18px;
+
+    font-weight: 1000;
+
     box-shadow:
-        0 0 30px #9b5cff40,
-        inset 0 0 30px #9b5cff20;
-    transition: .4s;
+
+        0 10px 40px rgba(168,85,247,.25);
+
 }
 
 .roll-button:hover {
-    transform: scale(1.08);
-    box-shadow: 0 0 60px #9b5cff70;
+
+    box-shadow:
+
+        0 10px 50px rgba(168,85,247,.4);
+
 }
 
-.roll-button.rolling {
-    animation: pulse 0.5s infinite alternate;
+.roll-button:disabled {
+
+    opacity: .5;
+
+    cursor: not-allowed;
+
+    transform: none;
+
 }
 
-@keyframes pulse {
-    from {
-        transform: scale(1);
-        box-shadow: 0 0 20px #9b5cff;
-    }
-    to {
-        transform: scale(1.1);
-        box-shadow: 0 0 60px #ff4fa3;
-    }
-}
+.roll-cost {
 
-/* REVEAL */
-
-.reveal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: #000d;
-    backdrop-filter: blur(20px);
-    z-index: 100;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-.reveal.active {
-    display: flex;
-}
-
-.reveal-content {
-    text-align: center;
-    animation: revealIn .6s cubic-bezier(.2,1.5,.5,1);
-    max-width: 400px;
-    width: 100%;
-}
-
-@keyframes revealIn {
-    from {
-        transform: scale(.4) rotateY(180deg);
-        opacity: 0;
-    }
-    to {
-        transform: scale(1) rotateY(0);
-        opacity: 1;
-    }
-}
-
-.reveal-card {
-    width: 280px;
-    max-width: 100%;
-    margin: 20px auto;
-    border-radius: 20px;
-    overflow: hidden;
-    border: 2px solid var(--rarity);
-    box-shadow: 0 0 60px var(--rarity-glow);
-    position: relative;
-}
-
-.reveal-card img {
-    width: 100%;
-    height: 380px;
-    object-fit: cover;
-}
-
-.reveal-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(transparent 50%, #000e);
-}
-
-.reveal-name {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-    z-index: 3;
-    font-size: 24px;
-    font-weight: 900;
-}
-
-.reveal-tier {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    z-index: 3;
-    background: var(--rarity);
-    padding: 8px 15px;
-    border-radius: 10px;
-    font-weight: 900;
-}
-
-.reveal-text {
-    font-size: 30px;
-    font-weight: 900;
-    margin: 20px 0;
-}
-
-.reveal-close {
-    background: linear-gradient(135deg, #8b3dff, #d34fff);
-    color: white;
-    border: none;
-    padding: 14px 40px;
-    border-radius: 12px;
-    font-weight: 900;
-}
-
-/* HISTORY */
-
-.history-item {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 12px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 10px;
-}
-
-.history-item img {
-    width: 60px;
-    height: 75px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.history-item div {
-    flex: 1;
-}
-
-.history-item p {
     color: var(--muted);
-    font-size: 12px;
-    margin-top: 5px;
+
+    font-size: 13px;
+
+    margin-top: 15px;
+
 }
 
-/* LOADING */
+/* =====================================================
+   EMPTY STATES
+===================================================== */
+
+.empty-state {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-direction: column;
+
+    padding: 70px 25px;
+
+    background: var(--panel);
+
+    border: 1px dashed rgba(255,255,255,.1);
+
+    border-radius: 22px;
+
+    text-align: center;
+
+}
+
+.empty-icon {
+
+    font-size: 55px;
+
+    margin-bottom: 20px;
+
+}
+
+.empty-state h3 {
+
+    font-size: 20px;
+
+    margin-bottom: 10px;
+
+}
+
+.empty-state p {
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    max-width: 350px;
+
+    line-height: 1.7;
+
+}
+
+/* =====================================================
+   LOADING
+===================================================== */
 
 .loading {
-    color: #aaa;
-    padding: 30px;
+
     text-align: center;
+
+    padding: 50px;
+
+    color: var(--muted);
+
 }
 
-.loading::after {
-    content: "";
-    display: block;
-    width: 25px;
-    height: 25px;
-    margin: 15px auto;
-    border: 3px solid #333;
+.spinner {
+
+    width: 35px;
+
+    height: 35px;
+
+    border: 3px solid rgba(168,85,247,.2);
+
     border-top-color: var(--purple);
+
     border-radius: 50%;
+
     animation: spin .7s linear infinite;
+
+    margin: 0 auto 15px;
+
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
-}
 
-.empty {
-    color: var(--muted);
-    text-align: center;
-    padding: 50px 20px;
-    background: var(--panel);
-    border-radius: 15px;
-    border: 1px dashed var(--border);
-}
-
-/* PARTICLES */
-
-.particle {
-    position: fixed;
-    pointer-events: none;
-    z-index: 0;
-    width: 3px;
-    height: 3px;
-    background: #a855f7;
-    border-radius: 50%;
-    animation: particleFloat linear infinite;
-    opacity: .3;
-}
-
-@keyframes particleFloat {
-    from {
-        transform: translateY(100vh);
-        opacity: 0;
-    }
-    20% { opacity: .5; }
     to {
-        transform: translateY(-100px);
-        opacity: 0;
+
+        transform: rotate(360deg);
+
     }
+
 }
 
-/* MOBILE */
+/* =====================================================
+   TOAST
+===================================================== */
 
-@media(max-width:900px) {
+.toast-container {
 
-    .sidebar {
-        width: 70px;
-        min-width: 70px;
-        padding: 15px 8px;
+    position: fixed;
+
+    bottom: 25px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 9999;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    pointer-events: none;
+
+}
+
+.toast {
+
+    padding: 15px 25px;
+
+    background: rgba(20,20,30,.95);
+
+    backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(168,85,247,.3);
+
+    border-radius: 15px;
+
+    box-shadow: var(--shadow);
+
+    animation: toastIn .3s;
+
+    white-space: nowrap;
+
+}
+
+@keyframes toastIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(20px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.modal-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,.8);
+
+    backdrop-filter: blur(10px);
+
+    z-index: 5000;
+
+    display: none;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+
+}
+
+.modal-overlay.active {
+
+    display: flex;
+
+}
+
+.modal {
+
+    background: var(--panel);
+
+    border: 1px solid var(--border-purple);
+
+    border-radius: 25px;
+
+    max-width: 450px;
+
+    width: 100%;
+
+    padding: 30px;
+
+    text-align: center;
+
+    animation: modalIn .3s;
+
+}
+
+@keyframes modalIn {
+
+    from {
+
+        opacity: 0;
+
+        transform: scale(.8);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: scale(1);
+
+    }
+
+}
+
+.modal h2 {
+
+    font-size: 25px;
+
+    margin-bottom: 15px;
+
+}
+
+.modal p {
+
+    color: var(--muted);
+
+    line-height: 1.7;
+
+    margin-bottom: 20px;
+
+}
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+.history-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+}
+
+.history-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 15px;
+
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+}
+
+.history-image {
+
+    width: 65px;
+
+    height: 80px;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+
+    background: var(--panel2);
+
+}
+
+.history-info {
+
+    flex: 1;
+
+}
+
+.history-info h3 {
+
+    font-size: 14px;
+
+    margin-bottom: 5px;
+
+}
+
+.history-info p {
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+}
+
+.history-rarity {
+
+    font-weight: 900;
+
+    font-size: 12px;
+
+}
+
+/* =====================================================
+   WISHLIST
+===================================================== */
+
+.wishlist-heart {
+
+    color: #ec4899;
+
+}
+
+/* =====================================================
+   SHOWCASE
+===================================================== */
+
+.showcase-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(3,1fr);
+
+    gap: 20px;
+
+}
+
+.showcase-slot {
+
+    min-height: 300px;
+
+    border: 2px dashed rgba(168,85,247,.25);
+
+    border-radius: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: rgba(168,85,247,.03);
+
+    overflow: hidden;
+
+    position: relative;
+
+}
+
+.showcase-slot img {
+
+    width: 100%;
+
+    height: 100%;
+
+    position: absolute;
+
+    object-fit: cover;
+
+}
+
+.showcase-slot-content {
+
+    text-align: center;
+
+    color: var(--muted);
+
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer {
+
+    margin-top: 70px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    border-top: 1px solid var(--border);
+
+    font-size: 12px;
+
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:850px) {
+
+    .stats {
+
+        grid-template-columns: repeat(2,1fr);
+
+    }
+
+    .showcase-grid {
+
+        grid-template-columns: repeat(2,1fr);
+
+    }
+
+}
+
+@media(max-width:600px) {
+
+    .navbar {
+
+        padding: 13px 4%;
+
     }
 
     .logo {
-        font-size: 17px;
-        text-align: center;
-        padding: 10px 0 25px;
+
+        font-size: 20px;
+
     }
 
-    .logo span {
-        display: none;
-    }
+    .wallet {
 
-    .nav-btn {
-        text-align: center;
-        padding: 13px 5px;
-        font-size: 0;
-    }
+        padding: 8px 12px;
 
-    .nav-btn::first-letter {
-        font-size: 18px;
-    }
+        font-size: 12px;
 
-    .nav-label,
-    .sidebar-bottom {
-        display: none;
     }
 
     .main {
-        margin-left: 70px;
-        padding: 20px;
+
+        padding: 20px 4%;
+
+    }
+
+    .hero {
+
+        padding: 45px 10px;
+
+    }
+
+    .hero h1 {
+
+        letter-spacing: -2px;
+
     }
 
     .stats {
-        grid-template-columns: repeat(2, 1fr);
+
+        gap: 10px;
+
+    }
+
+    .stat-card {
+
+        padding: 15px;
+
+    }
+
+    .stat-value {
+
+        font-size: 23px;
+
+    }
+
+    .tabs-container {
+
+        top: 68px;
+
+    }
+
+    .tab {
+
+        padding: 10px 15px;
+
+        font-size: 12px;
+
+    }
+
+    .character-grid {
+
+        grid-template-columns: repeat(2,minmax(0,1fr));
+
+        gap: 12px;
+
+    }
+
+    .character-image-container {
+
+        height: 240px;
+
+    }
+
+    .character-info {
+
+        padding: 12px;
+
+    }
+
+    .character-name {
+
+        font-size: 14px;
+
+    }
+
+    .character-actions {
+
+        gap: 5px;
+
+    }
+
+    .card-button {
+
+        padding: 8px 5px;
+
+        font-size: 10px;
+
+    }
+
+    .roll-image {
+
+        height: 350px;
+
+    }
+
+    .showcase-grid {
+
+        grid-template-columns: 1fr;
+
     }
 
 }
 
-@media(max-width:550px) {
+/* =====================================================
+   RARITY EFFECTS
+===================================================== */
 
-    .main {
-        padding: 15px;
+.card-rarity-SSS {
+
+    border-color: rgba(220,38,38,.4);
+
+}
+
+.card-rarity-SSS:hover {
+
+    box-shadow:
+
+        0 0 30px rgba(220,38,38,.15);
+
+}
+
+.card-rarity-Z {
+
+    border-color: rgba(250,204,21,.4);
+
+}
+
+.card-rarity-Z:hover {
+
+    box-shadow:
+
+        0 0 40px rgba(250,204,21,.15);
+
+}
+
+/* =====================================================
+   Z TIER SPECIAL EFFECT
+===================================================== */
+
+.rarity-Z-glow {
+
+    animation: zGlow 2s infinite alternate;
+
+}
+
+@keyframes zGlow {
+
+    from {
+
+        box-shadow:
+
+            0 0 15px rgba(250,204,21,.15);
+
     }
 
-    .header h1 {
-        font-size: 22px;
+    to {
+
+        box-shadow:
+
+            0 0 35px rgba(250,204,21,.4);
+
     }
 
-    .hero {
-        padding: 25px;
+}
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+.particle-container {
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 9998;
+
+    overflow: hidden;
+
+}
+
+.particle {
+
+    position: absolute;
+
+    width: 5px;
+
+    height: 5px;
+
+    background: #c084fc;
+
+    border-radius: 50%;
+
+    animation: particleFloat 3s linear forwards;
+
+}
+
+@keyframes particleFloat {
+
+    0% {
+
+        opacity: 0;
+
+        transform: translateY(0) scale(0);
+
     }
 
-    .hero h2 {
-        font-size: 24px;
+    20% {
+
+        opacity: 1;
+
+        transform: scale(1);
+
     }
 
-    .grid {
-        grid-template-columns: repeat(2, minmax(0,1fr));
-        gap: 10px;
+    100% {
+
+        opacity: 0;
+
+        transform: translateY(-150px) scale(0);
+
     }
 
-    .card-image {
-        height: 220px;
-    }
+}
 
-    .card-info {
-        padding: 10px;
-    }
+/* =====================================================
+   SETTINGS
+===================================================== */
 
-    .card-info h3 {
-        font-size: 13px;
-    }
+.settings-grid {
 
-    .card-btn {
-        padding: 7px;
-    }
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+
+    gap: 15px;
+
+}
+
+.settings-card {
+
+    padding: 20px;
+
+    background: var(--panel);
+
+    border: 1px solid var(--border);
+
+    border-radius: 18px;
+
+}
+
+.settings-card h3 {
+
+    margin-bottom: 10px;
+
+}
+
+.settings-card p {
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.7;
 
 }
 
 </style>
 </head>
-
 <body>
 
-<div class="app">
+<!-- =====================================================
+     PARTICLE CONTAINER
+===================================================== -->
 
-<!-- SIDEBAR -->
+<div class="particle-container" id="particles"></div>
 
-<aside class="sidebar">
 
-<div class="logo">
-WAIFU<span>SWAP</span>
-</div>
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
-<div class="nav-label">MAIN</div>
+<header class="navbar">
 
-<button class="nav-btn active" onclick="navigate('dashboard')">
-🏠 Dashboard
-</button>
+    <div class="logo" onclick="navigate('home')">
+        WAIFU<span>SWAP</span>
+    </div>
 
-<button class="nav-btn" onclick="navigate('market')">
-🛒 Market
-</button>
+    <div class="nav-right">
 
-<button class="nav-btn" onclick="navigate('roll')">
-🎲 Roll
-</button>
+        <div class="wallet">
 
-<button class="nav-btn" onclick="navigate('collection')">
-💎 Collection
-</button>
+            <span class="wallet-icon">💎</span>
 
-<div class="nav-label">PERSONAL</div>
+            <span class="wallet-amount" id="walletAmount">
+                10000
+            </span>
 
-<button class="nav-btn" onclick="navigate('wishlist')">
-❤️ Wishlist
-</button>
+            <span>AC</span>
 
-<button class="nav-btn" onclick="navigate('showcase')">
-✨ Showcase
-</button>
+        </div>
 
-<button class="nav-btn" onclick="navigate('history')">
-📜 History
-</button>
+        <button class="profile-button" onclick="navigate('settings')">
+            W
+        </button>
 
-<div class="sidebar-bottom">
-<h3>WAIFU SWAP</h3>
-
-<p style="font-size:11px;color:#777;margin-top:8px">
-Collect. Trade. Dominate.
-</p>
-</div>
-
-</aside>
-
-<!-- MAIN -->
-
-<main class="main">
-
-<header class="header">
-
-<div>
-<h1 id="pageTitle">Dashboard</h1>
-
-<p id="pageDescription">
-Your collection awaits.
-</p>
-</div>
-
-<div class="currency">
-🪙 <span id="coins">1000</span> AC
-</div>
+    </div>
 
 </header>
 
-<!-- DASHBOARD -->
 
-<section id="dashboard" class="page active">
+<!-- =====================================================
+     MAIN
+===================================================== -->
 
-<div class="hero">
+<main class="main">
 
-<h2>Welcome to Waifu Swap.</h2>
 
-<p>
-Discover characters from your favorite anime.
-Collect rare characters. Build your ultimate collection.
-And maybe... get lucky.
-</p>
+<!-- =====================================================
+     HERO
+===================================================== -->
 
-<button onclick="navigate('roll')">
-🎲 ROLL NOW
-</button>
+<section class="hero" id="homeHero">
 
-</div>
+    <div class="hero-badge">
+        THE ULTIMATE ANIME COLLECTION
+    </div>
+
+    <h1>WAIFU SWAP</h1>
+
+    <p>
+        Discover characters from the entire anime and manga universe.
+        Collect. Trade. Roll. Build your dream collection.
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     STATISTICS
+===================================================== -->
 
 <div class="stats">
 
-<div class="stat">
-<p>COLLECTION</p>
-<h2 id="statCollection">0</h2>
-</div>
+    <div class="stat-card">
 
-<div class="stat">
-<p>CHARACTERS DISCOVERED</p>
-<h2 id="statDiscovered">0</h2>
-</div>
+        <div class="stat-icon">👑</div>
 
-<div class="stat">
-<p>ROLLS</p>
-<h2 id="statRolls">0</h2>
-</div>
+        <div class="stat-value" id="totalOwned">
+            0
+        </div>
 
-<div class="stat">
-<p>COINS</p>
-<h2 id="statCoins">1000</h2>
-</div>
+        <div class="stat-label">
+            Characters Owned
+        </div>
 
-</div>
+    </div>
 
-<div class="section-title">
-<h2>✨ Recent Acquisitions</h2>
-<button class="card-btn" onclick="navigate('collection')">
-View Collection →
-</button>
-</div>
 
-<div id="recentCollection" class="grid"></div>
+    <div class="stat-card">
 
-<div class="section-title">
-<h2>🔥 Featured Characters</h2>
-</div>
+        <div class="stat-icon">🎲</div>
 
-<div id="featured" class="grid"></div>
+        <div class="stat-value" id="totalRolls">
+            0
+        </div>
 
-</section>
+        <div class="stat-label">
+            Total Rolls
+        </div>
 
-<!-- MARKET -->
+    </div>
 
-<section id="market" class="page">
 
-<div class="api-box">
+    <div class="stat-card">
 
-<h3>🌌 Expand the Universe</h3>
+        <div class="stat-icon">💎</div>
 
-<p>
-Search for an anime. Waifu Swap will retrieve its characters
-and artwork from AniList and add them to your character database.
-</p>
+        <div class="stat-value" id="walletStat">
+            10000
+        </div>
 
-<div class="search-container">
+        <div class="stat-label">
+            AC Balance
+        </div>
 
-<input
-id="animeSearch"
-class="search"
-placeholder="Search anime... (e.g. Frieren)"
->
+    </div>
 
-<button class="search-btn" onclick="searchAnime()">
-SEARCH ANIME
-</button>
+
+    <div class="stat-card">
+
+        <div class="stat-icon">🌌</div>
+
+        <div class="stat-value" id="databaseCount">
+            0
+        </div>
+
+        <div class="stat-label">
+            Discovered Characters
+        </div>
+
+    </div>
 
 </div>
 
-<div id="animeResults" class="api-results"></div>
 
-<div id="apiStatus" class="status"></div>
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
 
-</div>
+<div class="tabs-container">
 
-<div class="section-title">
+    <div class="tabs">
 
-<h2>Character Market</h2>
+        <button class="tab active" data-page="home">
+            🏠 Home
+        </button>
 
-<small id="marketCount"></small>
+        <button class="tab" data-page="roll">
+            🎲 Roll
+        </button>
 
-</div>
+        <button class="tab" data-page="market">
+            🛒 Marketplace
+        </button>
 
-<div class="search-container">
+        <button class="tab" data-page="collection">
+            👑 Collection
+        </button>
 
-<input
-id="marketSearch"
-class="search"
-placeholder="Search characters..."
-oninput="renderMarket()"
->
+        <button class="tab" data-page="discover">
+            🌌 Discover
+        </button>
 
-</div>
+        <button class="tab" data-page="wishlist">
+            ❤️ Wishlist
+        </button>
 
-<div class="filters">
+        <button class="tab" data-page="showcase">
+            ✨ Showcase
+        </button>
 
-<button class="filter active" onclick="setFilter('ALL',this)">
-ALL
-</button>
+        <button class="tab" data-page="history">
+            📜 History
+        </button>
 
-<button class="filter" onclick="setFilter('Z',this)">
-Z
-</button>
+        <button class="tab" data-page="rewards">
+            🎁 Rewards
+        </button>
 
-<button class="filter" onclick="setFilter('S',this)">
-S
-</button>
+        <button class="tab" data-page="settings">
+            ⚙️ Settings
+        </button>
 
-<button class="filter" onclick="setFilter('A',this)">
-A
-</button>
-
-<button class="filter" onclick="setFilter('B',this)">
-B
-</button>
-
-<button class="filter" onclick="setFilter('C',this)">
-C
-</button>
-
-<button class="filter" onclick="setFilter('D',this)">
-D
-</button>
+    </div>
 
 </div>
 
-<div id="marketGrid" class="grid"></div>
 
-</section>
+<!-- =====================================================
+     HOME PAGE
+===================================================== -->
 
-<!-- ROLL -->
+<section class="section active" id="page-home">
 
-<section id="roll" class="page">
+    <div class="section-header">
 
-<div class="hero">
+        <div>
 
-<h2>🎲 Character Summoning</h2>
+            <h2>Dashboard</h2>
 
-<p>
-The universe has thousands of characters.
-Your luck decides which one you get.
-</p>
+            <p>
+                Your anime collection journey starts here.
+            </p>
 
-</div>
+        </div>
 
-<div class="roll-container">
+    </div>
 
-<button id="rollButton" class="roll-button" onclick="rollCharacter()">
-ROLL
-</button>
 
-<p style="margin-top:20px;color:#888">
-One roll costs <b style="color:#d4a3ff">100 AC</b>
-</p>
+    <!-- RECENT ACQUISITION -->
 
-<p style="margin-top:8px;color:#666;font-size:12px">
-Your rolled character will be added to your collection.
-</p>
+    <div id="recentAcquisition">
 
-</div>
+        <div class="empty-state">
 
-<div class="section-title">
-<h2>🎰 Recent Rolls</h2>
-</div>
-
-<div id="rollRecent"></div>
-
-</section>
-
-<!-- COLLECTION -->
-
-<section id="collection" class="page">
-
-<div class="section-title">
-
-<h2>💎 Your Collection</h2>
-
-<small id="collectionCount"></small>
-
-</div>
-
-<div id="collectionGrid" class="grid"></div>
-
-</section>
-
-<!-- WISHLIST -->
-
-<section id="wishlist" class="page">
-
-<div class="section-title">
-<h2>❤️ Wishlist</h2>
-</div>
-
-<div id="wishlistGrid" class="grid"></div>
-
-</section>
-
-<!-- SHOWCASE -->
-
-<section id="showcase" class="page">
-
-<div class="hero">
-
-<h2>✨ Your Showcase</h2>
-
-<p>
-Your favorite characters.
-Your personal hall of fame.
-</p>
-
-</div>
-
-<div id="showcaseGrid" class="grid"></div>
-
-</section>
-
-<!-- HISTORY -->
-
-<section id="history" class="page">
-
-<div class="section-title">
-<h2>📜 Roll History</h2>
-</div>
-
-<div id="historyList"></div>
-
-</section>
-
-</main>
-
-</div>
-
-<!-- REVEAL -->
-
-<div id="reveal" class="reveal">
-
-<div class="reveal-content">
-
-<div class="reveal-text">
-✨ SUMMONED ✨
-</div>
-
-<div id="revealCard"></div>
-
-<p id="revealMessage" style="margin:20px;color:#aaa"></p>
-
-<button class="reveal-close" onclick="closeReveal()">
-CONTINUE
-</button>
-
-</div>
-
-</div>
-
-<script>
-
-/* =====================================
-   GAME DATABASE
-===================================== */
-
-const animeDatabase = [
-    "Frieren: Beyond Journey's End",
-    "The Fragrant Flower Blooms With Dignity",
-    "My Dress-Up Darling",
-    "Spy x Family",
-    "Re:Zero",
-    "That Time I Got Reincarnated as a Slime",
-    "Kaguya-sama: Love Is War",
-    "Oshi no Ko",
-    "Bocchi the Rock!",
-    "Demon Slayer",
-    "Jujutsu Kaisen",
-    "Chainsaw Man",
-    "One Piece",
-    "Naruto",
-    "Bleach",
-    "Attack on Titan",
-    "Sword Art Online",
-    "The Apothecary Diaries",
-    "Violet Evergarden",
-    "Horimiya",
-    "Blue Lock",
-    "Solo Leveling",
-    "Black Clover",
-    "Fate/stay night",
-    "Hunter x Hunter",
-    "Dragon Ball",
-    "Love Live!",
-    "The Quintessential Quintuplets",
-    "Rascal Does Not Dream",
-    "Classroom of the Elite"
-];
-
-/* =====================================
-   GAME STATE
-===================================== */
-
-let game = JSON.parse(localStorage.getItem("waifuSwapSave")) || {
-
-    coins: 1000,
-
-    collection: [],
-
-    wishlist: [],
-
-    showcase: [],
-
-    history: [],
-
-    rolls: 0,
-
-    characters: [],
-
-    discovered: []
-
-};
-
-let characters = game.characters || [];
-
-let currentFilter = "ALL";
-
-let currentPage = "dashboard";
-
-/* =====================================
-   SAVE
-===================================== */
-
-function save() {
-
-    game.characters = characters;
-
-    localStorage.setItem(
-        "waifuSwapSave",
-        JSON.stringify(game)
-    );
-
-}
-
-/* =====================================
-   RARITY
-===================================== */
-
-function getTier(character) {
-
-    if(character.tier) return character.tier;
-
-    let tier = Math.random();
-
-    if(tier < .002) return "Z";
-    if(tier < .02) return "S";
-    if(tier < .10) return "A";
-    if(tier < .30) return "B";
-    if(tier < .65) return "C";
-
-    return "D";
-
-}
-
-function tierPrice(tier) {
-
-    const prices = {
-        Z: 500000,
-        S: 100000,
-        A: 25000,
-        B: 10000,
-        C: 3000,
-        D: 500
-    };
-
-    return prices[tier] || 500;
-
-}
-
-/* =====================================
-   CHARACTER CREATION
-===================================== */
-
-function createCharacter(data) {
-
-    if(!data.image) return null;
-
-    return {
-
-        id: String(data.id),
-
-        name: data.name,
-
-        anime: data.anime || "Unknown Anime",
-
-        image: data.image,
-
-        tier: data.tier || getTier(data),
-
-        price: data.price || tierPrice(data.tier || "D"),
-
-        owned: false
-
-    };
-
-}
-
-/* =====================================
-   ANILIST API
-===================================== */
-
-const ANILIST_API = "https://graphql.anilist.co";
-
-async function anilist(query, variables = {}) {
-
-    const response = await fetch(ANILIST_API, {
-
-        method: "POST",
-
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        },
-
-        body: JSON.stringify({
-
-            query,
-
-            variables
-
-        })
-
-    });
-
-    if(!response.ok) {
-
-        throw new Error("AniList API error");
-
-    }
-
-    const data = await response.json();
-
-    if(data.errors) {
-
-        throw new Error(data.errors[0].message);
-
-    }
-
-    return data.data;
-
-}
-
-/* =====================================
-   SEARCH ANIME
-===================================== */
-
-async function searchAnime() {
-
-    const search = document.getElementById("animeSearch").value.trim();
-
-    const results = document.getElementById("animeResults");
-
-    const status = document.getElementById("apiStatus");
-
-    if(!search) return;
-
-    results.innerHTML = "";
-
-    status.innerHTML = "Searching the anime universe...";
-
-    try {
-
-        const data = await anilist(`
-
-        query($search:String) {
-
-            Page(perPage:10) {
-
-                media(search:$search,type:ANIME) {
-
-                    id
-
-                    title {
-                        romaji
-                        english
-                    }
-
-                    coverImage {
-                        large
-                    }
-
-                }
-
-            }
-
-        }
-
-        `, {
-
-            search
-
-        });
-
-        results.innerHTML = "";
-
-        data.Page.media.forEach(anime => {
-
-            const button = document.createElement("button");
-
-            button.className = "anime-result";
-
-            button.innerText = anime.title.english || anime.title.romaji;
-
-            button.onclick = () => loadAnimeCharacters(anime);
-
-            results.appendChild(button);
-
-        });
-
-        status.innerText = data.Page.media.length
-            ? "Select an anime to import its characters."
-            : "No anime found.";
-
-    }
-
-    catch(error) {
-
-        status.innerText = "API error. Try again later.";
-
-        console.error(error);
-
-    }
-
-}
-
-/* =====================================
-   IMPORT CHARACTERS
-===================================== */
-
-async function loadAnimeCharacters(anime) {
-
-    const status = document.getElementById("apiStatus");
-
-    status.innerText = "Loading character portraits...";
-
-    try {
-
-        const data = await anilist(`
-
-        query($id:Int) {
-
-            Media(id:$id) {
-
-                characters(page:1,perPage:50,sort:ROLE) {
-
-                    nodes {
-
-                        id
-
-                        name {
-                            full
-                        }
-
-                        image {
-                            large
-                            medium
-                        }
-
-                    }
-
-                }
-
-            }
-
-        }
-
-        `, {
-
-            id: anime.id
-
-        });
-
-        let imported = 0;
-
-        const animeName = anime.title.english || anime.title.romaji;
-
-        data.Media.characters.nodes.forEach(character => {
-
-            const image =
-                character.image.large ||
-                character.image.medium;
-
-            if(!image) return;
-
-            const exists = characters.some(c => c.id === String(character.id));
-
-            if(exists) return;
-
-            const newCharacter = createCharacter({
-
-                id: character.id,
-
-                name: character.name.full,
-
-                anime: animeName,
-
-                image: image
-
-            });
-
-            if(newCharacter) {
-
-                characters.push(newCharacter);
-
-                imported++;
-
-            }
-
-        });
-
-        save();
-
-        renderMarket();
-
-        status.innerHTML = `
-            <span style="color:#8dffb5">
-            Successfully imported ${imported} characters from ${animeName}.
-            </span>
-        `;
-
-    }
-
-    catch(error) {
-
-        status.innerText = "Could not load characters.";
-
-        console.error(error);
-
-    }
-
-}
-
-/* =====================================
-   PRELOAD ANIME
-===================================== */
-
-async function preloadAnime() {
-
-    const status = document.getElementById("apiStatus");
-
-    status.innerText = "Loading the character universe...";
-
-    for(const animeName of animeDatabase) {
-
-        try {
-
-            const data = await anilist(`
-
-            query($search:String) {
-
-                Media(search:$search,type:ANIME) {
-
-                    id
-
-                    title {
-                        romaji
-                        english
-                    }
-
-                    characters(page:1,perPage:15,sort:ROLE) {
-
-                        nodes {
-
-                            id
-
-                            name {
-                                full
-                            }
-
-                            image {
-                                large
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-
-            `, {
-
-                search: animeName
-
-            });
-
-            const anime = data.Media;
-
-            if(!anime) continue;
-
-            const title =
-                anime.title.english ||
-                anime.title.romaji;
-
-            anime.characters.nodes.forEach(character => {
-
-                if(!character.image.large) return;
-
-                const exists = characters.some(
-                    c => c.id === String(character.id)
-                );
-
-                if(exists) return;
-
-                characters.push({
-
-                    id: String(character.id),
-
-                    name: character.name.full,
-
-                    anime: title,
-
-                    image: character.image.large,
-
-                    tier: getTier(character),
-
-                    price: 0,
-
-                    owned: false
-
-                });
-
-                const newCharacter = characters[characters.length-1];
-
-                newCharacter.price = tierPrice(newCharacter.tier);
-
-            });
-
-        }
-
-        catch(error) {
-
-            console.log("Anime load failed:", animeName);
-
-        }
-
-    }
-
-    save();
-
-    renderMarket();
-
-    renderFeatured();
-
-    status.innerText =
-        "Character universe loaded: " +
-        characters.length +
-        " characters.";
-
-}
-
-/* =====================================
-   NAVIGATION
-===================================== */
-
-function navigate(page) {
-
-    currentPage = page;
-
-    document.querySelectorAll(".page").forEach(p => {
-
-        p.classList.remove("active");
-
-    });
-
-    document.getElementById(page).classList.add("active");
-
-    document.querySelectorAll(".nav-btn").forEach(b => {
-
-        b.classList.remove("active");
-
-    });
-
-    const buttons = document.querySelectorAll(".nav-btn");
-
-    const map = {
-
-        dashboard: 0,
-
-        market: 1,
-
-        roll: 2,
-
-        collection: 3,
-
-        wishlist: 4,
-
-        showcase: 5,
-
-        history: 6
-
-    };
-
-    buttons[map[page]].classList.add("active");
-
-    const titles = {
-
-        dashboard: "Dashboard",
-
-        market: "Character Market",
-
-        roll: "Summoning",
-
-        collection: "Collection",
-
-        wishlist: "Wishlist",
-
-        showcase: "Showcase",
-
-        history: "History"
-
-    };
-
-    document.getElementById("pageTitle").innerText = titles[page];
-
-    renderAll();
-
-}
-
-/* =====================================
-   CHARACTER CARD
-===================================== */
-
-function characterCard(character, buttonText, action) {
-
-    return `
-
-    <div class="card rarity-${character.tier}">
-
-        <div class="card-image">
-
-            <img
-
-                src="${character.image}"
-
-                loading="lazy"
-
-                onerror="this.onerror=null;this.src='';this.parentElement.style.background='#222'"
-
-            >
-
-            <div class="tier">
-                ${character.tier}
+            <div class="empty-icon">
+                🌸
             </div>
 
+            <h3>No Characters Yet</h3>
+
+            <p>
+                Roll your first character and begin your collection.
+            </p>
+
             <button
-
-                class="wishlist-btn"
-
-                onclick="toggleWishlist('${character.id}')"
-
+                class="button button-primary"
+                onclick="navigate('roll')"
+                style="margin-top:20px"
             >
-                ${game.wishlist.includes(character.id) ? "♥" : "♡"}
+                🎲 Start Rolling
             </button>
 
         </div>
 
-        <div class="card-info">
+    </div>
 
-            <h3>${escapeHTML(character.name)}</h3>
 
-            <p>${escapeHTML(character.anime)}</p>
+    <!-- QUICK ACTIONS -->
 
-            <div class="card-bottom">
+    <div style="margin-top:35px">
 
-                <span class="price">
-                    🪙 ${character.price.toLocaleString()}
-                </span>
+        <div class="section-header">
+
+            <h2>Quick Actions</h2>
+
+        </div>
+
+        <div class="grid">
+
+            <div class="settings-card">
+
+                <h3>🎲 Roll Characters</h3>
+
+                <p>
+                    Discover random characters from the anime universe.
+                </p>
 
                 <button
-                    class="card-btn"
-                    onclick="${action}"
+                    class="button button-primary"
+                    onclick="navigate('roll')"
+                    style="margin-top:15px"
                 >
-                    ${buttonText}
+                    Roll Now
+                </button>
+
+            </div>
+
+
+            <div class="settings-card">
+
+                <h3>🌌 Discover</h3>
+
+                <p>
+                    Search characters from anime and manga.
+                </p>
+
+                <button
+                    class="button button-secondary"
+                    onclick="navigate('discover')"
+                    style="margin-top:15px"
+                >
+                    Explore
+                </button>
+
+            </div>
+
+
+            <div class="settings-card">
+
+                <h3>🛒 Marketplace</h3>
+
+                <p>
+                    Find characters and purchase them using AC.
+                </p>
+
+                <button
+                    class="button button-secondary"
+                    onclick="navigate('market')"
+                    style="margin-top:15px"
+                >
+                    Browse
+                </button>
+
+            </div>
+
+
+            <div class="settings-card">
+
+                <h3>❤️ Wishlist</h3>
+
+                <p>
+                    Keep track of characters you want to acquire.
+                </p>
+
+                <button
+                    class="button button-secondary"
+                    onclick="navigate('wishlist')"
+                    style="margin-top:15px"
+                >
+                    View Wishlist
                 </button>
 
             </div>
@@ -1873,645 +2263,3582 @@ function characterCard(character, buttonText, action) {
 
     </div>
 
-    `;
+
+    <!-- RECENT CHARACTERS -->
+
+    <div style="margin-top:40px">
+
+        <div class="section-header">
+
+            <div>
+
+                <h2>Recently Discovered</h2>
+
+                <p>
+                    Characters recently added to your universe.
+                </p>
+
+            </div>
+
+            <button
+                class="button button-secondary"
+                onclick="navigate('discover')"
+            >
+                Discover More
+            </button>
+
+        </div>
+
+        <div class="character-grid" id="homeCharacters">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ROLL PAGE
+===================================================== -->
+
+<section class="section" id="page-roll">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>Character Summoning</h2>
+
+            <p>
+                Roll for characters across the anime and manga universe.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="roll-container">
+
+        <div class="roll-display" id="rollDisplay">
+
+            <div class="roll-image" id="rollImage">
+
+                <div class="image-fallback">
+
+                    <div class="image-fallback-symbol">
+                        ?
+                    </div>
+
+                    <div class="image-fallback-name">
+                        READY TO ROLL
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="roll-info">
+
+                <h2 id="rollName">
+                    Unknown Character
+                </h2>
+
+                <p id="rollSource">
+                    Roll to discover a character.
+                </p>
+
+                <div style="margin-top:15px">
+
+                    <span
+                        class="rarity-badge rarity-A"
+                        id="rollRarity"
+                    >
+                        ?
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="roll-button"
+            id="rollButton"
+            onclick="performRoll()"
+        >
+            🎲 SUMMON CHARACTER
+        </button>
+
+
+        <p class="roll-cost">
+            Cost: <span id="rollCost">100</span> AC
+        </p>
+
+
+        <div style="margin-top:30px">
+
+            <button
+                class="button button-secondary"
+                onclick="navigate('discover')"
+            >
+                🌌 Search Characters
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MARKETPLACE
+===================================================== -->
+
+<section class="section" id="page-market">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>Marketplace</h2>
+
+            <p>
+                Browse and purchase characters using AC.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="search-container">
+
+        <input
+            type="text"
+            class="search-input"
+            id="marketSearch"
+            placeholder="Search characters..."
+        >
+
+        <select
+            class="select-input"
+            id="marketRarity"
+        >
+
+            <option value="all">
+                All Rarities
+            </option>
+
+            <option value="A">
+                A
+            </option>
+
+            <option value="B">
+                B
+            </option>
+
+            <option value="C">
+                C
+            </option>
+
+            <option value="S">
+                S
+            </option>
+
+            <option value="SS">
+                SS
+            </option>
+
+            <option value="SSS">
+                SSS
+            </option>
+
+            <option value="Z">
+                Z
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="character-grid" id="marketGrid">
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     COLLECTION
+===================================================== -->
+
+<section class="section" id="page-collection">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>Your Collection</h2>
+
+            <p>
+                Every character you've acquired.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="search-container">
+
+        <input
+            class="search-input"
+            id="collectionSearch"
+            placeholder="Search your collection..."
+        >
+
+        <select
+            class="select-input"
+            id="collectionSort"
+        >
+
+            <option value="recent">
+                Recently Acquired
+            </option>
+
+            <option value="name">
+                Alphabetical
+            </option>
+
+            <option value="rarity">
+                Rarity
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="character-grid" id="collectionGrid">
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DISCOVERY
+===================================================== -->
+
+<section class="section" id="page-discover">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>Character Universe</h2>
+
+            <p>
+                Discover characters from anime and manga.
+                The database expands as you search.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- SEARCH TYPE -->
+
+    <div class="search-container">
+
+        <select
+            class="select-input"
+            id="discoverType"
+        >
+
+            <option value="character">
+                Characters
+            </option>
+
+            <option value="anime">
+                Anime
+            </option>
+
+            <option value="manga">
+                Manga
+            </option>
+
+        </select>
+
+
+        <input
+            type="text"
+            class="search-input"
+            id="discoverSearch"
+            placeholder="Search anime, manga or characters..."
+        >
+
+
+        <button
+            class="button button-primary"
+            onclick="searchUniverse()"
+        >
+            🔍 Search
+        </button>
+
+    </div>
+
+
+    <!-- DISCOVERY FILTER -->
+
+    <div class="search-container">
+
+        <select
+            class="select-input"
+            id="discoverSort"
+        >
+
+            <option value="popular">
+                Popularity
+            </option>
+
+            <option value="name">
+                Alphabetical
+            </option>
+
+        </select>
+
+
+        <button
+            class="button button-secondary"
+            onclick="loadPopularCharacters()"
+        >
+            🌟 Popular Characters
+        </button>
+
+
+        <button
+            class="button button-secondary"
+            onclick="loadRandomCharacters()"
+        >
+            🎲 Random Characters
+        </button>
+
+    </div>
+
+
+    <!-- API STATUS -->
+
+    <div
+        id="databaseStatus"
+        style="
+            margin-bottom:20px;
+            color:var(--muted);
+            font-size:12px;
+        "
+    >
+
+        Character database ready.
+
+    </div>
+
+
+    <!-- RESULTS -->
+
+    <div
+        class="character-grid"
+        id="discoverGrid"
+    >
+
+    </div>
+
+
+    <!-- LOAD MORE -->
+
+    <div
+        style="
+            display:flex;
+            justify-content:center;
+            margin-top:30px;
+        "
+    >
+
+        <button
+            class="button button-secondary"
+            id="loadMoreButton"
+            onclick="loadMoreCharacters()"
+        >
+
+            Load More Characters
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WISHLIST
+===================================================== -->
+
+<section class="section" id="page-wishlist">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>Wishlist</h2>
+
+            <p>
+                Characters you're hunting for.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="search-container">
+
+        <input
+            type="text"
+            class="search-input"
+            id="wishlistSearch"
+            placeholder="Search wishlist..."
+        >
+
+    </div>
+
+
+    <div
+        class="character-grid"
+        id="wishlistGrid"
+    >
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SHOWCASE
+===================================================== -->
+
+<section class="section" id="page-showcase">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>Character Showcase</h2>
+
+            <p>
+                Show off your favorite characters.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="showcase-grid"
+        id="showcaseGrid"
+    >
+
+    </div>
+
+
+    <div style="margin-top:30px">
+
+        <button
+            class="button button-primary"
+            onclick="editShowcase()"
+        >
+
+            ✨ Customize Showcase
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HISTORY
+===================================================== -->
+
+<section class="section" id="page-history">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>Acquisition History</h2>
+
+            <p>
+                Every roll and purchase.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="history-list"
+        id="historyList"
+    >
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REWARDS
+===================================================== -->
+
+<section class="section" id="page-rewards">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>Rewards</h2>
+
+            <p>
+                Earn AC through daily rewards and quests.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- DAILY REWARD -->
+
+    <div class="settings-card">
+
+        <h3>🎁 Daily Reward</h3>
+
+        <p>
+            Claim your daily AC reward.
+        </p>
+
+        <div
+            style="
+                font-size:30px;
+                color:#c084fc;
+                margin:20px 0;
+            "
+        >
+
+            +500 AC
+
+        </div>
+
+
+        <button
+            class="button button-primary"
+            id="dailyRewardButton"
+            onclick="claimDailyReward()"
+        >
+
+            Claim Reward
+
+        </button>
+
+    </div>
+
+
+    <!-- QUESTS -->
+
+    <div style="margin-top:30px">
+
+        <div class="section-header">
+
+            <h2>Daily Quests</h2>
+
+        </div>
+
+
+        <div
+            class="settings-grid"
+            id="questGrid"
+        >
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SETTINGS
+===================================================== -->
+
+<section class="section" id="page-settings">
+
+    <div class="section-header">
+
+        <div>
+
+            <h2>Settings</h2>
+
+            <p>
+                Manage your game.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="settings-grid">
+
+
+        <!-- SAVE -->
+
+        <div class="settings-card">
+
+            <h3>💾 Save Data</h3>
+
+            <p>
+                Your game is automatically saved in your browser.
+            </p>
+
+            <button
+                class="button button-secondary"
+                onclick="saveGame()"
+                style="margin-top:15px"
+            >
+
+                Save Game
+
+            </button>
+
+        </div>
+
+
+        <!-- EXPORT -->
+
+        <div class="settings-card">
+
+            <h3>📦 Export Data</h3>
+
+            <p>
+                Download your collection and game progress.
+            </p>
+
+            <button
+                class="button button-secondary"
+                onclick="exportGame()"
+                style="margin-top:15px"
+            >
+
+                Export Save
+
+            </button>
+
+        </div>
+
+
+        <!-- IMPORT -->
+
+        <div class="settings-card">
+
+            <h3>📥 Import Data</h3>
+
+            <p>
+                Restore a previously exported save.
+            </p>
+
+            <input
+                type="file"
+                id="importFile"
+                accept=".json"
+                style="margin-top:15px"
+            >
+
+        </div>
+
+
+        <!-- DATABASE -->
+
+        <div class="settings-card">
+
+            <h3>🌌 Character Database</h3>
+
+            <p>
+                Discover characters dynamically through the anime/manga
+                database. Discovered characters are cached locally.
+            </p>
+
+            <button
+                class="button button-secondary"
+                onclick="navigate('discover')"
+                style="margin-top:15px"
+            >
+
+                Open Database
+
+            </button>
+
+        </div>
+
+
+        <!-- RESET -->
+
+        <div class="settings-card">
+
+            <h3>⚠️ Reset Game</h3>
+
+            <p>
+                Reset your local game data.
+                This action cannot be undone.
+            </p>
+
+            <button
+                class="button button-danger"
+                onclick="resetGame()"
+                style="margin-top:15px"
+            >
+
+                Reset Game
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <p>
+        WAIFU SWAP
+    </p>
+
+    <p style="margin-top:8px">
+
+        Discover the entire anime and manga universe.
+
+    </p>
+
+</footer>
+
+
+</main>
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="modalOverlay"
+    onclick="closeModal(event)"
+>
+
+    <div
+        class="modal"
+        id="modalContent"
+    >
+
+        <h2 id="modalTitle">
+            Notification
+        </h2>
+
+        <p id="modalMessage">
+            Message
+        </p>
+
+        <button
+            class="button button-primary"
+            onclick="closeModal()"
+        >
+
+            Continue
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TOAST CONTAINER
+===================================================== -->
+
+<div
+    class="toast-container"
+    id="toastContainer"
+>
+
+</div>
+
+
+<!-- =====================================================
+     PART 3 JAVASCRIPT STARTS HERE
+===================================================== -->
+
+</script>
+    /*
+=========================================================
+WAIFU SWAP
+
+PART 3 WILL CONTAIN:
+
+...
+=========================================================
+*/
+    /* =========================================================
+   WAIFU SWAP — PART 3
+   UNLIMITED CHARACTER DATABASE ENGINE
+========================================================= */
+
+
+/* =========================================================
+   DATABASE CONFIGURATION
+========================================================= */
+
+const API_URL = "https://graphql.anilist.co";
+
+const API_TIMEOUT = 15000;
+
+const CACHE_LIMIT = 5000;
+
+const CHARACTERS_PER_PAGE = 30;
+
+
+/* =========================================================
+   GAME STATE
+========================================================= */
+
+let game = {
+
+    coins: 10000,
+
+    collection: [],
+
+    wishlist: [],
+
+    history: [],
+
+    showcase: [],
+
+    discovered: [],
+
+    totalRolls: 0,
+
+    dailyClaimed: "",
+
+    quests: {},
+
+    lastUpdated: Date.now()
+
+};
+
+
+/* =========================================================
+   DATABASE STATE
+========================================================= */
+
+let characterDatabase = [];
+
+let currentSearchPage = 1;
+
+let currentSearchType = "character";
+
+let currentSearchQuery = "";
+
+let currentSearchResults = [];
+
+let isSearching = false;
+
+
+/* =========================================================
+   CHARACTER RARITY
+========================================================= */
+
+const RARITIES = [
+
+    {
+        name: "A",
+        weight: 45,
+        price: 100
+    },
+
+    {
+        name: "B",
+        weight: 25,
+        price: 250
+    },
+
+    {
+        name: "C",
+        weight: 15,
+        price: 500
+    },
+
+    {
+        name: "S",
+        weight: 8,
+        price: 1500
+    },
+
+    {
+        name: "SS",
+        weight: 5,
+        price: 5000
+    },
+
+    {
+        name: "SSS",
+        weight: 1.8,
+        price: 25000
+    },
+
+    {
+        name: "Z",
+        weight: 0.2,
+        price: 500000
+    }
+
+];
+
+
+/* =========================================================
+   STARTER DATABASE
+
+   These are starter entries, NOT the entire database.
+
+   The API expands this universe indefinitely through
+   searches and character discovery.
+========================================================= */
+
+const STARTER_CHARACTERS = [
+
+    {
+        id: "starter-marin",
+        name: "Marin Kitagawa",
+        source: "My Dress-Up Darling",
+        image: "",
+        rarity: "S",
+        type: "ANIME",
+        price: 1500
+    },
+
+    {
+        id: "starter-emilia",
+        name: "Emilia",
+        source: "Re:Zero",
+        image: "",
+        rarity: "SS",
+        type: "ANIME",
+        price: 5000
+    },
+
+    {
+        id: "starter-rem",
+        name: "Rem",
+        source: "Re:Zero",
+        image: "",
+        rarity: "SS",
+        type: "ANIME",
+        price: 5000
+    },
+
+    {
+        id: "starter-yor",
+        name: "Yor Forger",
+        source: "Spy x Family",
+        image: "",
+        rarity: "S",
+        type: "ANIME",
+        price: 1500
+    },
+
+    {
+        id: "starter-frieren",
+        name: "Frieren",
+        source: "Frieren: Beyond Journey's End",
+        image: "",
+        rarity: "SSS",
+        type: "ANIME",
+        price: 25000
+    },
+
+    {
+        id: "starter-makima",
+        name: "Makima",
+        source: "Chainsaw Man",
+        image: "",
+        rarity: "SS",
+        type: "ANIME",
+        price: 5000
+    },
+
+    {
+        id: "starter-violet",
+        name: "Violet Evergarden",
+        source: "Violet Evergarden",
+        image: "",
+        rarity: "SS",
+        type: "ANIME",
+        price: 5000
+    },
+
+    {
+        id: "starter-rias",
+        name: "Rias Gremory",
+        source: "High School DxD",
+        image: "",
+        rarity: "SSS",
+        price: 25000
+    },
+
+    {
+        id: "starter-kaoruko",
+        name: "Kaoruko Waguri",
+        source: "The Fragrant Flower Blooms With Dignity",
+        image: "",
+        rarity: "Z",
+        type: "MANGA",
+        price: 500000
+    },
+
+    {
+        id: "starter-anya",
+        name: "Anya Forger",
+        source: "Spy x Family",
+        image: "",
+        rarity: "A",
+        price: 100
+    },
+
+    {
+        id: "starter-nami",
+        name: "Nami",
+        source: "One Piece",
+        image: "",
+        rarity: "S",
+        price: 1500
+    },
+
+    {
+        id: "starter-hinata",
+        name: "Hinata Hyuga",
+        source: "Naruto",
+        image: "",
+        rarity: "S",
+        price: 1500
+    }
+
+];
+
+
+/* =========================================================
+   UTILITIES
+========================================================= */
+
+function safeText(value) {
+
+    return String(value ?? "");
 
 }
 
-/* =====================================
-   MARKET
-===================================== */
 
-function renderMarket() {
+function cleanHTML(value) {
 
-    const grid = document.getElementById("marketGrid");
+    const div = document.createElement("div");
 
-    const search = document.getElementById("marketSearch").value.toLowerCase();
+    div.textContent = safeText(value);
 
-    let filtered = characters.filter(character => {
+    return div.innerHTML;
 
-        const matchesSearch =
-            character.name.toLowerCase().includes(search) ||
-            character.anime.toLowerCase().includes(search);
+}
 
-        const matchesTier =
-            currentFilter === "ALL" ||
-            character.tier === currentFilter;
 
-        return matchesSearch && matchesTier;
+function normalizeCharacterName(name) {
+
+    return safeText(name)
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+
+}
+
+
+function characterExists(id) {
+
+    return characterDatabase.some(
+        character => String(character.id) === String(id)
+    );
+
+}
+
+
+function findCharacterByName(name) {
+
+    const normalized = normalizeCharacterName(name);
+
+    return characterDatabase.find(
+        character =>
+            normalizeCharacterName(character.name) === normalized
+    );
+
+}
+
+
+/* =========================================================
+   CHARACTER NORMALIZATION
+
+   Converts API data into a consistent game character object.
+========================================================= */
+
+function normalizeCharacter(raw) {
+
+    if (!raw) return null;
+
+    const id = String(raw.id ?? raw.idAniList ?? "");
+
+    if (!id) return null;
+
+    const image =
+        raw.image?.large ||
+        raw.image?.medium ||
+        raw.image ||
+        "";
+
+    const name =
+        raw.name?.full ||
+        raw.name?.userPreferred ||
+        raw.name ||
+        "Unknown Character";
+
+    const source =
+        raw.source ||
+        raw.media?.nodes?.[0]?.title?.english ||
+        raw.media?.nodes?.[0]?.title?.romaji ||
+        raw.media?.[0]?.title?.english ||
+        raw.media?.[0]?.title?.romaji ||
+        "Unknown Series";
+
+    return {
+
+        id: id,
+
+        name: safeText(name),
+
+        source: safeText(source),
+
+        image: image,
+
+        rarity: raw.rarity || randomRarity(),
+
+        type: raw.type || "ANIME",
+
+        price: raw.price || 0,
+
+        discoveredAt: Date.now(),
+
+        cached: true,
+
+        anilistId: id
+
+    };
+
+}
+
+
+/* =========================================================
+   RANDOM RARITY
+========================================================= */
+
+function randomRarity() {
+
+    let totalWeight = 0;
+
+    for (const rarity of RARITIES) {
+
+        totalWeight += rarity.weight;
+
+    }
+
+    let random = Math.random() * totalWeight;
+
+    for (const rarity of RARITIES) {
+
+        random -= rarity.weight;
+
+        if (random <= 0) {
+
+            return rarity.name;
+
+        }
+
+    }
+
+    return "A";
+
+}
+
+
+/* =========================================================
+   PRICE CALCULATION
+========================================================= */
+
+function getCharacterPrice(rarity) {
+
+    const result = RARITIES.find(
+        item => item.name === rarity
+    );
+
+    return result ? result.price : 100;
+
+}
+
+
+/* =========================================================
+   LOCAL DATABASE
+========================================================= */
+
+function addCharacterToDatabase(character) {
+
+    if (!character) return null;
+
+    const normalized = normalizeCharacter(character);
+
+    if (!normalized) return null;
+
+    const existing = characterDatabase.find(
+        item => String(item.id) === String(normalized.id)
+    );
+
+    if (existing) {
+
+        // Update missing information.
+
+        if (!existing.image && normalized.image) {
+
+            existing.image = normalized.image;
+
+        }
+
+        if (
+            existing.source === "Unknown Series" &&
+            normalized.source !== "Unknown Series"
+        ) {
+
+            existing.source = normalized.source;
+
+        }
+
+        return existing;
+
+    }
+
+    normalized.price = normalized.price ||
+        getCharacterPrice(normalized.rarity);
+
+    characterDatabase.unshift(normalized);
+
+    if (characterDatabase.length > CACHE_LIMIT) {
+
+        characterDatabase =
+            characterDatabase.slice(0, CACHE_LIMIT);
+
+    }
+
+    game.discovered = characterDatabase.map(
+        character => character.id
+    );
+
+    saveGame();
+
+    return normalized;
+
+}
+
+
+/* =========================================================
+   CACHE API RESULTS
+========================================================= */
+
+function cacheCharacters(characters) {
+
+    if (!Array.isArray(characters)) return [];
+
+    const results = [];
+
+    for (const character of characters) {
+
+        const normalized =
+            addCharacterToDatabase(character);
+
+        if (normalized) {
+
+            results.push(normalized);
+
+        }
+
+    }
+
+    return results;
+
+}
+
+
+/* =========================================================
+   API REQUEST
+========================================================= */
+
+async function apiRequest(query, variables = {}) {
+
+    const controller = new AbortController();
+
+    const timeout = setTimeout(
+        () => controller.abort(),
+        API_TIMEOUT
+    );
+
+    try {
+
+        const response = await fetch(API_URL, {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type": "application/json",
+
+                "Accept": "application/json"
+
+            },
+
+            body: JSON.stringify({
+
+                query: query,
+
+                variables: variables
+
+            }),
+
+            signal: controller.signal
+
+        });
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "API request failed: " + response.status
+            );
+
+        }
+
+
+        const result = await response.json();
+
+
+        if (result.errors) {
+
+            throw new Error(
+                result.errors[0]?.message ||
+                "GraphQL error"
+            );
+
+        }
+
+
+        return result.data;
+
+    }
+
+    finally {
+
+        clearTimeout(timeout);
+
+    }
+
+}
+
+
+/* =========================================================
+   CHARACTER SEARCH
+========================================================= */
+
+async function searchCharactersAPI(
+    search,
+    page = 1,
+    perPage = CHARACTERS_PER_PAGE
+) {
+
+    const query = `
+
+        query (
+            $search: String,
+            $page: Int,
+            $perPage: Int
+        ) {
+
+            Page(
+                page: $page,
+                perPage: $perPage
+            ) {
+
+                pageInfo {
+
+                    currentPage
+
+                    hasNextPage
+
+                    total
+
+                }
+
+                characters(
+                    search: $search,
+                    sort: [SEARCH_MATCH]
+                ) {
+
+                    id
+
+                    name {
+
+                        full
+
+                        userPreferred
+
+                    }
+
+                    image {
+
+                        large
+
+                        medium
+
+                    }
+
+                    media {
+
+                        nodes {
+
+                            title {
+
+                                english
+
+                                romaji
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    `;
+
+
+    const data = await apiRequest(query, {
+
+        search: search,
+
+        page: page,
+
+        perPage: perPage
 
     });
 
-    document.getElementById("marketCount").innerText =
-        filtered.length + " characters";
 
-    grid.innerHTML = filtered.map(character => {
+    return {
 
-        const owned = game.collection.includes(character.id);
+        pageInfo: data.Page.pageInfo,
 
-        return characterCard(
+        characters: data.Page.characters.map(
+            character => {
 
-            character,
+                return normalizeCharacter(character);
 
-            owned ? "OWNED" : "BUY",
+            }
+        )
 
-            owned
-                ? `navigate('collection')`
-                : `buyCharacter('${character.id}')`
+    };
+
+}
+
+
+/* =========================================================
+   POPULAR CHARACTER SEARCH
+========================================================= */
+
+async function getPopularCharactersAPI(
+    page = 1,
+    perPage = CHARACTERS_PER_PAGE
+) {
+
+    const query = `
+
+        query (
+            $page: Int,
+            $perPage: Int
+        ) {
+
+            Page(
+                page: $page,
+                perPage: $perPage
+            ) {
+
+                pageInfo {
+
+                    currentPage
+
+                    hasNextPage
+
+                    total
+
+                }
+
+                characters(
+                    sort: [FAVOURITES_DESC]
+                ) {
+
+                    id
+
+                    name {
+
+                        full
+
+                        userPreferred
+
+                    }
+
+                    image {
+
+                        large
+
+                        medium
+
+                    }
+
+                    media {
+
+                        nodes {
+
+                            title {
+
+                                english
+
+                                romaji
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    `;
+
+
+    const data = await apiRequest(query, {
+
+        page: page,
+
+        perPage: perPage
+
+    });
+
+
+    return {
+
+        pageInfo: data.Page.pageInfo,
+
+        characters: data.Page.characters.map(
+            character => normalizeCharacter(character)
+        )
+
+    };
+
+}
+
+
+/* =========================================================
+   RANDOM CHARACTER DISCOVERY
+========================================================= */
+
+async function getRandomCharactersAPI(
+    page = 1,
+    perPage = CHARACTERS_PER_PAGE
+) {
+
+    const query = `
+
+        query (
+            $page: Int,
+            $perPage: Int
+        ) {
+
+            Page(
+                page: $page,
+                perPage: $perPage
+            ) {
+
+                pageInfo {
+
+                    currentPage
+
+                    hasNextPage
+
+                }
+
+                characters(
+                    sort: [ID]
+                ) {
+
+                    id
+
+                    name {
+
+                        full
+
+                        userPreferred
+
+                    }
+
+                    image {
+
+                        large
+
+                        medium
+
+                    }
+
+                    media {
+
+                        nodes {
+
+                            title {
+
+                                english
+
+                                romaji
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    `;
+
+
+    const data = await apiRequest(query, {
+
+        page: page,
+
+        perPage: perPage
+
+    });
+
+
+    return {
+
+        pageInfo: data.Page.pageInfo,
+
+        characters: data.Page.characters.map(
+            character => normalizeCharacter(character)
+        )
+
+    };
+
+}
+
+
+/* =========================================================
+   ANIME / MANGA SEARCH
+========================================================= */
+
+async function searchMediaAPI(
+    search,
+    type = "ANIME",
+    page = 1
+) {
+
+    const query = `
+
+        query (
+            $search: String,
+            $page: Int,
+            $type: MediaType
+        ) {
+
+            Page(
+                page: $page,
+                perPage: 20
+            ) {
+
+                pageInfo {
+
+                    currentPage
+
+                    hasNextPage
+
+                }
+
+                media(
+                    search: $search,
+                    type: $type,
+                    sort: [SEARCH_MATCH]
+                ) {
+
+                    id
+
+                    type
+
+                    title {
+
+                        english
+
+                        romaji
+
+                        native
+
+                    }
+
+                    coverImage {
+
+                        large
+
+                        medium
+
+                    }
+
+                    characters {
+
+                        nodes {
+
+                            id
+
+                            name {
+
+                                full
+
+                                userPreferred
+
+                            }
+
+                            image {
+
+                                large
+
+                                medium
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    `;
+
+
+    const data = await apiRequest(query, {
+
+        search: search,
+
+        page: page,
+
+        type: type
+
+    });
+
+
+    const media = data.Page.media || [];
+
+    const characters = [];
+
+    for (const item of media) {
+
+        const title =
+            item.title.english ||
+            item.title.romaji ||
+            item.title.native ||
+            "Unknown Media";
+
+        for (const character of item.characters.nodes || []) {
+
+            const normalized =
+                normalizeCharacter(character);
+
+            if (normalized) {
+
+                normalized.source = title;
+
+                normalized.type = type;
+
+                characters.push(normalized);
+
+            }
+
+        }
+
+    }
+
+
+    return {
+
+        media: media,
+
+        characters: characters,
+
+        pageInfo: data.Page.pageInfo
+
+    };
+
+}
+
+
+/* =========================================================
+   DISCOVERY UI
+========================================================= */
+
+function updateDatabaseStatus(message) {
+
+    const status = document.getElementById(
+        "databaseStatus"
+    );
+
+    if (status) {
+
+        status.textContent = message;
+
+    }
+
+}
+
+
+function updateDatabaseCount() {
+
+    const element = document.getElementById(
+        "databaseCount"
+    );
+
+    if (element) {
+
+        element.textContent =
+            characterDatabase.length.toLocaleString();
+
+    }
+
+}
+
+
+/* =========================================================
+   SEARCH UNIVERSE
+========================================================= */
+
+async function searchUniverse() {
+
+    const searchInput = document.getElementById(
+        "discoverSearch"
+    );
+
+    const typeInput = document.getElementById(
+        "discoverType"
+    );
+
+
+    const search = searchInput.value.trim();
+
+    const type = typeInput.value;
+
+
+    if (!search) {
+
+        showToast("Enter a character, anime or manga name.");
+
+        return;
+
+    }
+
+
+    currentSearchQuery = search;
+
+    currentSearchType = type;
+
+    currentSearchPage = 1;
+
+    isSearching = true;
+
+
+    const grid = document.getElementById(
+        "discoverGrid"
+    );
+
+
+    grid.innerHTML = `
+
+        <div class="loading">
+
+            <div class="spinner"></div>
+
+            Searching the universe...
+
+        </div>
+
+    `;
+
+
+    updateDatabaseStatus(
+        "Searching character database..."
+    );
+
+
+    try {
+
+        let results = [];
+
+
+        if (type === "character") {
+
+            const response =
+                await searchCharactersAPI(
+                    search,
+                    1
+                );
+
+            results = response.characters;
+
+            currentSearchResults = results;
+
+        }
+
+        else if (type === "anime") {
+
+            const response =
+                await searchMediaAPI(
+                    search,
+                    "ANIME",
+                    1
+                );
+
+            results = response.characters;
+
+            currentSearchResults = results;
+
+        }
+
+        else if (type === "manga") {
+
+            const response =
+                await searchMediaAPI(
+                    search,
+                    "MANGA",
+                    1
+                );
+
+            results = response.characters;
+
+            currentSearchResults = results;
+
+        }
+
+
+        cacheCharacters(results);
+
+
+        renderCharacterGrid(
+            results,
+            "discoverGrid"
+        );
+
+
+        updateDatabaseStatus(
+
+            results.length +
+
+            " characters found. " +
+
+            "The universe has expanded."
 
         );
 
-    }).join("");
+
+        document.getElementById(
+            "loadMoreButton"
+        ).style.display = "block";
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Character search failed:",
+            error
+        );
+
+
+        const localResults =
+            characterDatabase.filter(
+                character => {
+
+                    return (
+
+                        character.name.toLowerCase()
+                            .includes(search.toLowerCase())
+
+                        ||
+
+                        character.source.toLowerCase()
+                            .includes(search.toLowerCase())
+
+                    );
+
+                }
+            );
+
+
+        renderCharacterGrid(
+            localResults,
+            "discoverGrid"
+        );
+
+
+        updateDatabaseStatus(
+
+            "API unavailable. Showing cached characters."
+
+        );
+
+
+        showToast(
+            "Database unavailable. Local characters still work."
+        );
+
+    }
+
+    finally {
+
+        isSearching = false;
+
+    }
 
 }
 
-function setFilter(tier, button) {
 
-    currentFilter = tier;
+/* =========================================================
+   POPULAR CHARACTERS
+========================================================= */
 
-    document.querySelectorAll(".filter").forEach(b => {
+async function loadPopularCharacters() {
 
-        b.classList.remove("active");
+    const grid = document.getElementById(
+        "discoverGrid"
+    );
 
-    });
 
-    button.classList.add("active");
+    grid.innerHTML = `
 
-    renderMarket();
+        <div class="loading">
+
+            <div class="spinner"></div>
+
+            Loading popular characters...
+
+        </div>
+
+    `;
+
+
+    updateDatabaseStatus(
+        "Discovering popular anime characters..."
+    );
+
+
+    try {
+
+        const response =
+            await getPopularCharactersAPI(1);
+
+
+        currentSearchResults =
+            response.characters;
+
+
+        cacheCharacters(
+            response.characters
+        );
+
+
+        renderCharacterGrid(
+            response.characters,
+            "discoverGrid"
+        );
+
+
+        updateDatabaseStatus(
+            "Popular characters loaded."
+        );
+
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+
+        renderCharacterGrid(
+            characterDatabase,
+            "discoverGrid"
+        );
+
+
+        updateDatabaseStatus(
+            "API unavailable. Displaying local database."
+        );
+
+    }
 
 }
 
-/* =====================================
-   BUY CHARACTER
-===================================== */
 
-function buyCharacter(id) {
+/* =========================================================
+   RANDOM CHARACTERS
+========================================================= */
 
-    const character = characters.find(c => c.id === id);
+async function loadRandomCharacters() {
 
-    if(!character) return;
+    const grid = document.getElementById(
+        "discoverGrid"
+    );
 
-    if(game.collection.includes(id)) {
 
-        alert("You already own this character!");
+    grid.innerHTML = `
 
-        return;
+        <div class="loading">
+
+            <div class="spinner"></div>
+
+            Discovering random characters...
+
+        </div>
+
+    `;
+
+
+    try {
+
+        const response =
+            await getRandomCharactersAPI(1);
+
+
+        currentSearchResults =
+            response.characters;
+
+
+        cacheCharacters(
+            response.characters
+        );
+
+
+        renderCharacterGrid(
+            response.characters,
+            "discoverGrid"
+        );
+
+
+        updateDatabaseStatus(
+            "Random characters discovered."
+        );
 
     }
 
-    if(game.coins < character.price) {
+    catch (error) {
 
-        alert("Not enough AC!");
+        renderCharacterGrid(
+            characterDatabase,
+            "discoverGrid"
+        );
 
-        return;
+
+        updateDatabaseStatus(
+            "API unavailable. Showing cached characters."
+        );
 
     }
-
-    game.coins -= character.price;
-
-    game.collection.push(id);
-
-    game.discovered.push(id);
-
-    save();
-
-    renderAll();
 
 }
 
-/* =====================================
-   ROLL
-===================================== */
 
-function rollCharacter() {
+/* =========================================================
+   LOAD MORE
+========================================================= */
 
-    if(game.coins < 100) {
+async function loadMoreCharacters() {
 
-        alert("You need 100 AC to roll!");
+    if (isSearching) return;
 
-        return;
+    isSearching = true;
 
-    }
+    currentSearchPage++;
 
-    if(characters.length === 0) {
 
-        alert("Character universe is still loading!");
+    try {
 
-        return;
+        let response;
 
-    }
 
-    game.coins -= 100;
+        if (currentSearchType === "character") {
 
-    game.rolls++;
+            response =
+                await searchCharactersAPI(
+                    currentSearchQuery,
+                    currentSearchPage
+                );
 
-    const button = document.getElementById("rollButton");
+        }
 
-    button.classList.add("rolling");
+        else if (currentSearchType === "anime") {
 
-    button.disabled = true;
-
-    button.innerText = "ROLLING...";
-
-    setTimeout(() => {
-
-        button.classList.remove("rolling");
-
-        button.disabled = false;
-
-        button.innerText = "ROLL";
-
-        const character = weightedRoll();
-
-        const duplicate = game.collection.includes(character.id);
-
-        if(!duplicate) {
-
-            game.collection.push(character.id);
-
-            game.discovered.push(character.id);
+            response =
+                await searchMediaAPI(
+                    currentSearchQuery,
+                    "ANIME",
+                    currentSearchPage
+                );
 
         }
 
         else {
 
-            game.coins += character.price * .2;
+            response =
+                await searchMediaAPI(
+                    currentSearchQuery,
+                    "MANGA",
+                    currentSearchPage
+                );
 
         }
 
-        game.history.unshift({
 
-            id: character.id,
+        cacheCharacters(
+            response.characters
+        );
 
-            name: character.name,
 
-            image: character.image,
+        currentSearchResults.push(
+            ...response.characters
+        );
 
-            tier: character.tier,
 
-            anime: character.anime,
+        renderCharacterGrid(
+            currentSearchResults,
+            "discoverGrid"
+        );
 
-            duplicate,
 
-            date: new Date().toLocaleString()
+        updateDatabaseStatus(
+            "Loaded " +
+            currentSearchResults.length +
+            " characters."
+        );
 
-        });
 
-        game.history = game.history.slice(0,100);
+        if (
+            response.pageInfo &&
+            !response.pageInfo.hasNextPage
+        ) {
 
-        save();
-
-        showReveal(character, duplicate);
-
-        renderAll();
-
-    }, 1800);
-
-}
-
-/* =====================================
-   WEIGHTED ROLL
-===================================== */
-
-function weightedRoll() {
-
-    const weights = {
-
-        Z: 0.001,
-
-        S: 0.02,
-
-        A: 0.08,
-
-        B: 0.20,
-
-        C: 0.30,
-
-        D: 0.399
-
-    };
-
-    const random = Math.random();
-
-    let total = 0;
-
-    let tier = "D";
-
-    for(const key in weights) {
-
-        total += weights[key];
-
-        if(random <= total) {
-
-            tier = key;
-
-            break;
+            document.getElementById(
+                "loadMoreButton"
+            ).style.display = "none";
 
         }
 
     }
 
-    const pool = characters.filter(c => c.tier === tier);
+    catch (error) {
 
-    if(pool.length === 0) {
-
-        return characters[
-            Math.floor(Math.random() * characters.length)
-        ];
+        showToast(
+            "Couldn't load more characters."
+        );
 
     }
 
-    return pool[
-        Math.floor(Math.random() * pool.length)
-    ];
+    finally {
+
+        isSearching = false;
+
+    }
 
 }
 
-/* =====================================
-   REVEAL
-===================================== */
 
-function showReveal(character, duplicate) {
+/* =========================================================
+   CHARACTER IMAGE
+========================================================= */
 
-    const reveal = document.getElementById("reveal");
+function getCharacterImage(character) {
 
-    const card = document.getElementById("revealCard");
+    if (!character) return "";
 
-    card.innerHTML = `
+    return character.image || "";
 
-    <div class="reveal-card rarity-${character.tier}">
+}
 
-        <img src="${character.image}">
 
-        <div class="reveal-tier">
-            ${character.tier} TIER
+/* =========================================================
+   IMAGE FALLBACK
+========================================================= */
+
+function createImageHTML(character) {
+
+    const image = getCharacterImage(character);
+
+    const name = cleanHTML(
+        character.name
+    );
+
+
+    return `
+
+        <div class="character-image-container">
+
+            <div class="image-fallback">
+
+                <div class="image-fallback-symbol">
+
+                    ${name.charAt(0)}
+
+                </div>
+
+                <div class="image-fallback-name">
+
+                    ${name}
+
+                </div>
+
+            </div>
+
+
+            ${
+                image
+                    ?
+                    `
+
+                    <img
+
+                        class="character-image"
+
+                        src="${cleanHTML(image)}"
+
+                        alt="${name}"
+
+                        loading="lazy"
+
+                        onload="
+                            this.classList.add('loaded');
+                            this.previousElementSibling.style.display='none';
+                        "
+
+                        onerror="
+                            this.style.display='none';
+                        "
+
+                    >
+
+                    `
+                    :
+                    ""
+            }
+
+
+            <span class="rarity-badge rarity-${character.rarity}">
+
+                ${character.rarity}
+
+            </span>
+
         </div>
-
-        <div class="reveal-name">
-            ${escapeHTML(character.name)}
-        </div>
-
-    </div>
 
     `;
 
-    document.getElementById("revealMessage").innerText = duplicate
+}
 
-        ? "DUPLICATE! You received compensation."
 
-        : "Added to your collection!";
+/* =========================================================
+   CHARACTER CARD
+========================================================= */
 
-    reveal.classList.add("active");
+function createCharacterCard(character) {
+
+    const owned = game.collection.some(
+        item => String(item.id) === String(character.id)
+    );
+
+
+    const wishlisted = game.wishlist.some(
+        item => String(item.id) === String(character.id)
+    );
+
+
+    const price =
+        character.price ||
+        getCharacterPrice(character.rarity);
+
+
+    return `
+
+        <div class="character-card card-rarity-${character.rarity}">
+
+            ${createImageHTML(character)}
+
+
+            <div class="character-info">
+
+                <h3 class="character-name">
+
+                    ${cleanHTML(character.name)}
+
+                </h3>
+
+
+                <p class="character-source">
+
+                    ${cleanHTML(character.source)}
+
+                </p>
+
+
+                <div class="character-meta">
+
+                    <span class="character-price">
+
+                        💎 ${price.toLocaleString()} AC
+
+                    </span>
+
+
+                    <span>
+
+                        ${character.type || "ANIME"}
+
+                    </span>
+
+                </div>
+
+
+                <div class="character-actions">
+
+
+                    ${
+                        owned
+
+                        ?
+
+                        `
+
+                        <button
+
+                            class="card-button"
+
+                            disabled
+
+                            style="opacity:.5"
+
+                        >
+
+                            ✓ Owned
+
+                        </button>
+
+                        `
+
+                        :
+
+                        `
+
+                        <button
+
+                            class="card-button card-buy"
+
+                            onclick="buyCharacter('${character.id}')"
+
+                        >
+
+                            💎 Buy
+
+                        </button>
+
+                        `
+
+                    }
+
+
+                    <button
+
+                        class="card-button card-wishlist ${
+                            wishlisted ? "wishlisted" : ""
+                        }"
+
+                        onclick="toggleWishlist('${character.id}')"
+
+                    >
+
+                        ${wishlisted ? "❤️" : "♡"}
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
 
 }
 
-function closeReveal() {
 
-    document.getElementById("reveal").classList.remove("active");
+/* =========================================================
+   CHARACTER GRID
+========================================================= */
+
+function renderCharacterGrid(
+    characters,
+    targetID
+) {
+
+    const grid = document.getElementById(
+        targetID
+    );
+
+
+    if (!grid) return;
+
+
+    if (!characters || characters.length === 0) {
+
+        grid.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    🌌
+                </div>
+
+                <h3>No Characters Found</h3>
+
+                <p>
+                    Try another search.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    grid.innerHTML = characters
+        .map(createCharacterCard)
+        .join("");
 
 }
 
-/* =====================================
+
+/* =========================================================
+   LOCAL CHARACTER SEARCH
+========================================================= */
+
+function searchLocalCharacters(search) {
+
+    const query =
+        normalizeCharacterName(search);
+
+
+    return characterDatabase.filter(
+        character => {
+
+            return (
+
+                normalizeCharacterName(
+                    character.name
+                ).includes(query)
+
+                ||
+
+                normalizeCharacterName(
+                    character.source
+                ).includes(query)
+
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   INITIAL DATABASE
+========================================================= */
+
+function initializeCharacterDatabase() {
+
+    for (const character of STARTER_CHARACTERS) {
+
+        if (!characterExists(character.id)) {
+
+            characterDatabase.push(
+                character
+            );
+
+        }
+
+    }
+
+
+    updateDatabaseCount();
+
+
+}
+
+
+/* =========================================================
+   DATABASE INITIALIZATION
+========================================================= */
+
+initializeCharacterDatabase();
+            /* ============================================================
+   WAIFU SWAP — PART 4
+   GAME ENGINE, WALLET, MARKET, COLLECTION, ROLLS
+   ============================================================ */
+
+
+/* =========================
+   SAVE SYSTEM
+========================= */
+
+const SAVE_KEY = "waifuSwapSave_v4";
+
+function saveGame() {
+    try {
+        const saveData = {
+            game: game,
+            database: characterDatabase,
+            savedAt: Date.now()
+        };
+
+        localStorage.setItem(
+            SAVE_KEY,
+            JSON.stringify(saveData)
+        );
+
+        return true;
+
+    } catch (error) {
+        console.error("Save failed:", error);
+        return false;
+    }
+}
+
+
+function loadGame() {
+    try {
+        const saved = localStorage.getItem(SAVE_KEY);
+
+        if (!saved) {
+            console.log("No previous save found.");
+            return;
+        }
+
+        const data = JSON.parse(saved);
+
+        if (data.game) {
+            game = {
+                ...game,
+                ...data.game
+            };
+        }
+
+        if (Array.isArray(data.database)) {
+            data.database.forEach(character => {
+                addCharacterToDatabase(character);
+            });
+        }
+
+        console.log("Save loaded successfully.");
+
+    } catch (error) {
+        console.error("Failed to load save:", error);
+    }
+}
+
+
+/* =========================
+   TOAST NOTIFICATIONS
+========================= */
+
+function showToast(message, type = "normal") {
+
+    const container = document.getElementById("toastContainer");
+
+    if (!container) return;
+
+    const toast = document.createElement("div");
+
+    toast.className = `toast toast-${type}`;
+
+    toast.textContent = message;
+
+    container.appendChild(toast);
+
+    setTimeout(() => {
+
+        toast.style.opacity = "0";
+        toast.style.transform = "translateY(-10px)";
+
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
+
+    }, 3000);
+}
+
+
+/* =========================
+   WALLET
+========================= */
+
+function updateWallet() {
+
+    const wallet = document.getElementById("walletAmount");
+
+    const walletStat = document.getElementById("walletStat");
+
+    if (wallet) {
+        wallet.textContent = game.coins.toLocaleString();
+    }
+
+    if (walletStat) {
+        walletStat.textContent = game.coins.toLocaleString();
+    }
+
+    const totalOwned = document.getElementById("totalOwned");
+
+    const totalRolls = document.getElementById("totalRolls");
+
+    const databaseCount = document.getElementById("databaseCount");
+
+    if (totalOwned) {
+        totalOwned.textContent = game.collection.length;
+    }
+
+    if (totalRolls) {
+        totalRolls.textContent = game.totalRolls || 0;
+    }
+
+    if (databaseCount) {
+        databaseCount.textContent =
+            characterDatabase.length.toLocaleString();
+    }
+}
+
+
+/* =========================
+   CHARACTER OWNERSHIP
+========================= */
+
+function isOwned(characterID) {
+
+    return game.collection.some(
+        character => String(character.id) === String(characterID)
+    );
+}
+
+
+function isWishlisted(characterID) {
+
+    return game.wishlist.some(
+        character => String(character.id) === String(characterID)
+    );
+}
+
+
+function addToCollection(character) {
+
+    if (!character) return false;
+
+    if (isOwned(character.id)) {
+        return false;
+    }
+
+    game.collection.unshift(character);
+
+    return true;
+}
+
+
+/* =========================
+   HISTORY
+========================= */
+
+function addToHistory(character, type = "roll") {
+
+    game.history.unshift({
+        id: character.id,
+        name: character.name,
+        image: character.image,
+        anime: character.anime || character.source || "Unknown",
+        rarity: character.rarity,
+        price: character.price,
+        type: type,
+        date: Date.now()
+    });
+
+    // Keep history manageable
+    game.history = game.history.slice(0, 500);
+}
+
+
+/* =========================
+   MARKETPLACE
+========================= */
+
+function renderMarket() {
+
+    const grid = document.getElementById("marketGrid");
+
+    if (!grid) return;
+
+    const searchInput = document.getElementById("marketSearch");
+
+    const rarityInput = document.getElementById("marketRarity");
+
+    const search = searchInput?.value?.toLowerCase() || "";
+
+    const rarityFilter = rarityInput?.value || "all";
+
+    let characters = [...characterDatabase];
+
+    characters = characters.filter(character => {
+
+        const matchesSearch =
+            character.name.toLowerCase().includes(search) ||
+            (character.anime || "").toLowerCase().includes(search);
+
+        const matchesRarity =
+            rarityFilter === "all" ||
+            character.rarity === rarityFilter;
+
+        return matchesSearch && matchesRarity;
+    });
+
+    if (!characters.length) {
+
+        grid.innerHTML = `
+            <div class="empty-state">
+                <h3>No characters found</h3>
+                <p>Try searching another character or anime.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    renderCharacterGrid(
+        grid,
+        characters,
+        "market"
+    );
+}
+
+
+/* =========================
+   BUY CHARACTER
+========================= */
+
+function buyCharacter(characterID) {
+
+    const character = findCharacterByName(characterID) ||
+        characterDatabase.find(
+            c => String(c.id) === String(characterID)
+        );
+
+    if (!character) {
+
+        showToast("Character not found!", "error");
+
+        return;
+    }
+
+    if (isOwned(character.id)) {
+
+        showToast("You already own this character!", "error");
+
+        return;
+    }
+
+    const price = character.price || getCharacterPrice(character.rarity);
+
+    if (game.coins < price) {
+
+        showToast("Not enough AC!", "error");
+
+        return;
+    }
+
+    // Deduct currency only after validation
+
+    game.coins -= price;
+
+    const acquiredCharacter = {
+        ...character,
+        acquiredAt: Date.now(),
+        acquisitionType: "market"
+    };
+
+    addToCollection(acquiredCharacter);
+
+    addToHistory(acquiredCharacter, "market");
+
+    saveGame();
+
+    updateWallet();
+
+    renderAll();
+
+    showToast(
+        `${character.name} acquired!`,
+        "success"
+    );
+}
+
+
+/* =========================
    COLLECTION
-===================================== */
+========================= */
 
 function renderCollection() {
 
     const grid = document.getElementById("collectionGrid");
 
-    const owned = game.collection.map(id => {
+    if (!grid) return;
 
-        return characters.find(c => c.id === id);
+    const searchInput = document.getElementById("collectionSearch");
 
-    }).filter(Boolean);
+    const sortInput = document.getElementById("collectionSort");
 
-    document.getElementById("collectionCount").innerText =
-        owned.length + " characters";
+    const search = searchInput?.value?.toLowerCase() || "";
 
-    if(owned.length === 0) {
+    const sort = sortInput?.value || "newest";
+
+    let characters = [...game.collection];
+
+    characters = characters.filter(character => {
+
+        return character.name.toLowerCase().includes(search) ||
+            (character.anime || "").toLowerCase().includes(search);
+    });
+
+    switch (sort) {
+
+        case "name":
+            characters.sort((a, b) =>
+                a.name.localeCompare(b.name)
+            );
+            break;
+
+        case "rarity":
+            characters.sort((a, b) =>
+                rarityValue(b.rarity) - rarityValue(a.rarity)
+            );
+            break;
+
+        case "oldest":
+            characters.sort((a, b) =>
+                (a.acquiredAt || 0) - (b.acquiredAt || 0)
+            );
+            break;
+
+        case "newest":
+        default:
+            characters.sort((a, b) =>
+                (b.acquiredAt || 0) - (a.acquiredAt || 0)
+            );
+            break;
+    }
+
+    if (!characters.length) {
 
         grid.innerHTML = `
-        <div class="empty">
-            <h2>Your collection is empty.</h2>
-            <p style="margin-top:10px">
-                Roll or purchase characters to start collecting.
-            </p>
-        </div>
+            <div class="empty-state">
+                <h3>Your collection is empty</h3>
+                <p>Start rolling to collect characters!</p>
+            </div>
         `;
 
         return;
-
     }
 
-    grid.innerHTML = owned.map(character => {
+    renderCharacterGrid(
+        grid,
+        characters,
+        "collection"
+    );
+}
 
-        return characterCard(
 
-            character,
+function rarityValue(rarity) {
 
-            game.showcase.includes(character.id)
-                ? "PINNED"
-                : "SHOWCASE",
+    const values = {
+        "A": 1,
+        "B": 2,
+        "C": 3,
+        "S": 4,
+        "SS": 5,
+        "SSS": 6,
+        "Z": 7
+    };
 
-            `toggleShowcase('${character.id}')`
+    return values[rarity] || 0;
+}
 
+
+/* =========================
+   WISHLIST
+========================= */
+
+function toggleWishlist(characterID) {
+
+    const character = characterDatabase.find(
+        c => String(c.id) === String(characterID)
+    );
+
+    if (!character) return;
+
+    const existingIndex = game.wishlist.findIndex(
+        c => String(c.id) === String(character.id)
+    );
+
+    if (existingIndex !== -1) {
+
+        game.wishlist.splice(existingIndex, 1);
+
+        showToast(
+            `${character.name} removed from wishlist`,
+            "normal"
         );
 
-    }).join("");
+    } else {
 
-}
+        game.wishlist.push(character);
 
-/* =====================================
-   WISHLIST
-===================================== */
-
-function toggleWishlist(id) {
-
-    if(game.wishlist.includes(id)) {
-
-        game.wishlist = game.wishlist.filter(x => x !== id);
-
+        showToast(
+            `${character.name} added to wishlist`,
+            "success"
+        );
     }
 
-    else {
+    saveGame();
 
-        game.wishlist.push(id);
+    renderWishlist();
 
-    }
+    renderMarket();
 
-    save();
-
-    renderAll();
-
+    renderCollection();
 }
+
 
 function renderWishlist() {
 
     const grid = document.getElementById("wishlistGrid");
 
-    const list = game.wishlist.map(id => {
+    if (!grid) return;
 
-        return characters.find(c => c.id === id);
+    const searchInput = document.getElementById("wishlistSearch");
 
-    }).filter(Boolean);
+    const search = searchInput?.value?.toLowerCase() || "";
 
-    if(list.length === 0) {
+    let characters = [...game.wishlist];
+
+    characters = characters.filter(character => {
+
+        return character.name.toLowerCase().includes(search) ||
+            (character.anime || "").toLowerCase().includes(search);
+    });
+
+    if (!characters.length) {
 
         grid.innerHTML = `
-        <div class="empty">
-            <h2>No wishlist characters.</h2>
-            <p>Press the heart on characters to add them here.</p>
-        </div>
+            <div class="empty-state">
+                <h3>Your wishlist is empty</h3>
+                <p>Find characters and add them to your wishlist.</p>
+            </div>
         `;
 
         return;
-
     }
 
-    grid.innerHTML = list.map(character => {
-
-        return characterCard(
-
-            character,
-
-            game.collection.includes(character.id)
-                ? "OWNED"
-                : "BUY",
-
-            game.collection.includes(character.id)
-                ? `navigate('collection')`
-                : `buyCharacter('${character.id}')`
-
-        );
-
-    }).join("");
-
+    renderCharacterGrid(
+        grid,
+        characters,
+        "wishlist"
+    );
 }
 
-/* =====================================
-   SHOWCASE
-===================================== */
 
-function toggleShowcase(id) {
-
-    if(game.showcase.includes(id)) {
-
-        game.showcase = game.showcase.filter(x => x !== id);
-
-    }
-
-    else {
-
-        if(game.showcase.length >= 5) {
-
-            alert("Showcase limit: 5 characters!");
-
-            return;
-
-        }
-
-        game.showcase.push(id);
-
-    }
-
-    save();
-
-    renderAll();
-
-}
-
-function renderShowcase() {
-
-    const grid = document.getElementById("showcaseGrid");
-
-    const list = game.showcase.map(id => {
-
-        return characters.find(c => c.id === id);
-
-    }).filter(Boolean);
-
-    if(list.length === 0) {
-
-        grid.innerHTML = `
-        <div class="empty">
-            <h2>Your showcase awaits.</h2>
-            <p>Pin characters from your collection.</p>
-        </div>
-        `;
-
-        return;
-
-    }
-
-    grid.innerHTML = list.map(character => {
-
-        return characterCard(
-
-            character,
-
-            "REMOVE",
-
-            `toggleShowcase('${character.id}')`
-
-        );
-
-    }).join("");
-
-}
-
-/* =====================================
+/* =========================
    HISTORY
-===================================== */
+========================= */
 
 function renderHistory() {
 
     const container = document.getElementById("historyList");
 
-    if(game.history.length === 0) {
+    if (!container) return;
+
+    if (!game.history.length) {
 
         container.innerHTML = `
-        <div class="empty">
-            <h2>No rolls yet.</h2>
-        </div>
+            <div class="empty-state">
+                <h3>No history yet</h3>
+                <p>Your character acquisitions will appear here.</p>
+            </div>
         `;
 
         return;
-
     }
 
-    container.innerHTML = game.history.map(item => {
+    container.innerHTML = game.history.map(entry => {
+
+        const date = new Date(entry.date);
 
         return `
+            <div class="history-item">
 
-        <div class="history-item">
+                <div class="history-image">
+                    <img
+                        src="${cleanHTML(entry.image || "")}"
+                        alt="${cleanHTML(entry.name)}"
+                        onerror="this.style.display='none'"
+                    >
+                </div>
 
-            <img src="${item.image}">
+                <div class="history-info">
+
+                    <h3>${cleanHTML(entry.name)}</h3>
+
+                    <p>${cleanHTML(entry.anime || "Unknown Anime")}</p>
+
+                    <span class="rarity-badge rarity-${cleanHTML(entry.rarity || "A")}">
+                        ${cleanHTML(entry.rarity || "A")}
+                    </span>
+
+                </div>
+
+                <div class="history-meta">
+
+                    <span>
+                        ${entry.type === "market" ? "🛒 Market" : "🎲 Roll"}
+                    </span>
+
+                    <span>
+                        ${date.toLocaleDateString()}
+                    </span>
+
+                </div>
+
+            </div>
+        `;
+
+    }).join("");
+}
+
+
+/* =========================
+   RECENT ACQUISITION
+========================= */
+
+function renderRecentAcquisition() {
+
+    const container = document.getElementById("recentAcquisition");
+
+    if (!container) return;
+
+    const recent = game.collection[0];
+
+    if (!recent) {
+
+        container.innerHTML = `
+            <div class="empty-state">
+                <p>No acquisitions yet.</p>
+            </div>
+        `;
+
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="recent-character">
+
+            <img
+                src="${cleanHTML(recent.image || "")}"
+                alt="${cleanHTML(recent.name)}"
+                onerror="this.style.display='none'"
+            >
 
             <div>
 
-                <h3>${escapeHTML(item.name)}</h3>
+                <h3>${cleanHTML(recent.name)}</h3>
 
-                <p>${escapeHTML(item.anime)}</p>
+                <p>${cleanHTML(recent.anime || "Unknown Anime")}</p>
 
-                <p>${item.date}</p>
+                <span class="rarity-badge rarity-${cleanHTML(recent.rarity || "A")}">
+                    ${cleanHTML(recent.rarity || "A")}
+                </span>
 
             </div>
 
-            <strong style="color:var(--rarity)">
-                ${item.tier}
-            </strong>
-
         </div>
-
-        `;
-
-    }).join("");
-
+    `;
 }
 
-/* =====================================
-   FEATURED
-===================================== */
 
-function renderFeatured() {
+/* =========================
+   HOME PAGE
+========================= */
 
-    const grid = document.getElementById("featured");
+function renderHome() {
 
-    const featured = characters.slice(0,8);
+    const grid = document.getElementById("homeCharacters");
 
-    grid.innerHTML = featured.map(character => {
+    if (!grid) return;
 
-        return characterCard(
+    const characters = [
+        ...game.collection
+    ].slice(0, 8);
 
-            character,
-
-            game.collection.includes(character.id)
-                ? "OWNED"
-                : "BUY",
-
-            game.collection.includes(character.id)
-                ? `navigate('collection')`
-                : `buyCharacter('${character.id}')`
-
-        );
-
-    }).join("");
-
-}
-
-/* =====================================
-   RECENT COLLECTION
-===================================== */
-
-function renderRecent() {
-
-    const grid = document.getElementById("recentCollection");
-
-    const recent = game.collection.slice(-4).reverse();
-
-    const list = recent.map(id => {
-
-        return characters.find(c => c.id === id);
-
-    }).filter(Boolean);
-
-    if(list.length === 0) {
+    if (!characters.length) {
 
         grid.innerHTML = `
-        <div class="empty">
-            Your first character is waiting.
-        </div>
+            <div class="empty-state">
+                <h3>Your journey begins here</h3>
+                <p>Roll your first character!</p>
+            </div>
         `;
 
         return;
-
     }
 
-    grid.innerHTML = list.map(character => {
+    renderCharacterGrid(
+        grid,
+        characters,
+        "collection"
+    );
+}
 
-        return characterCard(
 
-            character,
+/* =========================
+   ROLL SYSTEM
+========================= */
 
-            "VIEW",
+const ROLL_COST = 100;
 
-            `navigate('collection')`
 
+function getRollPool() {
+
+    // Only characters with valid data can be rolled
+
+    return characterDatabase.filter(character => {
+
+        return character &&
+            character.id &&
+            character.name &&
+            character.image;
+    });
+}
+
+
+function performRoll() {
+
+    const pool = getRollPool();
+
+    // Validate before spending currency
+
+    if (!pool.length) {
+
+        showToast(
+            "Character database is empty. Try Discover!",
+            "error"
         );
 
-    }).join("");
+        return;
+    }
+
+    if (game.coins < ROLL_COST) {
+
+        showToast(
+            "Not enough AC to roll!",
+            "error"
+        );
+
+        return;
+    }
+
+    // Choose character FIRST
+
+    const character =
+        pool[Math.floor(Math.random() * pool.length)];
+
+    if (!character) {
+
+        showToast(
+            "Roll failed. No currency deducted.",
+            "error"
+        );
+
+        return;
+    }
+
+    // Only deduct after a valid character exists
+
+    game.coins -= ROLL_COST;
+
+    game.totalRolls = (game.totalRolls || 0) + 1;
+
+    const rolledCharacter = {
+        ...character,
+        acquiredAt: Date.now(),
+        acquisitionType: "roll"
+    };
+
+    // Add to collection only if not already owned
+
+    if (!isOwned(rolledCharacter.id)) {
+
+        addToCollection(rolledCharacter);
+
+        addToHistory(rolledCharacter, "roll");
+
+        showToast(
+            `${character.name} joined your collection!`,
+            "success"
+        );
+
+    } else {
+
+        // Duplicate compensation
+
+        const compensation = Math.max(
+            50,
+            Math.floor((character.price || 100) * 0.25)
+        );
+
+        game.coins += compensation;
+
+        addToHistory(rolledCharacter, "duplicate");
+
+        showToast(
+            `Duplicate! +${compensation} AC compensation`,
+            "normal"
+        );
+    }
+
+    saveGame();
+
+    updateWallet();
+
+    renderAll();
+
+    displayRoll(character);
+}
+
+
+/* =========================
+   ROLL DISPLAY
+========================= */
+
+function displayRoll(character) {
+
+    const display = document.getElementById("rollDisplay");
+
+    const image = document.getElementById("rollImage");
+
+    const name = document.getElementById("rollName");
+
+    const source = document.getElementById("rollSource");
+
+    const rarity = document.getElementById("rollRarity");
+
+    if (display) {
+
+        display.classList.remove("roll-animation");
+
+        void display.offsetWidth;
+
+        display.classList.add("roll-animation");
+    }
+
+    if (image) {
+
+        image.src = character.image || "";
+
+        image.style.display = character.image ? "block" : "none";
+    }
+
+    if (name) {
+
+        name.textContent = character.name;
+    }
+
+    if (source) {
+
+        source.textContent =
+            character.anime || "Unknown Anime";
+    }
+
+    if (rarity) {
+
+        rarity.textContent =
+            character.rarity || "A";
+
+        rarity.className =
+            `rarity-badge rarity-${character.rarity || "A"}`;
+    }
 
 }
 
-/* =====================================
-   UPDATE STATS
-===================================== */
 
-function updateStats() {
+/* =========================
+   NAVIGATION
+========================= */
 
-    document.getElementById("coins").innerText =
-        game.coins.toLocaleString();
+function navigate(page) {
 
-    document.getElementById("statCoins").innerText =
-        game.coins.toLocaleString();
+    document.querySelectorAll(".page").forEach(element => {
 
-    document.getElementById("statCollection").innerText =
-        game.collection.length;
+        element.classList.remove("active");
 
-    document.getElementById("statDiscovered").innerText =
-        game.discovered.length;
+    });
 
-    document.getElementById("statRolls").innerText =
-        game.rolls;
+    const target = document.getElementById(`page-${page}`);
+
+    if (target) {
+
+        target.classList.add("active");
+    }
+
+    document.querySelectorAll("[data-page]").forEach(button => {
+
+        button.classList.remove("active");
+
+    });
+
+    document.querySelectorAll(`[data-page="${page}"]`).forEach(button => {
+
+        button.classList.add("active");
+
+    });
+
+    // Render when entering each page
+
+    switch (page) {
+
+        case "home":
+            renderHome();
+            renderRecentAcquisition();
+            break;
+
+        case "market":
+            renderMarket();
+            break;
+
+        case "collection":
+            renderCollection();
+            break;
+
+        case "wishlist":
+            renderWishlist();
+            break;
+
+        case "history":
+            renderHistory();
+            break;
+
+        case "discover":
+            break;
+
+        case "showcase":
+            break;
+
+        case "rewards":
+            break;
+
+        case "settings":
+            break;
+    }
 
 }
 
-/* =====================================
-   RENDER
-===================================== */
+
+/* =========================
+   RENDER EVERYTHING
+========================= */
 
 function renderAll() {
 
-    updateStats();
+    updateWallet();
 
     renderMarket();
 
@@ -2519,75 +5846,2085 @@ function renderAll() {
 
     renderWishlist();
 
-    renderShowcase();
-
     renderHistory();
 
-    renderRecent();
+    renderHome();
 
-    renderFeatured();
-
-}
-
-/* =====================================
-   SECURITY
-===================================== */
-
-function escapeHTML(str) {
-
-    return String(str)
-
-        .replaceAll("&", "&amp;")
-
-        .replaceAll("<", "&lt;")
-
-        .replaceAll(">", "&gt;")
-
-        .replaceAll('"', "&quot;")
-
-        .replaceAll("'", "&#039;");
+    renderRecentAcquisition();
 
 }
 
-/* =====================================
-   PARTICLES
-===================================== */
 
-function createParticles() {
+/* =========================
+   EVENT LISTENERS
+========================= */
 
-    for(let i = 0; i < 25; i++) {
+document.addEventListener("DOMContentLoaded", function() {
+
+    // Navigation
+
+    document.querySelectorAll("[data-page]").forEach(button => {
+
+        button.addEventListener("click", function() {
+
+            const page = this.dataset.page;
+
+            navigate(page);
+
+        });
+
+    });
+
+
+    // Marketplace search
+
+    const marketSearch = document.getElementById("marketSearch");
+
+    if (marketSearch) {
+
+        marketSearch.addEventListener("input", renderMarket);
+
+    }
+
+
+    // Marketplace rarity
+
+    const marketRarity = document.getElementById("marketRarity");
+
+    if (marketRarity) {
+
+        marketRarity.addEventListener("change", renderMarket);
+
+    }
+
+
+    // Collection search
+
+    const collectionSearch = document.getElementById("collectionSearch");
+
+    if (collectionSearch) {
+
+        collectionSearch.addEventListener("input", renderCollection);
+
+    }
+
+
+    // Collection sorting
+
+    const collectionSort = document.getElementById("collectionSort");
+
+    if (collectionSort) {
+
+        collectionSort.addEventListener("change", renderCollection);
+
+    }
+
+
+    // Wishlist search
+
+    const wishlistSearch = document.getElementById("wishlistSearch");
+
+    if (wishlistSearch) {
+
+        wishlistSearch.addEventListener("input", renderWishlist);
+
+    }
+
+
+    // Roll button
+
+    const rollButton = document.getElementById("rollButton");
+
+    if (rollButton) {
+
+        rollButton.addEventListener("click", performRoll);
+
+    }
+
+
+    // Wishlist showcase
+
+    const editShowcase = document.getElementById("editShowcase");
+
+    if (editShowcase) {
+
+        editShowcase.addEventListener("click", function() {
+
+            navigate("collection");
+
+            showToast(
+                "Select characters from your collection to showcase.",
+                "normal"
+            );
+
+        });
+
+    }
+
+
+    // Initialize
+
+    loadGame();
+
+    initializeCharacterDatabase();
+
+    renderAll();
+
+    navigate("home");
+
+    console.log("Waifu Swap Game Engine Loaded.");
+
+});
+        /* ============================================================
+   WAIFU SWAP
+   PART 5–8
+   REWARDS + QUESTS + SHOWCASE + SETTINGS
+   CARDS + ANIMATIONS + DISCOVERY + INTEGRATION
+   ============================================================ */
+
+
+/* ============================================================
+   1. VISUAL ENGINE
+============================================================ */
+
+(function installWaifuSwapVisualEngine() {
+
+    const style = document.createElement("style");
+
+    style.textContent = `
+
+    /* ================================
+       CHARACTER CARD SYSTEM
+    ================================ */
+
+    .character-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+        background: rgba(18, 18, 30, 0.95);
+        border: 1px solid rgba(255,255,255,0.08);
+
+        transform-style: preserve-3d;
+
+        transition:
+            transform .35s cubic-bezier(.2,.8,.2,1),
+            border .3s,
+            box-shadow .3s;
+
+        will-change: transform;
+    }
+
+    .character-card:hover {
+        transform:
+            perspective(1000px)
+            rotateX(3deg)
+            rotateY(-3deg)
+            translateY(-8px);
+
+        border-color: rgba(168,85,247,.6);
+
+        box-shadow:
+            0 15px 40px rgba(120,50,255,.22);
+    }
+
+    .character-card::before {
+
+        content: "";
+
+        position: absolute;
+
+        inset: -100%;
+
+        background:
+
+            linear-gradient(
+                120deg,
+                transparent 35%,
+                rgba(255,255,255,.08) 45%,
+                rgba(255,255,255,.18) 50%,
+                rgba(255,255,255,.08) 55%,
+                transparent 65%
+            );
+
+        transform: rotate(15deg);
+
+        transition: inset .6s;
+
+        pointer-events: none;
+
+        z-index: 5;
+    }
+
+    .character-card:hover::before {
+        inset: 100%;
+    }
+
+
+    /* ================================
+       CHARACTER IMAGE
+    ================================ */
+
+    .character-card img {
+
+        width: 100%;
+
+        height: 100%;
+
+        object-fit: cover;
+
+        transition:
+            transform .5s cubic-bezier(.2,.8,.2,1),
+            filter .4s;
+
+    }
+
+    .character-card:hover img {
+
+        transform: scale(1.08);
+
+    }
+
+
+    /* ================================
+       RARITY EFFECTS
+    ================================ */
+
+    .rarity-A {
+        border-color: rgba(120,120,120,.3);
+    }
+
+    .rarity-B {
+        border-color: rgba(80,160,255,.4);
+    }
+
+    .rarity-C {
+        border-color: rgba(150,80,255,.4);
+    }
+
+    .rarity-S {
+        border-color: rgba(255,200,50,.5);
+    }
+
+    .rarity-SS {
+        border-color: rgba(255,100,200,.6);
+    }
+
+    .rarity-SSS {
+        border-color: rgba(255,50,150,.8);
+
+        box-shadow:
+            0 0 20px rgba(255,50,150,.2);
+    }
+
+    .rarity-Z {
+
+        border-color: rgba(255,255,255,.8);
+
+        box-shadow:
+
+            0 0 15px rgba(255,255,255,.3),
+
+            0 0 30px rgba(255,0,150,.3),
+
+            0 0 50px rgba(120,0,255,.2);
+
+        animation:
+            rarityZGlow 3s infinite alternate;
+
+    }
+
+    @keyframes rarityZGlow {
+
+        from {
+
+            box-shadow:
+
+                0 0 10px rgba(255,255,255,.2),
+
+                0 0 25px rgba(255,0,150,.2);
+
+        }
+
+        to {
+
+            box-shadow:
+
+                0 0 20px rgba(255,255,255,.5),
+
+                0 0 45px rgba(255,0,150,.5),
+
+                0 0 70px rgba(120,0,255,.3);
+
+        }
+
+    }
+
+
+    /* ================================
+       IMAGE LOADING
+    ================================ */
+
+    .character-image-container {
+
+        position: relative;
+
+        overflow: hidden;
+
+        background:
+
+            linear-gradient(
+                135deg,
+                #151520,
+                #202033,
+                #151520
+            );
+
+    }
+
+    .image-loading {
+
+        position: absolute;
+
+        inset: 0;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background: rgba(20,20,30,.7);
+
+        animation: imagePulse 1.5s infinite;
+
+    }
+
+    @keyframes imagePulse {
+
+        0%,100% {
+            opacity: .4;
+        }
+
+        50% {
+            opacity: .8;
+        }
+
+    }
+
+
+    /* ================================
+       ROLL ANIMATION
+    ================================ */
+
+    .roll-animation {
+
+        animation:
+
+            rollReveal .8s cubic-bezier(.2,.8,.2,1);
+
+    }
+
+    @keyframes rollReveal {
+
+        0% {
+
+            transform:
+
+                scale(.5)
+
+                rotateY(180deg);
+
+            opacity: 0;
+
+            filter: blur(10px);
+
+        }
+
+        60% {
+
+            transform:
+
+                scale(1.1)
+
+                rotateY(-10deg);
+
+            opacity: 1;
+
+            filter: blur(0);
+
+        }
+
+        100% {
+
+            transform:
+
+                scale(1)
+
+                rotateY(0);
+
+        }
+
+    }
+
+
+    /* ================================
+       PARTICLES
+    ================================ */
+
+    .ws-particle {
+
+        position: fixed;
+
+        pointer-events: none;
+
+        z-index: 99999;
+
+        border-radius: 50%;
+
+        background:
+
+            radial-gradient(
+                circle,
+                white,
+                rgba(170,100,255,.5)
+            );
+
+        animation: particleFly 1s forwards;
+
+    }
+
+    @keyframes particleFly {
+
+        to {
+
+            transform:
+
+                translate(
+                    var(--tx),
+                    var(--ty)
+                )
+
+                scale(0);
+
+            opacity: 0;
+
+        }
+
+    }
+
+
+    /* ================================
+       BUTTON EFFECTS
+    ================================ */
+
+    .ws-action-button {
+
+        position: relative;
+
+        overflow: hidden;
+
+        transition:
+
+            transform .2s,
+
+            box-shadow .2s,
+
+            background .2s;
+
+    }
+
+    .ws-action-button:hover {
+
+        transform: translateY(-2px);
+
+    }
+
+    .ws-action-button:active {
+
+        transform: scale(.95);
+
+    }
+
+
+    /* ================================
+       SHOWCASE
+    ================================ */
+
+    .showcase-card {
+
+        position: relative;
+
+        overflow: hidden;
+
+        border-radius: 20px;
+
+        background:
+
+            linear-gradient(
+                135deg,
+                rgba(30,20,50,.95),
+                rgba(15,15,25,.95)
+            );
+
+        border: 1px solid rgba(168,85,247,.25);
+
+    }
+
+    .showcase-card img {
+
+        width: 100%;
+
+        height: 100%;
+
+        object-fit: cover;
+
+    }
+
+
+    /* ================================
+       QUEST CARDS
+    ================================ */
+
+    .quest-card {
+
+        position: relative;
+
+        padding: 20px;
+
+        border-radius: 18px;
+
+        background: rgba(20,20,35,.9);
+
+        border: 1px solid rgba(255,255,255,.08);
+
+        transition: .3s;
+
+    }
+
+    .quest-card:hover {
+
+        border-color: rgba(168,85,247,.5);
+
+        transform: translateY(-3px);
+
+    }
+
+    .quest-progress {
+
+        height: 8px;
+
+        border-radius: 20px;
+
+        background: rgba(255,255,255,.08);
+
+        overflow: hidden;
+
+    }
+
+    .quest-progress-fill {
+
+        height: 100%;
+
+        border-radius: 20px;
+
+        background:
+
+            linear-gradient(
+                90deg,
+                #9333ea,
+                #c084fc
+            );
+
+        transition: width .5s;
+
+    }
+
+
+    /* ================================
+       RESPONSIVE
+    ================================ */
+
+    @media(max-width:700px) {
+
+        .character-card:hover {
+
+            transform:
+
+                translateY(-4px);
+
+        }
+
+        .character-card {
+
+            border-radius: 14px;
+
+        }
+
+    }
+
+    `;
+
+    document.head.appendChild(style);
+
+})();
+
+
+/* ============================================================
+   2. PARTICLE EFFECT
+============================================================ */
+
+function createParticles(x, y, amount = 15) {
+
+    for (let i = 0; i < amount; i++) {
 
         const particle = document.createElement("div");
 
-        particle.className = "particle";
+        particle.className = "ws-particle";
 
-        particle.style.left = Math.random() * 100 + "%";
+        const angle = Math.random() * Math.PI * 2;
 
-        particle.style.animationDuration =
-            5 + Math.random() * 10 + "s";
+        const distance = 50 + Math.random() * 120;
 
-        particle.style.animationDelay =
-            Math.random() * 10 + "s";
+        particle.style.left = `${x}px`;
+
+        particle.style.top = `${y}px`;
+
+        particle.style.width =
+            `${3 + Math.random() * 5}px`;
+
+        particle.style.height =
+            particle.style.width;
+
+        particle.style.setProperty(
+            "--tx",
+            `${Math.cos(angle) * distance}px`
+        );
+
+        particle.style.setProperty(
+            "--ty",
+            `${Math.sin(angle) * distance}px`
+        );
 
         document.body.appendChild(particle);
+
+        setTimeout(() => particle.remove(), 1000);
 
     }
 
 }
 
-/* =====================================
-   START
-===================================== */
 
-document.getElementById("marketSearch")
-    .addEventListener("input",renderMarket);
+/* ============================================================
+   3. CHARACTER CARD ENGINE
+============================================================ */
 
-createParticles();
+function createCharacterCard(character, context = "market") {
 
-renderAll();
+    if (!character) return "";
 
-preloadAnime();
+    const id = String(character.id);
 
+    const rarity = character.rarity || "A";
+
+    const owned = isOwned(id);
+
+    const wishlisted = isWishlisted(id);
+
+    const image = character.image || "";
+
+    const name = cleanHTML(character.name || "Unknown");
+
+    const anime = cleanHTML(character.anime || "Unknown");
+
+    const price = character.price ||
+        getCharacterPrice(rarity);
+
+    const safeID = encodeURIComponent(id);
+
+    let actionHTML = "";
+
+    if (context === "market") {
+
+        actionHTML = owned
+
+            ? `
+                <button
+                    class="ws-action-button"
+                    disabled
+                >
+                    OWNED
+                </button>
+            `
+
+            : `
+                <button
+                    class="ws-action-button"
+                    onclick="buyCharacter(decodeURIComponent('${safeID}'))"
+                >
+                    🛒 ${price.toLocaleString()} AC
+                </button>
+            `;
+
+    }
+
+    else if (context === "collection") {
+
+        actionHTML = `
+            <button
+                class="ws-action-button"
+                onclick="toggleShowcaseCharacter(decodeURIComponent('${safeID}'))"
+            >
+                ${game.showcase.some(c => String(c.id) === id)
+                    ? "⭐ Showcased"
+                    : "⭐ Showcase"}
+            </button>
+        `;
+
+    }
+
+    else if (context === "wishlist") {
+
+        actionHTML = `
+            <button
+                class="ws-action-button"
+                onclick="removeFromWishlist(decodeURIComponent('${safeID}'))"
+            >
+                ❤️ Remove
+            </button>
+
+            <button
+                class="ws-action-button"
+                onclick="buyCharacter(decodeURIComponent('${safeID}'))"
+            >
+                🛒 ${price.toLocaleString()} AC
+            </button>
+        `;
+
+    }
+
+    return `
+
+        <article
+            class="character-card rarity-${rarity}"
+            data-character-id="${safeID}"
+        >
+
+            <div class="character-image-container">
+
+                <img
+
+                    src="${cleanHTML(image)}"
+
+                    alt="${name}"
+
+                    loading="lazy"
+
+                    onerror="
+                        this.style.display='none';
+                        this.parentElement.classList.add('image-failed');
+                    "
+
+                >
+
+            </div>
+
+            <div class="character-card-content">
+
+                <h3>${name}</h3>
+
+                <p>${anime}</p>
+
+                <span class="rarity-badge rarity-${rarity}">
+                    ${rarity}
+                </span>
+
+                <div class="character-card-actions">
+
+                    ${actionHTML}
+
+                    <button
+
+                        class="ws-action-button"
+
+                        onclick="toggleWishlist(decodeURIComponent('${safeID}'))"
+
+                    >
+
+                        ${wishlisted ? "❤️" : "🤍"}
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    `;
+
+}
+
+
+/* ============================================================
+   4. CHARACTER GRID ENGINE
+============================================================ */
+
+function renderCharacterGrid(
+    grid,
+    characters,
+    context = "market"
+) {
+
+    if (!grid) return;
+
+    grid.innerHTML = characters.map(character => {
+
+        return createCharacterCard(
+            character,
+            context
+        );
+
+    }).join("");
+
+}
+
+
+/* ============================================================
+   5. WISHLIST REMOVE
+============================================================ */
+
+function removeFromWishlist(characterID) {
+
+    game.wishlist = game.wishlist.filter(
+
+        character =>
+
+            String(character.id) !== String(characterID)
+
+    );
+
+    saveGame();
+
+    renderWishlist();
+
+    renderMarket();
+
+    showToast(
+        "Removed from wishlist",
+        "normal"
+    );
+
+}
+
+
+/* ============================================================
+   6. SHOWCASE
+============================================================ */
+
+const MAX_SHOWCASE = 6;
+
+
+function toggleShowcaseCharacter(characterID) {
+
+    const character = game.collection.find(
+
+        c => String(c.id) === String(characterID)
+
+    );
+
+    if (!character) {
+
+        showToast(
+            "Character not found in collection",
+            "error"
+        );
+
+        return;
+
+    }
+
+    const existing = game.showcase.findIndex(
+
+        c => String(c.id) === String(characterID)
+
+    );
+
+    if (existing !== -1) {
+
+        game.showcase.splice(existing, 1);
+
+        showToast(
+            "Removed from showcase",
+            "normal"
+        );
+
+    }
+
+    else {
+
+        if (game.showcase.length >= MAX_SHOWCASE) {
+
+            showToast(
+                `Showcase limit: ${MAX_SHOWCASE} characters`,
+                "error"
+            );
+
+            return;
+
+        }
+
+        game.showcase.push(character);
+
+        showToast(
+            `${character.name} added to showcase`,
+            "success"
+        );
+
+    }
+
+    saveGame();
+
+    renderShowcase();
+
+    renderCollection();
+
+}
+
+
+function renderShowcase() {
+
+    const grid = document.getElementById("showcaseGrid");
+
+    if (!grid) return;
+
+    if (!game.showcase.length) {
+
+        grid.innerHTML = `
+
+            <div class="empty-state">
+
+                <h3>Your showcase is empty</h3>
+
+                <p>
+                    Add characters from your collection.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    grid.innerHTML = game.showcase.map(character => `
+
+        <div class="showcase-card">
+
+            <img
+
+                src="${cleanHTML(character.image || "")}"
+
+                alt="${cleanHTML(character.name)}"
+
+                loading="lazy"
+
+                onerror="this.style.display='none'"
+
+            >
+
+            <div class="showcase-info">
+
+                <h3>${cleanHTML(character.name)}</h3>
+
+                <p>${cleanHTML(character.anime || "")}</p>
+
+                <span class="rarity-badge rarity-${cleanHTML(character.rarity)}">
+
+                    ${cleanHTML(character.rarity)}
+
+                </span>
+
+                <button
+
+                    onclick="toggleShowcaseCharacter('${encodeURIComponent(String(character.id))}')"
+
+                >
+
+                    Remove
+
+                </button>
+
+            </div>
+
+        </div>
+
+    `).join("");
+
+}
+
+
+/* ============================================================
+   7. DAILY REWARDS
+============================================================ */
+
+const DAILY_REWARD_AMOUNT = 500;
+
+
+function claimDailyReward() {
+
+    const today = new Date().toDateString();
+
+    if (game.dailyClaimed === today) {
+
+        showToast(
+            "Daily reward already claimed!",
+            "error"
+        );
+
+        return;
+
+    }
+
+    game.coins += DAILY_REWARD_AMOUNT;
+
+    game.dailyClaimed = today;
+
+    saveGame();
+
+    updateWallet();
+
+    renderAll();
+
+    renderRewards();
+
+    showToast(
+        `🎁 +${DAILY_REWARD_AMOUNT} AC Daily Reward!`,
+        "success"
+    );
+
+}
+
+
+function renderRewards() {
+
+    const button = document.getElementById("dailyRewardButton");
+
+    if (button) {
+
+        const today = new Date().toDateString();
+
+        const claimed = game.dailyClaimed === today;
+
+        button.disabled = claimed;
+
+        button.textContent = claimed
+
+            ? "Claimed Today ✓"
+
+            : `Claim ${DAILY_REWARD_AMOUNT} AC`;
+
+    }
+
+    renderQuests();
+
+}
+
+
+/* ============================================================
+   8. QUEST SYSTEM
+============================================================ */
+
+function initializeQuests() {
+
+    const today = new Date().toDateString();
+
+    if (game.questDate !== today) {
+
+        game.questDate = today;
+
+        game.quests = [
+
+            {
+                id: "roll3",
+                name: "Begin Your Journey",
+                description: "Perform 3 character rolls",
+                progress: 0,
+                target: 3,
+                reward: 300,
+                completed: false
+            },
+
+            {
+                id: "collect2",
+                name: "Collector",
+                description: "Acquire 2 new characters",
+                progress: 0,
+                target: 2,
+                reward: 500,
+                completed: false
+            },
+
+            {
+                id: "discover5",
+                name: "Explorer",
+                description: "Discover 5 new characters",
+                progress: 0,
+                target: 5,
+                reward: 250,
+                completed: false
+            }
+
+        ];
+
+    }
+
+}
+
+
+function updateQuestProgress(questID, amount = 1) {
+
+    const quest = game.quests.find(
+
+        q => q.id === questID
+
+    );
+
+    if (!quest || quest.completed) return;
+
+    quest.progress += amount;
+
+    if (quest.progress >= quest.target) {
+
+        quest.progress = quest.target;
+
+        quest.completed = true;
+
+        game.coins += quest.reward;
+
+        showToast(
+            `Quest completed! +${quest.reward} AC`,
+            "success"
+        );
+
+    }
+
+    saveGame();
+
+    renderQuests();
+
+    updateWallet();
+
+}
+
+
+function renderQuests() {
+
+    const grid = document.getElementById("questGrid");
+
+    if (!grid) return;
+
+    if (!game.quests.length) {
+
+        grid.innerHTML = `
+
+            <div class="empty-state">
+
+                <p>No quests available.</p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    grid.innerHTML = game.quests.map(quest => {
+
+        const percentage = Math.min(
+
+            100,
+
+            (quest.progress / quest.target) * 100
+
+        );
+
+        return `
+
+            <div class="quest-card">
+
+                <h3>${cleanHTML(quest.name)}</h3>
+
+                <p>${cleanHTML(quest.description)}</p>
+
+                <div class="quest-progress">
+
+                    <div
+
+                        class="quest-progress-fill"
+
+                        style="width:${percentage}%"
+
+                    ></div>
+
+                </div>
+
+                <p>
+
+                    ${quest.progress}/${quest.target}
+
+                </p>
+
+                <span>
+
+                    💰 ${quest.reward} AC
+
+                </span>
+
+                ${quest.completed
+
+                    ? "<p>✓ COMPLETED</p>"
+
+                    : ""
+
+                }
+
+            </div>
+
+        `;
+
+    }).join("");
+
+}
+
+
+/* ============================================================
+   9. SETTINGS
+============================================================ */
+
+function exportSave() {
+
+    const saveData = {
+
+        game,
+
+        database: characterDatabase,
+
+        exportedAt: new Date().toISOString(),
+
+        version: 4
+
+    };
+
+    const blob = new Blob(
+
+        [JSON.stringify(saveData, null, 2)],
+
+        {
+
+            type: "application/json"
+
+        }
+
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+
+    link.download = "waifu-swap-save.json";
+
+    link.click();
+
+    URL.revokeObjectURL(url);
+
+    showToast(
+        "Save exported successfully!",
+        "success"
+    );
+
+}
+
+
+function importSaveFile(file) {
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+
+        try {
+
+            const data = JSON.parse(event.target.result);
+
+            if (!data.game) {
+
+                throw new Error("Invalid save file");
+
+            }
+
+            game = {
+
+                ...game,
+
+                ...data.game
+
+            };
+
+            if (Array.isArray(data.database)) {
+
+                data.database.forEach(character => {
+
+                    addCharacterToDatabase(character);
+
+                });
+
+            }
+
+            saveGame();
+
+            renderAll();
+
+            renderRewards();
+
+            renderShowcase();
+
+            showToast(
+                "Save imported successfully!",
+                "success"
+            );
+
+        }
+
+        catch(error) {
+
+            showToast(
+                "Invalid save file!",
+                "error"
+            );
+
+            console.error(error);
+
+        }
+
+    };
+
+    reader.readAsText(file);
+
+}
+
+
+function resetGame() {
+
+    const confirmed = confirm(
+
+        "Are you sure you want to reset Waifu Swap? " +
+
+        "This permanently deletes your collection, AC, " +
+
+        "history and progress."
+
+    );
+
+    if (!confirmed) return;
+
+    localStorage.removeItem(SAVE_KEY);
+
+    location.reload();
+
+}
+
+
+/* ============================================================
+   10. DISCOVERY SYSTEM IMPROVEMENTS
+============================================================ */
+
+async function refreshDiscovery() {
+
+    const type = document.getElementById("discoverType");
+
+    const search = document.getElementById("discoverSearch");
+
+    const grid = document.getElementById("discoverGrid");
+
+    if (!type || !grid) return;
+
+    const category = type.value;
+
+    const query = search?.value?.trim() || "";
+
+    grid.innerHTML = `
+
+        <div class="loading-state">
+
+            <div class="loading-spinner"></div>
+
+            <p>Searching the anime universe...</p>
+
+        </div>
+
+    `;
+
+    try {
+
+        if (category === "character") {
+
+            if (query) {
+
+                await searchUniverse(query);
+
+            }
+
+            else {
+
+                await loadPopularCharacters();
+
+            }
+
+        }
+
+        else {
+
+            if (!query) {
+
+                grid.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <h3>Search ${category}s</h3>
+
+                        <p>
+                            Enter an anime or manga title
+                            to discover characters.
+                        </p>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+            await searchMediaAPI(query, category);
+
+        }
+
+    }
+
+    catch(error) {
+
+        console.error("Discovery error:", error);
+
+        grid.innerHTML = `
+
+            <div class="empty-state">
+
+                <h3>Discovery failed</h3>
+
+                <p>
+                    The API may be unavailable.
+                    Try again later.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+async function searchMediaAPI(query, type) {
+
+    const grid = document.getElementById("discoverGrid");
+
+    if (!grid) return;
+
+    const mediaType = type.toUpperCase();
+
+    const result = await apiRequest({
+
+        query: `
+
+            query ($search: String, $type: MediaType) {
+
+                Media(
+
+                    search: $search,
+
+                    type: $type
+
+                ) {
+
+                    id
+
+                    title {
+
+                        romaji
+
+                        english
+
+                        native
+
+                    }
+
+                    coverImage {
+
+                        large
+
+                        extraLarge
+
+                    }
+
+                    characters(
+
+                        sort: [FAVOURITES_DESC]
+
+                        page: 1
+
+                        perPage: 50
+
+                    ) {
+
+                        nodes {
+
+                            id
+
+                            name {
+
+                                full
+
+                            }
+
+                            image {
+
+                                large
+
+                                medium
+
+                            }
+
+                            favourites
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        `,
+
+        variables: {
+
+            search: query,
+
+            type: mediaType
+
+        }
+
+    });
+
+    const media = result?.data?.Media;
+
+    if (!media) {
+
+        grid.innerHTML = `
+
+            <div class="empty-state">
+
+                <h3>No results found</h3>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    const title =
+
+        media.title?.english ||
+
+        media.title?.romaji ||
+
+        query;
+
+    const characters = (media.characters?.nodes || []).map(character => {
+
+        return normalizeCharacter({
+
+            ...character,
+
+            media: {
+
+                nodes: [
+
+                    {
+
+                        title: {
+
+                            romaji: title
+
+                        }
+
+                    }
+
+                ]
+
+            }
+
+        });
+
+    });
+
+    characters.forEach(addCharacterToDatabase);
+
+    renderCharacterGrid(
+
+        grid,
+
+        characters,
+
+        "market"
+
+    );
+
+    saveGame();
+
+    updateWallet();
+
+}
+
+
+/* ============================================================
+   11. DISCOVERY UI
+============================================================ */
+
+function initializeDiscoveryUI() {
+
+    const search = document.getElementById("discoverSearch");
+
+    const type = document.getElementById("discoverType");
+
+    const loadMore = document.getElementById("loadMoreButton");
+
+    if (search) {
+
+        search.addEventListener("keydown", function(event) {
+
+            if (event.key === "Enter") {
+
+                refreshDiscovery();
+
+            }
+
+        });
+
+    }
+
+    if (type) {
+
+        type.addEventListener("change", function() {
+
+            refreshDiscovery();
+
+        });
+
+    }
+
+    if (loadMore) {
+
+        loadMore.addEventListener("click", function() {
+
+            loadMoreCharacters();
+
+        });
+
+    }
+
+}
+
+
+/* ============================================================
+   12. DAILY QUEST TRACKING
+============================================================ */
+
+function trackRollQuest() {
+
+    updateQuestProgress("roll3", 1);
+
+}
+
+
+function trackCollectionQuest() {
+
+    updateQuestProgress("collect2", 1);
+
+}
+
+
+function trackDiscoveryQuest() {
+
+    updateQuestProgress("discover5", 1);
+
+}
+
+
+/* ============================================================
+   13. INTEGRATE QUESTS WITH GAME ACTIONS
+============================================================ */
+
+const originalPerformRoll = performRoll;
+
+performRoll = function() {
+
+    const previousCollection = game.collection.length;
+
+    originalPerformRoll();
+
+    if (game.totalRolls > 0) {
+
+        trackRollQuest();
+
+    }
+
+    if (game.collection.length > previousCollection) {
+
+        trackCollectionQuest();
+
+    }
+
+};
+
+
+const originalBuyCharacter = buyCharacter;
+
+buyCharacter = function(characterID) {
+
+    const previousCollection = game.collection.length;
+
+    originalBuyCharacter(characterID);
+
+    if (game.collection.length > previousCollection) {
+
+        trackCollectionQuest();
+
+    }
+
+};
+
+
+const originalAddCharacterToDatabase = addCharacterToDatabase;
+
+addCharacterToDatabase = function(character) {
+
+    const previousCount = characterDatabase.length;
+
+    originalAddCharacterToDatabase(character);
+
+    if (characterDatabase.length > previousCount) {
+
+        trackDiscoveryQuest();
+
+    }
+
+};
+
+
+/* ============================================================
+   14. IMPROVED ROLL EFFECT
+============================================================ */
+
+const originalDisplayRoll = displayRoll;
+
+displayRoll = function(character) {
+
+    originalDisplayRoll(character);
+
+    const display = document.getElementById("rollDisplay");
+
+    if (!display) return;
+
+    const rect = display.getBoundingClientRect();
+
+    createParticles(
+
+        rect.left + rect.width / 2,
+
+        rect.top + rect.height / 2,
+
+        character.rarity === "Z" ? 50 : 20
+
+    );
+
+};
+
+
+/* ============================================================
+   15. DATABASE BOOTSTRAP
+============================================================ */
+
+async function bootstrapUniverse() {
+
+    console.log("Bootstrapping anime universe...");
+
+    try {
+
+        await loadPopularCharacters();
+
+    }
+
+    catch(error) {
+
+        console.warn(
+            "API bootstrap failed:",
+            error
+        );
+
+    }
+
+    renderAll();
+
+}
+
+
+/* ============================================================
+   16. SETTINGS EVENT LISTENERS
+============================================================ */
+
+function initializeSettings() {
+
+    const exportButton = document.getElementById("exportSave");
+
+    const importButton = document.getElementById("importSave");
+
+    const importFile = document.getElementById("importFile");
+
+    const resetButton = document.getElementById("resetGame");
+
+    if (exportButton) {
+
+        exportButton.addEventListener(
+
+            "click",
+
+            exportSave
+
+        );
+
+    }
+
+    if (importButton && importFile) {
+
+        importButton.addEventListener(
+
+            "click",
+
+            function() {
+
+                importFile.click();
+
+            }
+
+        );
+
+    }
+
+    if (importFile) {
+
+        importFile.addEventListener(
+
+            "change",
+
+            function() {
+
+                importSaveFile(
+
+                    importFile.files?.[0]
+
+                );
+
+            }
+
+        );
+
+    }
+
+    if (resetButton) {
+
+        resetButton.addEventListener(
+
+            "click",
+
+            resetGame
+
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   17. REWARD LISTENERS
+============================================================ */
+
+function initializeRewardListeners() {
+
+    const button = document.getElementById("dailyRewardButton");
+
+    if (button) {
+
+        button.addEventListener(
+
+            "click",
+
+            claimDailyReward
+
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   18. SHOWCASE LISTENERS
+============================================================ */
+
+function initializeShowcaseListeners() {
+
+    const button = document.getElementById("editShowcase");
+
+    if (button) {
+
+        button.addEventListener(
+
+            "click",
+
+            function() {
+
+                navigate("collection");
+
+                showToast(
+
+                    "Click ⭐ Showcase on characters " +
+
+                    "to add them.",
+
+                    "normal"
+
+                );
+
+            }
+
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   19. MARKETPLACE REFRESH
+============================================================ */
+
+function refreshMarketplace() {
+
+    renderMarket();
+
+    renderCollection();
+
+    renderWishlist();
+
+    renderHistory();
+
+    renderShowcase();
+
+    renderRewards();
+
+}
+
+
+/* ============================================================
+   20. FINAL INITIALIZATION
+============================================================ */
+
+(function finalWaifuSwapInitialization() {
+
+    function initialize() {
+
+        try {
+
+            initializeQuests();
+
+            initializeDiscoveryUI();
+
+            initializeSettings();
+
+            initializeRewardListeners();
+
+            initializeShowcaseListeners();
+
+            renderRewards();
+
+            renderShowcase();
+
+            renderAll();
+
+            updateWallet();
+
+            console.log(
+                "Waifu Swap Final Engine Initialized."
+            );
+
+        }
+
+        catch(error) {
+
+            console.error(
+                "Waifu Swap initialization error:",
+                error
+            );
+
+        }
+
+    }
+
+    if (document.readyState === "loading") {
+
+        document.addEventListener(
+
+            "DOMContentLoaded",
+
+            initialize,
+
+            {
+
+                once: true
+
+            }
+
+        );
+
+    }
+
+    else {
+
+        initialize();
+
+    }
+
+})();
 </script>
 
 </body>
