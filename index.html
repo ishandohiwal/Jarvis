@@ -1,124 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Waifu Swap — Anime Character Collection</title>
+<html lang="en"><head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gemini Hub - Standalone</title>
 <style>
-:root{--bg:#090912;--panel:#141421;--panel2:#1b1b2b;--text:#f5f3ff;--muted:#a5a3b8;--purple:#a855f7;--pink:#ec4899;--border:#2a2940;--green:#34d399;--gold:#fbbf24}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#21133a 0,#090912 48%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
-button,input,select{font:inherit}button{cursor:pointer;color:inherit;border:0}a{color:inherit}
-header{position:sticky;top:0;z-index:10;background:#0b0b14ed;backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:12px 4%;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.logo{font-size:1.25rem;font-weight:900;letter-spacing:.04em;background:linear-gradient(90deg,#c084fc,#f472b6);background-clip:text;color:transparent}
-.wallet{background:#211b35;border:1px solid #594078;border-radius:999px;padding:8px 14px;color:#e9d5ff;font-weight:800}
-nav{display:flex;gap:6px;flex-wrap:wrap;padding:10px 4%;border-bottom:1px solid var(--border)}
-nav button,.btn{background:var(--panel2);padding:9px 13px;border-radius:10px;border:1px solid var(--border);transition:.2s}
-nav button.active,nav button:hover,.btn.primary{background:linear-gradient(135deg,#7c3aed,#c026d3);border-color:transparent}
-main{max-width:1400px;margin:auto;padding:24px 4% 60px}
-.page{display:none}.page.active{display:block}
-.hero{padding:30px 0 24px}.hero h1{font-size:clamp(2rem,6vw,3.6rem);margin:0;background:linear-gradient(90deg,#f5d0fe,#c084fc,#f9a8d4);background-clip:text;color:transparent}.hero p{color:var(--muted)}
-.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0 26px}.stat{background:var(--panel);border:1px solid var(--border);padding:16px;border-radius:16px}.stat strong{font-size:1.4rem;display:block}.stat span{color:var(--muted);font-size:.85rem}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}.toolbar input,.toolbar select,.settings input{background:#10101b;color:var(--text);border:1px solid var(--border);padding:11px 13px;border-radius:10px;min-width:160px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
-.card{background:linear-gradient(160deg,#1b1b2a,#101018);border:1px solid var(--border);border-radius:17px;overflow:hidden;position:relative;transition:transform .22s,border .22s,box-shadow .22s;transform-style:preserve-3d}
-.card:hover{transform:translateY(-5px) rotateX(2deg);border-color:#9b5de5;box-shadow:0 12px 35px #7c3aed22}
-.art{aspect-ratio:3/4;background:linear-gradient(135deg,#211a35,#151520);display:flex;align-items:center;justify-content:center;overflow:hidden;color:#8e8aa4}
-.art img{width:100%;height:100%;object-fit:cover;display:block}.cardbody{padding:12px}.card h3{margin:0 0 5px;font-size:1rem}.source{font-size:.78rem;color:var(--muted);min-height:2.2em}.rarity{display:inline-block;border-radius:7px;padding:3px 8px;font-weight:900;font-size:.75rem;border:1px solid #ffffff22;margin:7px 0}
-.r-A{color:#aaa}.r-B{color:#60a5fa}.r-C{color:#c084fc}.r-S{color:#fbbf24}.r-SS{color:#f472b6}.r-SSS{color:#fb7185;text-shadow:0 0 8px #fb7185}.r-Z{color:white;background:linear-gradient(90deg,#7c3aed,#ec4899);box-shadow:0 0 15px #ec489955}
-.actions{display:flex;gap:6px;flex-wrap:wrap}.actions button{flex:1;background:#29253b;padding:8px;border-radius:8px;font-size:.83rem}.actions button:hover{background:#49346c}.actions .buy{background:#7c3aed}
-.empty{border:1px dashed #45415e;border-radius:16px;padding:35px;text-align:center;color:var(--muted);grid-column:1/-1}
-.rollbox{max-width:600px;margin:24px auto;text-align:center;background:var(--panel);border:1px solid var(--border);border-radius:24px;padding:24px}.rollart{width:min(280px,80%);aspect-ratio:3/4;object-fit:cover;border-radius:18px;background:#211a35;margin:12px auto}.rollart.hidden{display:none}.rollname{font-size:1.6rem;font-weight:900}.bigbutton{padding:14px 28px;border-radius:14px;background:linear-gradient(120deg,#7c3aed,#db2777);font-weight:900;font-size:1.05rem;margin:10px}
-.list{display:grid;gap:10px}.rowitem{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:10px}.rowitem img{width:58px;height:72px;object-fit:cover;border-radius:8px}.rowitem .grow{flex:1}.rowitem small{color:var(--muted)}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:50;background:#26213a;border:1px solid #8b5cf6;padding:12px 18px;border-radius:12px;box-shadow:0 10px 30px #0008}
-.modal{position:fixed;inset:0;background:#000b;display:none;place-items:center;z-index:40;padding:20px}.modal.open{display:grid}.modalbox{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:22px;max-width:500px;width:100%}
-.settings{display:grid;gap:12px;max-width:650px}.settings button{padding:12px;background:var(--panel2);border:1px solid var(--border);border-radius:10px;text-align:left}
-footer{text-align:center;color:var(--muted);padding:30px}
-@media(max-width:650px){header{padding:10px 3%}nav{padding:8px 3%}nav button{padding:8px 10px;font-size:.82rem}main{padding:18px 3%}.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.cardbody{padding:9px}.toolbar input{flex:1;min-width:130px}}
-</style>
-</head>
+*{box-sizing:border-box} body{margin:0;background:#000;color:#fff;font-family:Inter,system-ui,sans-serif}
+header{padding:14px 18px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222;position:sticky;top:0;background:#000;z-index:10}
+.logo{font-weight:800;font-size:20px} .logo span{background:linear-gradient(90deg,#8b5cf6,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.wrap{max-width:900px;margin:0 auto;padding:16px}
+.card{background:#0a0a0a;border:1px solid #222;border-radius:18px;padding:16px;margin-bottom:14px}
+input,select,textarea{width:100%;background:#111;border:1px solid #333;color:#fff;border-radius:12px;padding:12px;margin:6px 0;outline:none}
+button{background:linear-gradient(90deg,#8b5cf6,#06b6d4);border:none;color:#fff;padding:12px 16px;border-radius:12px;font-weight:700;cursor:pointer}
+button.ghost{background:#1a1a1a} .row{display:flex;gap:10px;flex-wrap:wrap} .row>*{flex:1}
+.pill{padding:8px 14px;border-radius:999px;background:#151515;border:1px solid #333;cursor:pointer;font-size:13px} .pill.active{background:#8b5cf6;border-color:#8b5cf6}
+.msg{padding:12px 14px;border-radius:16px;margin:10px 0;white-space:pre-wrap;line-height:1.6} .user{background:#1e1b4b;margin-left:40px} .ai{background:#111;margin-right:20px;border:1px solid #222}
+small{color:#888} label{font-size:12px;color:#aaa} input[type=range]{padding:0}
+.chip{font-size:12px;background:#1a1a1a;border:1px solid #333;padding:6px 10px;border-radius:999px;cursor:pointer}
+pre{background:#000;padding:10px;border-radius:10px;overflow:auto}
+</style></head>
 <body>
-<header><div class="logo">✦ WAIFU SWAP</div><div class="wallet">💰 <span id="wallet">10,000</span> AC</div></header>
-<nav id="nav">
-<button class="active" data-page="home">Home</button><button data-page="roll">Roll</button><button data-page="market">Market</button><button data-page="collection">Collection</button><button data-page="discover">Discover</button><button data-page="wishlist">Wishlist</button><button data-page="showcase">Showcase</button><button data-page="history">History</button><button data-page="rewards">Rewards</button><button data-page="settings">Settings</button>
-</nav>
-<main>
-<section class="page active" id="home">
-<div class="hero"><h1>Collect your universe.</h1><p>Discover anime characters, roll for rare finds, and build your collection.</p></div>
-<div class="stats"><div class="stat"><strong id="ownedCount">0</strong><span>Characters owned</span></div><div class="stat"><strong id="rollCount">0</strong><span>Rolls completed</span></div><div class="stat"><strong id="dbCount">0</strong><span>Characters discovered</span></div><div class="stat"><strong id="wishCount">0</strong><span>Wishlist</span></div></div>
-<h2>Recently acquired</h2><div id="recent" class="grid"></div><h2 style="margin-top:30px">Popular discoveries</h2><div id="popular" class="grid"></div>
-</section>
-<section class="page" id="roll"><h1>Character Roll</h1><div class="rollbox"><p>One roll costs <b>100 AC</b></p><div id="rollPlaceholder">✨ Your next character awaits.</div><img id="rollImage" class="rollart hidden" alt="Rolled character"><div id="rollName" class="rollname"></div><div id="rollSource"></div><div id="rollRarity"></div><button class="bigbutton" id="rollButton">🎲 Roll — 100 AC</button></div></section>
-<section class="page" id="market"><h1>Marketplace</h1><div class="toolbar"><input id="marketSearch" placeholder="Search character or anime…"><select id="marketRarity"><option value="">All rarities</option><option>A</option><option>B</option><option>C</option><option>S</option><option>SS</option><option>SSS</option><option>Z</option></select></div><div id="marketGrid" class="grid"></div></section>
-<section class="page" id="collection"><h1>Your Collection</h1><div class="toolbar"><input id="collectionSearch" placeholder="Search collection…"><select id="collectionSort"><option value="new">Newest</option><option value="name">Name</option><option value="rarity">Rarity</option></select></div><div id="collectionGrid" class="grid"></div></section>
-<section class="page" id="discover"><h1>Discover the universe</h1><div class="toolbar"><select id="discoverType"><option value="character">Characters</option><option value="ANIME">Anime</option><option value="MANGA">Manga</option></select><input id="discoverSearch" placeholder="Search characters, anime or manga…"><button class="btn primary" id="discoverButton">Search</button><button class="btn" id="popularButton">Popular characters</button></div><p id="discoverStatus" style="color:var(--muted)"></p><div id="discoverGrid" class="grid"></div><button class="btn" id="moreButton" style="margin-top:15px;display:none">Load more</button></section>
-<section class="page" id="wishlist"><h1>Wishlist</h1><div class="toolbar"><input id="wishlistSearch" placeholder="Search wishlist…"></div><div id="wishlistGrid" class="grid"></div></section>
-<section class="page" id="showcase"><h1>Showcase</h1><p style="color:var(--muted)">Choose up to six characters from your collection to feature.</p><div id="showcaseGrid" class="grid"></div></section>
-<section class="page" id="history"><h1>Acquisition History</h1><div id="historyList" class="list"></div></section>
-<section class="page" id="rewards"><h1>Rewards & Quests</h1><div class="stat"><h2>Daily reward</h2><p>Claim 500 AC once each day.</p><button class="btn primary" id="dailyButton">Claim daily reward</button></div><h2>Daily quests</h2><div id="quests" class="grid"></div></section>
-<section class="page" id="settings"><h1>Settings & Save Data</h1><div class="settings"><button id="exportButton">📤 Export save file</button><button id="importButton">📥 Import save file</button><input id="importFile" type="file" accept=".json,application/json" hidden><button id="resetButton">🗑️ Reset game (cannot be undone)</button><p style="color:var(--muted)">Your game saves automatically in this browser. Export regularly to back up your progress.</p></div></section>
-</main><footer>Waifu Swap • Fan-made character collection game • Character data provided by AniList</footer><div id="toast" class="toast" hidden></div>
+<header><div class="logo">Gemini <span>Hub</span></div><div><small id="keyBadge">No key</small></div></header>
+<div class="wrap">
+<div class="card"><h3 style="margin:0">1. Paste your API Key</h3><small>Supports new AQ.Ab... Auth keys + old AIza keys. Saved only in YOUR browser (localStorage).</small>
+<input id="apiKey" type="password" placeholder="Paste AQ.Ab... key here">
+<div class="row"><select id="model"><option>gemini-2.5-flash</option><option>gemini-2.5-pro</option><option>gemini-2.0-flash</option><option>gemini-1.5-flash</option></select><button onclick="testKey()">Test Connection</button><button class="ghost" onclick="toggleKey()">Show/Hide</button></div>
+<div id="testResult"></div></div>
+
+<div class="card"><h3 style="margin:0">2. Mode + Controls</h3>
+<div id="modes" style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0"></div>
+<div id="chips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+<div class="row"><div><label>Temperature / Creativity: <b id="tempVal">0.7</b></label><input id="temp" type="range" min="0" max="2" step="0.1" value="0.7"></div><div><label>Max Tokens: <b id="tokVal">2048</b></label><input id="toks" type="range" min="256" max="8192" step="256" value="2048"></div></div>
+<div class="row"><input id="memName" placeholder="Your name (memory)"><input id="memStyle" placeholder="Style: e.g. Hinglish, funny, simple"></div>
+<small>Memory is auto-added to every prompt.</small></div>
+
+<div class="card"><h3 style="margin:0">3. Chat</h3><div id="chat"></div>
+<textarea id="prompt" rows="3" placeholder="Ask anything... e.g. Make flashcards for photosynthesis"></textarea>
+<div class="row"><button onclick="send()">Send to Gemini →</button><button class="ghost" onclick="clearChat()">Clear Chat</button></div>
+<div><small>Tip: Open this file in Chrome, not inside Meta AI preview. Preview blocks Google API.</small></div></div>
+</div>
 <script>
-"use strict";
-const SAVE_KEY="waifuSwapStandalone_v1", API="https://graphql.anilist.co";
-const rarityList=["A","B","C","S","SS","SSS","Z"];
-const prices={A:100,B:250,C:500,S:1200,SS:3000,SSS:10000,Z:500000};
-let state={coins:10000,collection:[],wishlist:[],history:[],showcase:[],rolls:0,daily:"",questDate:"",quests:[],discovered:[]};
-let db=[],page=1,lastSearch="",lastType="character",loading=false;
-function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.hidden=false;clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.hidden=true,2500)}
-function save(){try{localStorage.setItem(SAVE_KEY,JSON.stringify({state,db}))}catch(e){console.warn(e)}}
-function load(){try{const s=JSON.parse(localStorage.getItem(SAVE_KEY)||"{}");if(s.state)state={...state,...s.state};if(Array.isArray(s.db))db=s.db}catch(e){console.warn("Save load failed",e)}}
-function rarity(){const n=Math.random();return n<.4?"A":n<.65?"B":n<.82?"C":n<.93?"S":n<.975?"SS":n<.995?"SSS":"Z"}
-function normalize(c,source=""){return{id:String(c.id),name:c.name?.full||c.name||"Unknown",image:c.image?.large||c.image?.medium||c.image||"",anime:source||c.media?.nodes?.[0]?.title?.english||c.media?.nodes?.[0]?.title?.romaji||"Unknown",rarity:c.rarity||rarity(),price:c.price||prices[c.rarity]||prices.A,favourites:c.favourites||0}}
-function addDB(c){if(!c||!c.id)return false;const id=String(c.id),old=db.find(x=>x.id===id);if(old){Object.assign(old,c);return false}db.unshift(c);state.discovered.push(id);return true}
-function owned(id){return state.collection.some(c=>String(c.id)===String(id))}
-function wished(id){return state.wishlist.some(c=>String(c.id)===String(id))}
-function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
-function img(c){return c.image?`<img src="${esc(c.image)}" loading="lazy" alt="${esc(c.name)}" onerror="this.parentElement.innerHTML='Artwork unavailable'">`:"Artwork unavailable"}
-function card(c,where="market"){const isOwned=owned(c.id),isWish=wished(c.id);let buttons="";
-if(where==="market")buttons=`<button class="buy" ${isOwned?"disabled":""} onclick="buy('${esc(c.id)}')">${isOwned?"Owned":`Buy ${Number(c.price||prices[c.rarity]||100).toLocaleString()} AC`}</button>`;
-if(where==="collection")buttons=`<button onclick="toggleShowcase('${esc(c.id)}')">${state.showcase.some(x=>x.id===c.id)?"★ Featured":"☆ Showcase"}</button>`;
-if(where==="wishlist")buttons=`<button onclick="removeWish('${esc(c.id)}')">Remove</button><button class="buy" onclick="buy('${esc(c.id)}')">Buy</button>`;
-buttons+=`<button onclick="toggleWish('${esc(c.id)}')">${isWish?"♥":"♡"}</button>`;
-return `<article class="card"><div class="art">${img(c)}</div><div class="cardbody"><h3>${esc(c.name)}</h3><div class="source">${esc(c.anime||"Unknown")}</div><span class="rarity r-${esc(c.rarity)}">${esc(c.rarity)}</span><div class="actions">${buttons}</div></div></article>`}
-function grid(id,items,where="market"){const el=document.getElementById(id);if(!el)return;el.innerHTML=items.length?items.map(c=>card(c,where)).join(""):`<div class="empty">Nothing here yet.</div>`}
-function update(){document.getElementById("wallet").textContent=state.coins.toLocaleString();document.getElementById("ownedCount").textContent=state.collection.length;document.getElementById("rollCount").textContent=state.rolls;document.getElementById("dbCount").textContent=db.length;document.getElementById("wishCount").textContent=state.wishlist.length}
-function renderMarket(){let q=document.getElementById("marketSearch").value.toLowerCase(),r=document.getElementById("marketRarity").value;grid("marketGrid",db.filter(c=>(c.name+" "+c.anime).toLowerCase().includes(q)&&(!r||c.rarity===r)),"market")}
-function renderCollection(){let q=document.getElementById("collectionSearch").value.toLowerCase(),sort=document.getElementById("collectionSort").value,arr=state.collection.filter(c=>(c.name+" "+c.anime).toLowerCase().includes(q));if(sort==="name")arr.sort((a,b)=>a.name.localeCompare(b.name));if(sort==="rarity")arr.sort((a,b)=>rarityList.indexOf(b.rarity)-rarityList.indexOf(a.rarity));grid("collectionGrid",arr,"collection")}
-function renderWish(){let q=document.getElementById("wishlistSearch").value.toLowerCase();grid("wishlistGrid",state.wishlist.filter(c=>(c.name+" "+c.anime).toLowerCase().includes(q)),"wishlist")}
-function renderHistory(){const el=document.getElementById("historyList");el.innerHTML=state.history.length?state.history.map(h=>`<div class="rowitem">${h.image?`<img src="${esc(h.image)}" alt="">`:""}<div class="grow"><b>${esc(h.name)}</b><br><small>${esc(h.anime)} • ${esc(h.type)} • ${new Date(h.date).toLocaleString()}</small></div><span class="rarity r-${esc(h.rarity)}">${esc(h.rarity)}</span></div>`).join(""):`<div class="empty">Your acquisitions will appear here.</div>`}
-function renderShowcase(){grid("showcaseGrid",state.showcase,"collection")}
-function renderHome(){grid("recent",state.collection.slice(0,6),"collection");grid("popular",db.slice(0,8),"market")}
-function renderQuests(){const today=new Date().toDateString();if(state.questDate!==today){state.questDate=today;state.quests=[{id:"roll",name:"Roll three times",progress:0,target:3,reward:300},{id:"collect",name:"Acquire two characters",progress:0,target:2,reward:500},{id:"discover",name:"Discover five characters",progress:0,target:5,reward:250}]}document.getElementById("quests").innerHTML=state.quests.map(q=>`<div class="stat"><b>${esc(q.name)}</b><p>${q.progress}/${q.target}</p><div style="height:7px;background:#302b43;border-radius:9px;overflow:hidden"><div style="height:100%;width:${Math.min(100,q.progress/q.target*100)}%;background:linear-gradient(90deg,#9333ea,#ec4899)"></div></div><p>Reward: ${q.reward} AC ${q.done?"✓ Claimed":""}</p></div>`).join("");save()}
-function quest(id){let q=state.quests.find(x=>x.id===id);if(!q||q.done)return;q.progress=Math.min(q.target,q.progress+1);if(q.progress>=q.target){q.done=true;state.coins+=q.reward;toast(`Quest complete! +${q.reward} AC`)}renderQuests();update()}
-function renderAll(){update();renderMarket();renderCollection();renderWish();renderHistory();renderShowcase();renderHome();renderQuests()}
-function buy(id){let c=db.find(x=>x.id===String(id))||state.wishlist.find(x=>x.id===String(id));if(!c)return toast("Character unavailable");if(owned(id))return toast("Already owned");let cost=Number(c.price||prices[c.rarity]||100);if(state.coins<cost)return toast("Not enough AC");state.coins-=cost;const acq={...c,acquired:Date.now()};state.collection.unshift(acq);state.history.unshift({...c,type:"Market",date:Date.now()});quest("collect");save();renderAll();toast(`${c.name} acquired!`)}
-function toggleWish(id){let c=db.find(x=>x.id===String(id))||state.collection.find(x=>x.id===String(id));if(!c)return;state.wishlist=wished(id)?state.wishlist.filter(x=>x.id!==String(id)):[...state.wishlist,c];save();renderAll()}
-function removeWish(id){state.wishlist=state.wishlist.filter(x=>x.id!==String(id));save();renderAll()}
-function toggleShowcase(id){let c=state.collection.find(x=>x.id===String(id));if(!c)return;if(state.showcase.some(x=>x.id===String(id)))state.showcase=state.showcase.filter(x=>x.id!==String(id));else if(state.showcase.length<6)state.showcase.push(c);else return toast("Showcase limit is 6");save();renderAll()}
-function roll(){if(state.coins<100)return toast("Not enough AC");if(!db.length)return toast("Database is loading. Try again soon.");const c=db[Math.floor(Math.random()*db.length)];state.coins-=100;state.rolls++;document.getElementById("rollPlaceholder").hidden=true;const im=document.getElementById("rollImage");im.classList.remove("hidden");im.src=c.image;document.getElementById("rollName").textContent=c.name;document.getElementById("rollSource").textContent=c.anime;document.getElementById("rollRarity").innerHTML=`<span class="rarity r-${c.rarity}">${c.rarity}</span>`;im.animate([{transform:"scale(.65) rotateY(90deg)",opacity:0},{transform:"scale(1) rotateY(0)",opacity:1}],{duration:650,easing:"cubic-bezier(.2,.8,.2,1)"});if(!owned(c.id)){state.collection.unshift({...c,acquired:Date.now()});state.history.unshift({...c,type:"Roll",date:Date.now()});quest("collect");toast(`${c.name} joined your collection!`)}else{let bonus=Math.max(50,Math.floor((c.price||100)*.25));state.coins+=bonus;state.history.unshift({...c,type:"Duplicate",date:Date.now()});toast(`Duplicate! +${bonus} AC`)}quest("roll");save();renderAll()}
-async function api(query,variables={}){const res=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({query,variables})});if(!res.ok)throw new Error("AniList request failed");const json=await res.json();if(json.errors)throw new Error(json.errors[0].message);return json.data}
-const charQuery=`query($search:String,$page:Int){Page(page:$page,perPage:30){pageInfo{hasNextPage}characters(search:$search,sort:FAVOURITES_DESC){id name{full} image{large medium} favourites media(perPage:3){nodes{title{english romaji}}}}}}`;
-const popQuery=`query($page:Int){Page(page:$page,perPage:30){pageInfo{hasNextPage}characters(sort:FAVOURITES_DESC){id name{full} image{large medium} favourites media(perPage:3){nodes{title{english romaji}}}}}}`;
-const mediaQuery=`query($search:String,$type:MediaType){Media(search:$search,type:$type){id title{english romaji} characters(sort:FAVOURITES_DESC,perPage:30){nodes{id name{full} image{large medium} favourites}}}}`;
-async function discoverCharacters(q,p=1){const data=await api(charQuery,{search:q,page:p});return{items:data.Page.characters.map(c=>normalize(c)),more:data.Page.pageInfo.hasNextPage}}
-async function popular(p=1){const data=await api(popQuery,{page:p});return{items:data.Page.characters.map(c=>normalize(c)),more:data.Page.pageInfo.hasNextPage}}
-async function search(){let q=document.getElementById("discoverSearch").value.trim(),type=document.getElementById("discoverType").value;page=1;lastSearch=q;lastType=type;const status=document.getElementById("discoverStatus"),el=document.getElementById("discoverGrid");if(!q)return toast("Enter a search term");status.textContent="Searching AniList…";el.innerHTML='<div class="empty">Loading…</div>';try{let items;if(type==="character"){let d=await discoverCharacters(q,page);items=d.items;document.getElementById("moreButton").style.display=d.more?"inline-block":"none"}else{let d=await api(mediaQuery,{search:q,type});let m=d.Media;items=(m?.characters?.nodes||[]).map(c=>normalize(c,m.title.english||m.title.romaji||q));document.getElementById("moreButton").style.display="none"}items.forEach(addDB);grid("discoverGrid",items,"market");status.textContent=`Found ${items.length} characters. Added to your database.`;quest("discover");save();renderAll()}catch(e){status.textContent="Search failed. Check connection and try again.";el.innerHTML='<div class="empty">AniList could not be reached. Your saved game still works.</div>';console.error(e)}}
-async function loadPopular(){const status=document.getElementById("discoverStatus");status.textContent="Loading popular characters…";try{const d=await popular(page);d.items.forEach(addDB);grid("discoverGrid",d.items,"market");document.getElementById("moreButton").style.display=d.more?"inline-block":"none";status.textContent=`Loaded ${d.items.length} popular characters.`;save();renderAll()}catch(e){status.textContent="AniList unavailable. Try again later.";console.error(e)}}
-async function more(){if(loading)return;loading=true;page++;try{let d=lastType==="character"&&lastSearch?await discoverCharacters(lastSearch,page):await popular(page);d.items.forEach(addDB);const existing=document.getElementById("discoverGrid");existing.insertAdjacentHTML("beforeend",d.items.map(c=>card(c,"market")).join(""));document.getElementById("moreButton").style.display=d.more?"inline-block":"none";save();renderAll()}catch(e){toast("Could not load more results")}finally{loading=false}}
-function navigate(name){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===name));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===name));if(name==="market")renderMarket();if(name==="collection")renderCollection();if(name==="wishlist")renderWish();if(name==="history")renderHistory();if(name==="showcase")renderShowcase();if(name==="rewards")renderQuests()}
-function daily(){let d=new Date().toDateString();if(state.daily===d)return toast("Daily reward already claimed");state.daily=d;state.coins+=500;save();renderAll();toast("+500 AC daily reward!")}
-function exportSave(){let blob=new Blob([JSON.stringify({state,db},null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="waifu-swap-save.json";a.click();URL.revokeObjectURL(url)}
-function importSave(file){if(!file)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!x.state)throw 0;state={...state,...x.state};if(Array.isArray(x.db))db=x.db;save();renderAll();toast("Save imported")}catch(e){toast("Invalid save file")}};r.readAsText(file)}
-function reset(){if(confirm("Delete all Waifu Swap progress?")){localStorage.removeItem(SAVE_KEY);location.reload()}}
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>navigate(b.dataset.page));
-document.getElementById("rollButton").onclick=roll;
-document.getElementById("marketSearch").oninput=renderMarket;document.getElementById("marketRarity").onchange=renderMarket;
-document.getElementById("collectionSearch").oninput=renderCollection;document.getElementById("collectionSort").onchange=renderCollection;
-document.getElementById("wishlistSearch").oninput=renderWish;
-document.getElementById("discoverButton").onclick=search;document.getElementById("discoverSearch").onkeydown=e=>{if(e.key==="Enter")search()};document.getElementById("popularButton").onclick=()=>{page=1;lastSearch="";lastType="character";loadPopular()};document.getElementById("moreButton").onclick=more;
-document.getElementById("dailyButton").onclick=daily;document.getElementById("exportButton").onclick=exportSave;document.getElementById("importButton").onclick=()=>document.getElementById("importFile").click();document.getElementById("importFile").onchange=e=>importSave(e.target.files[0]);document.getElementById("resetButton").onclick=reset;
-load();renderAll();
-if(!db.length){loadPopular()}else{renderHome()}
-</script>
-</body>
-</html>
+const modes={Chat:{sys:"You are a helpful assistant.",chips:["Explain like I'm 5","Roast my idea","Debate me","Give me a plan"]},Study:{sys:"You are a study tutor. Give clear notes, examples, flashcards and quiz.",chips:["Make flashcards","Make quiz","Summarize notes","Explain like I'm 5"]},Code:{sys:"You are a senior coder. Give clean code, explain bugs, give fixed code.",chips:["Fix this bug","Explain this code","Convert to Python","Write tests"]},Content:{sys:"You are a viral content writer. Give catchy, ready-to-post content.",chips:["YouTube titles","Instagram caption","Resume bullets","Cold email"]},Planner:{sys:"You are a planner. Make realistic timetables and to-do lists.",chips:["Make timetable","Study plan 10 days","Morning routine"]},Translate:{sys:"You are a translator. Keep tone natural.",chips:["Translate to Hinglish","Translate to Hindi","Translate to English"]}};
+let curMode='Chat';
+function renderModes(){document.getElementById('modes').innerHTML=Object.keys(modes).map(m=>`<div class="pill ${m===curMode?'active':''}" onclick="setMode('${m}')">${m}</div>`).join('');renderChips();}
+function setMode(m){curMode=m;renderModes();}
+function renderChips(){document.getElementById('chips').innerHTML=modes[curMode].chips.map(c=>`<span class="chip" onclick="useChip('${c}')">${c}</span>`).join('');}
+function useChip(c){document.getElementById('prompt').value=c+": ";document.getElementById('prompt').focus();}
+function save(){localStorage.setItem('gh_key',document.getElementById('apiKey').value);localStorage.setItem('gh_model',document.getElementById('model').value);localStorage.setItem('gh_mem',JSON.stringify({name:document.getElementById('memName').value,style:document.getElementById('memStyle').value}));localStorage.setItem('gh_chat',document.getElementById('chat').innerHTML);}
+function load(){document.getElementById('apiKey').value=localStorage.getItem('gh_key')||'';document.getElementById('model').value=localStorage.getItem('gh_model')||'gemini-2.5-flash';try{let m=JSON.parse(localStorage.getItem('gh_mem')||'{}');document.getElementById('memName').value=m.name||'';document.getElementById('memStyle').value=m.style||'';}catch(e){}document.getElementById('chat').innerHTML=localStorage.getItem('gh_chat')||'';updateBadge();}
+function updateBadge(){let k=document.getElementById('apiKey').value.trim();document.getElementById('keyBadge').textContent=k.startsWith('AQ.')?'✅ New Auth Key Detected':k.startsWith('AIza')?'Legacy Key':k?'Key entered':'No key';}
+function toggleKey(){let e=document.getElementById('apiKey');e.type=e.type==='password'?'text':'password';}
+async function testKey(){let k=document.getElementById('apiKey').value.trim();updateBadge();save();let el=document.getElementById('testResult');el.innerHTML='Testing...';try{let r=await fetch('https://generativelanguage.googleapis.com/v1beta/models',{headers:{'x-goog-api-key':k}});let t=await r.text();el.innerHTML=r.ok?'✅ <b>Connected! Your AQ key works.</b> Found '+(JSON.parse(t).models?.length||0)+' models.':'❌ Failed '+r.status+'<pre>'+t.slice(0,600)+'</pre>';}catch(e){el.innerHTML='❌ Blocked: '+e.message+'<br>Are you opening this inside a preview? Open in Chrome.';}}
+async function send(){let k=document.getElementById('apiKey').value.trim();if(!k){alert('Paste your API key first');return;}let q=document.getElementById('prompt').value.trim();if(!q)return;let model=document.getElementById('model').value;save();updateBadge();
+let mem=`User name: ${document.getElementById('memName').value}. Preferred style: ${document.getElementById('memStyle').value}.`;
+let chat=document.getElementById('chat');chat.innerHTML+=`<div class="msg user">${q.replace(/</g,'&lt;')}</div><div class="msg ai" id="loading">Thinking...</div>`;document.getElementById('prompt').value='';save();
+try{let r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':k},body:JSON.stringify({systemInstruction:{parts:[{text:modes[curMode].sys+' Memory: '+mem}]},contents:[{parts:[{text:q}]}],generationConfig:{temperature:parseFloat(document.getElementById('temp').value),maxOutputTokens:parseInt(document.getElementById('toks').value)}})});let d=await r.json();let ans=d.candidates?.[0]?.content?.parts?.map(p=>p.text).join('')||('Error: '+JSON.stringify(d).slice(0,800));document.getElementById('loading').textContent=ans;document.getElementById('loading').id='';}catch(e){document.getElementById('loading').textContent='Blocked: '+e.message+' - Open this file in Chrome, not in preview.';}save();}
+function clearChat(){document.getElementById('chat').innerHTML='';save();}
+document.getElementById('temp').oninput=e=>document.getElementById('tempVal').textContent=e.target.value;
+document.getElementById('toks').oninput=e=>document.getElementById('tokVal').textContent=e.target.value;
+document.getElementById('apiKey').oninput=()=>{updateBadge();save();};
+renderModes();load();
+</script><script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body></html>
